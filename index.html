@@ -1,775 +1,352 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Jemima's Story World</title>
-  <meta
-    name="description"
-    content="Welcome to Jemima's Story World — a colorful place for stories, friendship, imagination, and fun."
-  />
-  <style>
-    :root {
-      --pink: #ff6fb5;
-      --soft-pink: #ffd7ea;
-      --purple: #7c4dff;
-      --lavender: #ece3ff;
-      --sky: #dff4ff;
-      --blue: #4aa8ff;
-      --yellow: #ffe57a;
-      --peach: #fff1d9;
-      --mint: #dff8ee;
-      --green: #34b37a;
-      --text: #24324a;
-      --white: #ffffff;
-      --shadow: 0 16px 40px rgba(80, 64, 140, 0.15);
-      --radius-xl: 28px;
-      --radius-lg: 22px;
-      --radius-md: 16px;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    html {
-      scroll-behavior: smooth;
-    }
-
-    body {
-      margin: 0;
-      font-family: "Trebuchet MS", "Segoe UI", Arial, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, #fff4fb 0%, #fff4fb 20%, transparent 35%),
-        radial-gradient(circle at top right, #eef6ff 0%, #eef6ff 20%, transparent 35%),
-        linear-gradient(180deg, #fffafc 0%, #f7faff 45%, #fffdf8 100%);
-      line-height: 1.6;
-    }
-
-    a {
-      text-decoration: none;
-      color: inherit;
-    }
-
-    img {
-      max-width: 100%;
-      display: block;
-    }
-
-    .container {
-      width: min(1120px, 92%);
-      margin: 0 auto;
-    }
-
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 50;
-      backdrop-filter: blur(12px);
-      background: rgba(255, 255, 255, 0.82);
-      border-bottom: 1px solid rgba(124, 77, 255, 0.08);
-    }
-
-    .header-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 20px;
-      padding: 16px 0;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      font-weight: 900;
-      font-size: 1.2rem;
-      color: var(--purple);
-    }
-
-    .brand-badge {
-      width: 44px;
-      height: 44px;
-      border-radius: 14px;
-      display: grid;
-      place-items: center;
-      background: linear-gradient(135deg, var(--pink), var(--purple));
-      color: white;
-      font-size: 1.4rem;
-      box-shadow: var(--shadow);
-    }
-
-    .nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      align-items: center;
-    }
-
-    .nav a {
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .nav a:hover {
-      background: var(--lavender);
-      color: var(--purple);
-    }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      padding: 14px 22px;
-      border-radius: 999px;
-      font-weight: 800;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-
-    .btn:hover {
-      transform: translateY(-2px);
-    }
-
-    .btn-primary {
-      background: linear-gradient(135deg, var(--pink), var(--purple));
-      color: white;
-      box-shadow: 0 12px 26px rgba(124, 77, 255, 0.22);
-    }
-
-    .btn-secondary {
-      background: white;
-      color: var(--purple);
-      border: 2px solid #e8dcff;
-      box-shadow: var(--shadow);
-    }
-
-    .hero {
-      padding: 52px 0 28px;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      gap: 32px;
-      align-items: center;
-    }
-
-    .hero-copy h1 {
-      margin: 0 0 14px;
-      font-size: clamp(2.3rem, 4vw, 4.4rem);
-      line-height: 1.05;
-      color: #2b2161;
-    }
-
-    .hero-copy .highlight {
-      color: var(--pink);
-    }
-
-    .hero-copy p {
-      margin: 0 0 22px;
-      font-size: 1.08rem;
-      max-width: 620px;
-    }
-
-    .hero-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 14px;
-      margin-bottom: 22px;
-    }
-
-    .hero-tags {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-
-    .tag {
-      padding: 10px 14px;
-      border-radius: 999px;
-      font-weight: 700;
-      background: white;
-      border: 1px solid rgba(124, 77, 255, 0.12);
-      box-shadow: 0 8px 18px rgba(78, 74, 140, 0.08);
-    }
-
-    .hero-card {
-      background: linear-gradient(180deg, #fff6fc, #ffffff);
-      border-radius: var(--radius-xl);
-      box-shadow: var(--shadow);
-      padding: 26px;
-      position: relative;
-      overflow: hidden;
-      border: 1px solid rgba(255, 111, 181, 0.12);
-    }
-
-    .hero-card::before,
-    .hero-card::after {
-      content: "";
-      position: absolute;
-      border-radius: 50%;
-      opacity: 0.45;
-    }
-
-    .hero-card::before {
-      width: 180px;
-      height: 180px;
-      background: var(--soft-pink);
-      top: -60px;
-      right: -40px;
-    }
-
-    .hero-card::after {
-      width: 120px;
-      height: 120px;
-      background: var(--sky);
-      bottom: -30px;
-      left: -20px;
-    }
-
-    .story-illustration {
-      position: relative;
-      z-index: 1;
-      min-height: 340px;
-      border-radius: 24px;
-      background:
-        linear-gradient(180deg, #e9f8ff 0%, #fff6e8 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-
-    .character-scene {
-      width: 100%;
-      max-width: 340px;
-      position: relative;
-      display: grid;
-      place-items: center;
-      gap: 18px;
-    }
-
-    .bubble-row {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      flex-wrap: wrap;
-    }
-
-    .bubble {
-      background: white;
-      border-radius: 999px;
-      padding: 10px 16px;
-      font-weight: 800;
-      box-shadow: var(--shadow);
-    }
-
-    .friend-card {
-      width: 100%;
-      background: white;
-      border-radius: 24px;
-      padding: 20px;
-      box-shadow: var(--shadow);
-      text-align: center;
-    }
-
-    .friend-card .big-emoji {
-      font-size: 4rem;
-      margin-bottom: 10px;
-    }
-
-    .friend-card h3 {
-      margin: 0 0 8px;
-      color: #2b2161;
-      font-size: 1.5rem;
-    }
-
-    .friend-card p {
-      margin: 0;
-      font-size: 1rem;
-    }
-
-    section {
-      padding: 34px 0;
-    }
-
-    .section-title {
-      font-size: 2rem;
-      margin: 0 0 10px;
-      color: #2b2161;
-    }
-
-    .section-subtitle {
-      margin: 0 0 24px;
-      max-width: 760px;
-      color: #52627d;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 22px;
-    }
-
-    .card {
-      background: white;
-      border-radius: var(--radius-lg);
-      padding: 24px;
-      box-shadow: var(--shadow);
-      border: 1px solid rgba(124, 77, 255, 0.08);
-    }
-
-    .card-icon {
-      width: 62px;
-      height: 62px;
-      border-radius: 18px;
-      display: grid;
-      place-items: center;
-      font-size: 1.8rem;
-      margin-bottom: 16px;
-    }
-
-    .icon-story {
-      background: var(--soft-pink);
-    }
-
-    .icon-drawing {
-      background: var(--sky);
-    }
-
-    .icon-fun {
-      background: var(--mint);
-    }
-
-    .card h3 {
-      margin: 0 0 8px;
-      font-size: 1.2rem;
-      color: #2b2161;
-    }
-
-    .card p {
-      margin: 0;
-      color: #58657d;
-    }
-
-    .featured-story {
-      background: linear-gradient(135deg, #fff4fb, #f5efff);
-      border-radius: 32px;
-      padding: 30px;
-      box-shadow: var(--shadow);
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      align-items: center;
-      border: 1px solid rgba(255, 111, 181, 0.1);
-    }
-
-    .featured-badge {
-      display: inline-block;
-      padding: 8px 14px;
-      border-radius: 999px;
-      background: white;
-      color: var(--pink);
-      font-weight: 800;
-      margin-bottom: 14px;
-    }
-
-    .featured-story h3 {
-      margin: 0 0 10px;
-      font-size: 2rem;
-      color: #2b2161;
-    }
-
-    .featured-story p {
-      margin: 0 0 16px;
-      color: #4f5f79;
-    }
-
-    .story-points {
-      padding-left: 20px;
-      margin: 0 0 20px;
-    }
-
-    .story-points li {
-      margin-bottom: 8px;
-    }
-
-    .featured-art {
-      background: white;
-      border-radius: 28px;
-      min-height: 280px;
-      box-shadow: var(--shadow);
-      display: grid;
-      place-items: center;
-      padding: 24px;
-      text-align: center;
-    }
-
-    .featured-art .art-emoji {
-      font-size: 4.5rem;
-      margin-bottom: 12px;
-    }
-
-    .featured-art h4 {
-      margin: 0 0 8px;
-      color: #2b2161;
-    }
-
-    .featured-art p {
-      margin: 0;
-      color: #5e6d84;
-    }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      align-items: stretch;
-    }
-
-    .about-box,
-    .quote-box {
-      background: white;
-      border-radius: var(--radius-lg);
-      padding: 26px;
-      box-shadow: var(--shadow);
-    }
-
-    .quote-box {
-      background: linear-gradient(180deg, #eef9ff, #ffffff);
-    }
-
-    .quote-box blockquote {
-      margin: 0;
-      font-size: 1.2rem;
-      font-weight: 700;
-      color: #2b2161;
-    }
-
-    .quote-box p {
-      margin: 14px 0 0;
-      color: #5c6c83;
-    }
-
-    .gallery-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 18px;
-    }
-
-    .gallery-item {
-      min-height: 180px;
-      border-radius: 24px;
-      padding: 18px;
-      box-shadow: var(--shadow);
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      color: #2b2161;
-      font-weight: 800;
-    }
-
-    .gallery-item span {
-      font-size: 2.2rem;
-    }
-
-    .gallery-1 { background: #ffe7f3; }
-    .gallery-2 { background: #e8f4ff; }
-    .gallery-3 { background: #fff6d7; }
-    .gallery-4 { background: #e6fbf1; }
-
-    .cta {
-      text-align: center;
-      background: linear-gradient(135deg, #7c4dff, #ff6fb5);
-      color: white;
-      border-radius: 34px;
-      padding: 40px 24px;
-      box-shadow: 0 16px 36px rgba(124, 77, 255, 0.26);
-    }
-
-    .cta h2 {
-      margin: 0 0 10px;
-      font-size: 2rem;
-    }
-
-    .cta p {
-      margin: 0 0 18px;
-      max-width: 700px;
-      margin-inline: auto;
-    }
-
-    .cta .btn-secondary {
-      border: none;
-      color: #2b2161;
-    }
-
-    .site-footer {
-      padding: 28px 0 40px;
-      text-align: center;
-      color: #607089;
-      font-size: 0.95rem;
-    }
-
-    @media (max-width: 960px) {
-      .hero-grid,
-      .featured-story,
-      .about-grid,
-      .cards,
-      .gallery-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .gallery-grid {
-        grid-template-columns: repeat(2, 1fr);
-      }
-
-      .nav {
-        display: none;
-      }
-
-      .hero {
-        padding-top: 34px;
-      }
-    }
-
-    @media (max-width: 600px) {
-      .header-inner {
-        flex-direction: column;
-        align-items: flex-start;
-      }
-
-      .hero-copy h1 {
-        font-size: 2.2rem;
-      }
-
-      .gallery-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .btn {
-        width: 100%;
-      }
-
-      .hero-actions {
-        flex-direction: column;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Jemima's Story World</title>
+
+<style>
+
+body{
+margin:0;
+font-family: 'Segoe UI', Arial;
+background:#fff9fb;
+color:#333;
+}
+
+.container{
+width:90%;
+max-width:1100px;
+margin:auto;
+}
+
+header{
+background:white;
+box-shadow:0 4px 12px rgba(0,0,0,0.08);
+position:sticky;
+top:0;
+z-index:10;
+}
+
+nav{
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:18px 0;
+}
+
+.logo{
+font-weight:bold;
+font-size:22px;
+color:#7c4dff;
+}
+
+.menu a{
+margin-left:20px;
+text-decoration:none;
+font-weight:600;
+color:#444;
+}
+
+.menu a:hover{
+color:#7c4dff;
+}
+
+.hero{
+padding:70px 0;
+display:flex;
+align-items:center;
+gap:40px;
+}
+
+.hero-text{
+flex:1;
+}
+
+.hero-text h1{
+font-size:48px;
+margin-bottom:15px;
+color:#2c245c;
+}
+
+.hero-text span{
+color:#ff6fb5;
+}
+
+.hero-text p{
+font-size:18px;
+line-height:1.6;
+}
+
+.hero-buttons{
+margin-top:25px;
+}
+
+.button{
+padding:14px 25px;
+border-radius:30px;
+text-decoration:none;
+font-weight:bold;
+margin-right:10px;
+display:inline-block;
+}
+
+.primary{
+background:#ff6fb5;
+color:white;
+}
+
+.secondary{
+background:#7c4dff;
+color:white;
+}
+
+.hero-card{
+flex:1;
+background:white;
+padding:40px;
+border-radius:25px;
+box-shadow:0 15px 30px rgba(0,0,0,0.1);
+text-align:center;
+}
+
+section{
+padding:60px 0;
+}
+
+.section-title{
+font-size:32px;
+margin-bottom:15px;
+color:#2c245c;
+}
+
+.cards{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+gap:25px;
+margin-top:30px;
+}
+
+.card{
+background:white;
+padding:30px;
+border-radius:20px;
+box-shadow:0 10px 25px rgba(0,0,0,0.08);
+text-align:center;
+}
+
+.card span{
+font-size:40px;
+}
+
+.youtube{
+background:#f4f6ff;
+border-radius:30px;
+padding:40px;
+text-align:center;
+}
+
+.youtube h2{
+color:#2c245c;
+}
+
+.youtube button{
+background:#ff0000;
+border:none;
+color:white;
+padding:15px 30px;
+border-radius:30px;
+font-size:16px;
+cursor:pointer;
+margin-top:20px;
+}
+
+.youtube button:hover{
+background:#d90000;
+}
+
+.donate{
+background:linear-gradient(135deg,#ff6fb5,#7c4dff);
+color:white;
+border-radius:30px;
+padding:40px;
+text-align:center;
+}
+
+.donate a{
+background:white;
+color:#7c4dff;
+padding:14px 25px;
+border-radius:30px;
+text-decoration:none;
+font-weight:bold;
+display:inline-block;
+margin-top:20px;
+}
+
+footer{
+padding:30px;
+text-align:center;
+font-size:14px;
+color:#777;
+}
+
+</style>
 </head>
+
 <body>
-  <header class="site-header">
-    <div class="container header-inner">
-      <a href="#top" class="brand">
-        <div class="brand-badge">📚</div>
-        <span>Jemima's Story World</span>
-      </a>
 
-      <nav class="nav">
-        <a href="#stories">Stories</a>
-        <a href="#about">About</a>
-        <a href="#gallery">Gallery</a>
-        <a href="#contact">Contact</a>
-      </nav>
-    </div>
-  </header>
+<header>
+<div class="container">
+<nav>
 
-  <main id="top">
-    <section class="hero">
-      <div class="container hero-grid">
-        <div class="hero-copy">
-          <h1>
-            Welcome to <span class="highlight">Jemima's Story World</span>
-          </h1>
-          <p>
-            A bright and magical place filled with friendship, imagination,
-            fun adventures, and heartwarming stories written for children and families.
-          </p>
+<div class="logo">
+📚 Jemima's Story World
+</div>
 
-          <div class="hero-actions">
-            <a href="#featured-story" class="btn btn-primary">Read the Featured Story</a>
-            <a href="#gallery" class="btn btn-secondary">See the Gallery</a>
-          </div>
+<div class="menu">
+<a href="#stories">Stories</a>
+<a href="#about">About</a>
+<a href="#youtube">YouTube</a>
+<a href="donate.html">Donate</a>
+</div>
 
-          <div class="hero-tags">
-            <div class="tag">✨ Friendship</div>
-            <div class="tag">📖 Imagination</div>
-            <div class="tag">🎨 Creativity</div>
-            <div class="tag">🌈 Fun Adventures</div>
-          </div>
-        </div>
+</nav>
+</div>
+</header>
 
-        <div class="hero-card">
-          <div class="story-illustration">
-            <div class="character-scene">
-              <div class="bubble-row">
-                <div class="bubble">Best Friends</div>
-                <div class="bubble">Story Time</div>
-              </div>
-              <div class="friend-card">
-                <div class="big-emoji">👧🏽👧🏼</div>
-                <h3>Chloe & Her Best Friend</h3>
-                <p>
-                  A sweet story about kindness, friendship, and the joy of having someone special by your side.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section id="stories">
-      <div class="container">
-        <h2 class="section-title">Explore the Story World</h2>
-        <p class="section-subtitle">
-          Every page is designed to feel warm, playful, and full of wonder.
-          This is a place where stories, drawings, and big imagination come together.
-        </p>
+<section class="hero">
+<div class="container hero">
 
-        <div class="cards">
-          <div class="card">
-            <div class="card-icon icon-story">📚</div>
-            <h3>Stories</h3>
-            <p>
-              Read delightful stories filled with friendship, kindness, and exciting little adventures.
-            </p>
-          </div>
+<div class="hero-text">
 
-          <div class="card">
-            <div class="card-icon icon-drawing">🎨</div>
-            <h3>Drawings</h3>
-            <p>
-              Enjoy colorful artwork, playful scenes, and creative ideas that bring each story to life.
-            </p>
-          </div>
+<h1>Welcome to <span>Jemima's Story World</span></h1>
 
-          <div class="card">
-            <div class="card-icon icon-fun">🌟</div>
-            <h3>Fun & Imagination</h3>
-            <p>
-              Step into a cheerful world where imagination grows and every story begins with a smile.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
+<p>
+A magical place full of friendship, imagination,
+stories, and creativity.
+</p>
 
-    <section id="featured-story">
-      <div class="container">
-        <div class="featured-story">
-          <div>
-            <span class="featured-badge">Featured Story</span>
-            <h3>Chloe's Best Friend</h3>
-            <p>
-              Chloe learns that friendship is one of the most beautiful gifts of all.
-              With laughter, kindness, and happy memories, this story celebrates what it means to have a true friend.
-            </p>
+<div class="hero-buttons">
+<a href="#stories" class="button primary">Read Stories</a>
+<a href="#youtube" class="button secondary">Watch Videos</a>
+</div>
 
-            <ul class="story-points">
-              <li>A warm story about friendship and kindness</li>
-              <li>Perfect for children and families</li>
-              <li>Filled with heart, joy, and imagination</li>
-            </ul>
+</div>
 
-            <a href="#" class="btn btn-primary">Read Story</a>
-          </div>
+<div class="hero-card">
 
-          <div class="featured-art">
-            <div>
-              <div class="art-emoji">💖📖</div>
-              <h4>Beautiful stories begin here</h4>
-              <p>
-                Add illustrations, story pages, and more adventures as the website grows.
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+<h2>Featured Story</h2>
 
-    <section id="about">
-      <div class="container">
-        <h2 class="section-title">About Jemima</h2>
-        <p class="section-subtitle">
-          Meet the young storyteller behind this colorful story world.
-        </p>
+<p>
+💖 Chloe's Best Friend
+</p>
 
-        <div class="about-grid">
-          <div class="about-box">
-            <p>
-              Hi! I'm Jemima, and I love writing stories, using my imagination,
-              and sharing fun ideas with others. My story world is a happy place
-              where characters can laugh, learn, and go on exciting adventures.
-            </p>
-            <p>
-              I hope my stories make readers smile and remind them how special friendship,
-              kindness, and creativity can be.
-            </p>
-          </div>
+<p>
+A beautiful story about friendship,
+kindness and imagination.
+</p>
 
-          <div class="quote-box">
-            <blockquote>
-              “Stories can take us anywhere — to magical places, happy adventures,
-              and wonderful moments with friends.”
-            </blockquote>
-            <p>— Jemima</p>
-          </div>
-        </div>
-      </div>
-    </section>
+</div>
 
-    <section id="gallery">
-      <div class="container">
-        <h2 class="section-title">Gallery</h2>
-        <p class="section-subtitle">
-          Add future drawings, characters, story scenes, and favorite moments here.
-        </p>
+</div>
+</section>
 
-        <div class="gallery-grid">
-          <div class="gallery-item gallery-1">
-            <span>🖍️</span>
-            <div>Character Sketches</div>
-          </div>
-          <div class="gallery-item gallery-2">
-            <span>🌈</span>
-            <div>Colorful Scenes</div>
-          </div>
-          <div class="gallery-item gallery-3">
-            <span>⭐</span>
-            <div>Favorite Story Moments</div>
-          </div>
-          <div class="gallery-item gallery-4">
-            <span>💐</span>
-            <div>Friendship Adventures</div>
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section id="contact">
-      <div class="container">
-        <div class="cta">
-          <h2>More stories are coming soon</h2>
-          <p>
-            Thank you for visiting Jemima's Story World. Come back again for new stories,
-            colorful drawings, and more fun adventures.
-          </p>
-          <a href="#top" class="btn btn-secondary">Back to Top</a>
-        </div>
-      </div>
-    </section>
-  </main>
+<section id="stories">
+<div class="container">
 
-  <footer class="site-footer">
-    <div class="container">
-      <p>© 2026 Jemima's Story World. Made with imagination, kindness, and creativity.</p>
-    </div>
-  </footer>
+<h2 class="section-title">Stories</h2>
+
+<div class="cards">
+
+<div class="card">
+<span>📚</span>
+<h3>Children's Stories</h3>
+<p>Fun stories written by Jemima.</p>
+</div>
+
+<div class="card">
+<span>🎨</span>
+<h3>Illustrations</h3>
+<p>Creative drawings and characters.</p>
+</div>
+
+<div class="card">
+<span>🌈</span>
+<h3>Imagination</h3>
+<p>Adventure and creativity for kids.</p>
+</div>
+
+</div>
+
+</div>
+</section>
+
+
+<section id="about">
+<div class="container">
+
+<h2 class="section-title">About Jemima</h2>
+
+<p>
+Jemima loves writing stories, drawing,
+and sharing imagination with the world.
+Her dream is to inspire children through
+storytelling and creativity.
+</p>
+
+</div>
+</section>
+
+
+<section id="youtube">
+<div class="container">
+
+<div class="youtube">
+
+<h2>📺 Jemima's YouTube Channel</h2>
+
+<p>
+Watch fun videos, stories, drawing tutorials,
+and creative adventures on Jemima's YouTube channel.
+</p>
+
+<br>
+
+<a href="https://youtube.com" target="_blank">
+<button>Visit the YouTube Channel</button>
+</a>
+
+</div>
+
+</div>
+</section>
+
+
+<section class="donate">
+<div class="container">
+
+<h2>Support Jemima's Story World</h2>
+
+<p>
+If you enjoy the stories and videos,
+you can support Jemima's creativity.
+</p>
+
+<a href="donate.html">Donate</a>
+
+</div>
+</section>
+
+
+<footer>
+
+© 2026 Jemima's Story World
+
+</footer>
+
 </body>
 </html>
