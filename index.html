@@ -1,352 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Jemima's Story World</title>
-
-<style>
-
-body{
-margin:0;
-font-family: 'Segoe UI', Arial;
-background:#fff9fb;
-color:#333;
-}
-
-.container{
-width:90%;
-max-width:1100px;
-margin:auto;
-}
-
-header{
-background:white;
-box-shadow:0 4px 12px rgba(0,0,0,0.08);
-position:sticky;
-top:0;
-z-index:10;
-}
-
-nav{
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:18px 0;
-}
-
-.logo{
-font-weight:bold;
-font-size:22px;
-color:#7c4dff;
-}
-
-.menu a{
-margin-left:20px;
-text-decoration:none;
-font-weight:600;
-color:#444;
-}
-
-.menu a:hover{
-color:#7c4dff;
-}
-
-.hero{
-padding:70px 0;
-display:flex;
-align-items:center;
-gap:40px;
-}
-
-.hero-text{
-flex:1;
-}
-
-.hero-text h1{
-font-size:48px;
-margin-bottom:15px;
-color:#2c245c;
-}
-
-.hero-text span{
-color:#ff6fb5;
-}
-
-.hero-text p{
-font-size:18px;
-line-height:1.6;
-}
-
-.hero-buttons{
-margin-top:25px;
-}
-
-.button{
-padding:14px 25px;
-border-radius:30px;
-text-decoration:none;
-font-weight:bold;
-margin-right:10px;
-display:inline-block;
-}
-
-.primary{
-background:#ff6fb5;
-color:white;
-}
-
-.secondary{
-background:#7c4dff;
-color:white;
-}
-
-.hero-card{
-flex:1;
-background:white;
-padding:40px;
-border-radius:25px;
-box-shadow:0 15px 30px rgba(0,0,0,0.1);
-text-align:center;
-}
-
-section{
-padding:60px 0;
-}
-
-.section-title{
-font-size:32px;
-margin-bottom:15px;
-color:#2c245c;
-}
-
-.cards{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
-gap:25px;
-margin-top:30px;
-}
-
-.card{
-background:white;
-padding:30px;
-border-radius:20px;
-box-shadow:0 10px 25px rgba(0,0,0,0.08);
-text-align:center;
-}
-
-.card span{
-font-size:40px;
-}
-
-.youtube{
-background:#f4f6ff;
-border-radius:30px;
-padding:40px;
-text-align:center;
-}
-
-.youtube h2{
-color:#2c245c;
-}
-
-.youtube button{
-background:#ff0000;
-border:none;
-color:white;
-padding:15px 30px;
-border-radius:30px;
-font-size:16px;
-cursor:pointer;
-margin-top:20px;
-}
-
-.youtube button:hover{
-background:#d90000;
-}
-
-.donate{
-background:linear-gradient(135deg,#ff6fb5,#7c4dff);
-color:white;
-border-radius:30px;
-padding:40px;
-text-align:center;
-}
-
-.donate a{
-background:white;
-color:#7c4dff;
-padding:14px 25px;
-border-radius:30px;
-text-decoration:none;
-font-weight:bold;
-display:inline-block;
-margin-top:20px;
-}
-
-footer{
-padding:30px;
-text-align:center;
-font-size:14px;
-color:#777;
-}
-
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ThinkandPlay Lab</title>
+  <link rel="stylesheet" href="styles.css" />
 </head>
-
 <body>
 
-<header>
-<div class="container">
-<nav>
-
-<div class="logo">
-📚 Jemima's Story World
-</div>
-
-<div class="menu">
-<a href="#stories">Stories</a>
-<a href="#about">About</a>
-<a href="#youtube">YouTube</a>
-<a href="donate.html">Donate</a>
-</div>
-
-</nav>
-</div>
+<header class="site-header">
+  <div class="container nav">
+    <div class="logo">ThinkandPlay Lab</div>
+    <nav>
+      <a href="index.html">Home</a>
+      <a href="youtube.html">YouTube</a>
+      <a href="story.html">Story</a>
+      <a href="gallery.html">Gallery</a>
+      <a href="donate.html">Donate</a>
+    </nav>
+  </div>
 </header>
 
-
 <section class="hero">
-<div class="container hero">
+  <div class="container hero-center">
 
-<div class="hero-text">
+    <div class="hero-text fade-in">
+      <h1>Learn, Create, and Imagine</h1>
 
-<h1>Welcome to <span>Jemima's Story World</span></h1>
+      <p>
+        Welcome to ThinkandPlay Lab — a fun place for kids to explore
+        Minecraft, STEM activities, storytelling, drawing, and creativity.
+      </p>
 
-<p>
-A magical place full of friendship, imagination,
-stories, and creativity.
-</p>
+      <div class="hero-buttons">
+        <a href="youtube.html" class="btn primary">Watch Videos</a>
+        <a href="story.html" class="btn secondary">Read Our Story</a>
+      </div>
 
-<div class="hero-buttons">
-<a href="#stories" class="button primary">Read Stories</a>
-<a href="#youtube" class="button secondary">Watch Videos</a>
-</div>
+    </div>
 
-</div>
-
-<div class="hero-card">
-
-<h2>Featured Story</h2>
-
-<p>
-💖 Chloe's Best Friend
-</p>
-
-<p>
-A beautiful story about friendship,
-kindness and imagination.
-</p>
-
-</div>
-
-</div>
+  </div>
 </section>
 
+<section class="features section">
+  <div class="container">
 
-<section id="stories">
-<div class="container">
+    <h2 class="section-title">What We Share</h2>
 
-<h2 class="section-title">Stories</h2>
+    <div class="card-grid">
 
-<div class="cards">
+      <div class="card pop">
+        <h3>Minecraft Adventures</h3>
+        <p>
+          Creative builds, fun challenges, and exciting Minecraft adventures.
+        </p>
+      </div>
 
-<div class="card">
-<span>📚</span>
-<h3>Children's Stories</h3>
-<p>Fun stories written by Jemima.</p>
-</div>
+      <div class="card pop">
+        <h3>STEM Activities</h3>
+        <p>
+          Science and creative learning that make kids curious and excited.
+        </p>
+      </div>
 
-<div class="card">
-<span>🎨</span>
-<h3>Illustrations</h3>
-<p>Creative drawings and characters.</p>
-</div>
+      <div class="card pop">
+        <h3>Storytelling</h3>
+        <p>
+          Original children’s stories filled with imagination and kindness.
+        </p>
+      </div>
 
-<div class="card">
-<span>🌈</span>
-<h3>Imagination</h3>
-<p>Adventure and creativity for kids.</p>
-</div>
+      <div class="card pop">
+        <h3>Drawing & Art</h3>
+        <p>
+          Fun drawings, creative characters, and artistic inspiration.
+        </p>
+      </div>
 
-</div>
+    </div>
 
-</div>
+  </div>
 </section>
 
+<section class="highlight section alt-bg">
 
-<section id="about">
-<div class="container">
+  <div class="container two-col">
 
-<h2 class="section-title">About Jemima</h2>
+    <div>
+      <h2>Featured Story</h2>
 
-<p>
-Jemima loves writing stories, drawing,
-and sharing imagination with the world.
-Her dream is to inspire children through
-storytelling and creativity.
-</p>
+      <p>
+        Enjoy our children's story
+        <strong>Chloe’s Best Friend</strong>,
+        a story about kindness and friendship.
+      </p>
 
-</div>
+      <a href="story.html" class="btn primary">
+        Read the Story
+      </a>
+
+    </div>
+
+    <div class="bubble-box">
+      <p>
+        "Stories help children imagine, learn, and grow."
+      </p>
+    </div>
+
+  </div>
+
 </section>
 
+<section class="cta section">
 
-<section id="youtube">
-<div class="container">
+  <div class="container cta-box">
 
-<div class="youtube">
+    <h2>Support ThinkandPlay Lab</h2>
 
-<h2>📺 Jemima's YouTube Channel</h2>
+    <p>
+      Help us create more fun content for kids including
+      stories, drawings, and educational videos.
+    </p>
 
-<p>
-Watch fun videos, stories, drawing tutorials,
-and creative adventures on Jemima's YouTube channel.
-</p>
+    <a href="donate.html" class="btn primary">
+      Support Us
+    </a>
 
-<br>
+  </div>
 
-<a href="https://youtube.com" target="_blank">
-<button>Visit the YouTube Channel</button>
-</a>
-
-</div>
-
-</div>
 </section>
 
-
-<section class="donate">
-<div class="container">
-
-<h2>Support Jemima's Story World</h2>
-
-<p>
-If you enjoy the stories and videos,
-you can support Jemima's creativity.
-</p>
-
-<a href="donate.html">Donate</a>
-
-</div>
-</section>
-
-
-<footer>
-
-© 2026 Jemima's Story World
-
+<footer class="site-footer">
+  <div class="container">
+    <p>© 2026 ThinkandPlay Lab. All rights reserved.</p>
+  </div>
 </footer>
+
+<script src="script.js"></script>
 
 </body>
 </html>
