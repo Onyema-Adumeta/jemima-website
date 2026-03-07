@@ -3,94 +3,807 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chloe's Best Friend | Jemima's Creative Corner</title>
-  <link rel="stylesheet" href="styles.css" />
+  <title>Chloe's Best Friend · Jemima's Creative Corner</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,700;0,900;1,300;1,700;1,900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── TOKENS ──────────────────────────────────────── */
+    :root {
+      --ink:         #1a0a2e;
+      --cream:       #fef9f0;
+      --coral:       #ff4d6d;
+      --sun:         #ffbe0b;
+      --mint:        #06d6a0;
+      --lavender:    #c77dff;
+      --purple:      #7b2ff7;
+      --purple-deep: #4a0e8f;
+      --shadow-sm:   0 4px 16px rgba(26,10,46,.07);
+      --shadow-md:   0 12px 36px rgba(26,10,46,.13);
+      --shadow-lg:   0 24px 60px rgba(26,10,46,.18);
+      --ease-bounce: cubic-bezier(.34,1.56,.64,1);
+      --ease-out:    cubic-bezier(.22,1,.36,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.7;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* noise */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none; z-index: 9999; opacity: .5;
+    }
+
+    .wrap { width: min(1100px, 92%); margin: auto; }
+
+    /* ── HEADER ──────────────────────────────────────── */
+    .site-header { position: sticky; top: 0; z-index: 200; }
+
+    .header-inner {
+      margin: 12px auto;
+      width: min(1100px, 92%);
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid rgba(255,255,255,.8);
+      border-radius: 999px;
+      padding: 10px 10px 10px 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 8px 32px rgba(26,10,46,.10);
+      gap: 16px;
+    }
+
+    .logo {
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: 1.25rem;
+      color: var(--purple-deep);
+      letter-spacing: -.03em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .logo span {
+      background: linear-gradient(135deg, var(--coral), var(--lavender));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    nav { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
+
+    nav a {
+      font-size: .9rem; font-weight: 600; color: var(--ink);
+      padding: 9px 18px; border-radius: 999px;
+      transition: background .2s, color .2s; opacity: .7;
+    }
+
+    nav a:hover { background: rgba(123,47,247,.08); color: var(--purple); opacity: 1; }
+
+    .nav-active {
+      background: linear-gradient(135deg, var(--coral), var(--purple)) !important;
+      color: white !important; opacity: 1 !important;
+      box-shadow: 0 6px 20px rgba(255,77,109,.28);
+    }
+
+    .nav-donate {
+      background: linear-gradient(135deg, var(--coral), var(--purple));
+      color: white !important; opacity: 1 !important;
+      box-shadow: 0 6px 20px rgba(255,77,109,.28);
+    }
+
+    /* ── READING PROGRESS BAR ────────────────────────── */
+    .progress-bar {
+      position: fixed;
+      top: 0; left: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--coral), var(--lavender));
+      width: 0%;
+      z-index: 300;
+      transition: width .1s linear;
+      box-shadow: 0 0 10px rgba(255,77,109,.5);
+    }
+
+    /* ── HERO ────────────────────────────────────────── */
+    .story-hero {
+      padding: 80px 0 0;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .story-hero::before {
+      content: '';
+      position: absolute;
+      width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(199,125,255,.15) 0%, transparent 70%);
+      top: -280px; right: -120px; pointer-events: none;
+      animation: blob 12s ease-in-out infinite alternate;
+    }
+
+    .story-hero::after {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,107,157,.12) 0%, transparent 70%);
+      bottom: -200px; left: -80px; pointer-events: none;
+      animation: blob 16s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes blob {
+      from { transform: translate(0,0) scale(1); }
+      to   { transform: translate(22px,16px) scale(1.05); }
+    }
+
+    .story-hero-inner { position: relative; z-index: 1; }
+
+    .story-eyebrow {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: linear-gradient(135deg, #fff0f5, #f3e8ff);
+      border: 1px solid rgba(199,125,255,.3);
+      color: var(--purple);
+      padding: 8px 18px; border-radius: 999px;
+      font-size: .85rem; font-weight: 600; margin-bottom: 22px;
+      box-shadow: var(--shadow-sm);
+      animation: slideDown .6s var(--ease-out) both;
+    }
+
+    .story-h1 {
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: clamp(3rem, 7vw, 5.5rem);
+      letter-spacing: -.05em;
+      line-height: .97;
+      color: var(--ink);
+      margin-bottom: 10px;
+      animation: slideDown .65s var(--ease-out) .08s both;
+    }
+
+    .story-h1 em {
+      font-style: italic;
+      background: linear-gradient(135deg, var(--coral), var(--lavender));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .story-author {
+      font-size: 1rem;
+      color: #9988b0;
+      font-weight: 500;
+      margin-bottom: 36px;
+      animation: slideDown .65s var(--ease-out) .16s both;
+    }
+
+    .story-author strong { color: var(--purple); font-weight: 700; }
+
+    /* Meta chips */
+    .story-meta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 52px;
+      animation: slideDown .65s var(--ease-out) .24s both;
+    }
+
+    .meta-chip {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: white;
+      border: 1px solid rgba(26,10,46,.08);
+      border-radius: 999px;
+      padding: 7px 16px;
+      font-size: .83rem; font-weight: 600; color: #6b6080;
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Decorative scene strip */
+    .scene-strip {
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      gap: 0;
+      height: 120px;
+      animation: slideDown .65s var(--ease-out) .32s both;
+      position: relative;
+    }
+
+    .scene-strip svg { width: 100%; position: absolute; bottom: 0; }
+
+    .scene-emojis {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: center;
+      gap: 24px;
+      padding-bottom: 20px;
+      width: 100%;
+    }
+
+    .scene-emoji {
+      font-size: 2.2rem;
+      animation: floatSlow ease-in-out infinite alternate;
+    }
+
+    .scene-emoji:nth-child(1) { animation-duration: 3.2s; animation-delay: 0s; }
+    .scene-emoji:nth-child(2) { animation-duration: 4s;   animation-delay: .5s; }
+    .scene-emoji:nth-child(3) { animation-duration: 3.6s; animation-delay: 1s; }
+    .scene-emoji:nth-child(4) { animation-duration: 4.4s; animation-delay: .2s; }
+    .scene-emoji:nth-child(5) { animation-duration: 3s;   animation-delay: .8s; }
+
+    @keyframes floatSlow {
+      from { transform: translateY(0); }
+      to   { transform: translateY(-10px); }
+    }
+
+    /* ── STORY BODY ──────────────────────────────────── */
+    .story-body {
+      background: white;
+      position: relative;
+    }
+
+    /* green hills connector */
+    .hills-top {
+      height: 80px;
+      background: linear-gradient(180deg, var(--cream) 50%, white 50%);
+      position: relative;
+    }
+
+    .hills-top::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 80px;
+      background: var(--cream);
+      border-radius: 0 0 50% 50% / 0 0 80px 80px;
+    }
+
+    .story-content {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 52px 24px 80px;
+    }
+
+    /* Chapter opener */
+    .chapter-opener {
+      text-align: center;
+      margin-bottom: 48px;
+    }
+
+    .chapter-num {
+      display: inline-block;
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: .82rem;
+      color: var(--purple);
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+    }
+
+    .chapter-title {
+      font-family: 'Fraunces', serif;
+      font-size: 1.5rem;
+      font-weight: 900;
+      letter-spacing: -.03em;
+      color: var(--ink);
+    }
+
+    /* Paragraphs */
+    .story-para {
+      font-size: 1.15rem;
+      line-height: 1.9;
+      color: #3d2f54;
+      margin-bottom: 28px;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .6s var(--ease-out), transform .6s var(--ease-out);
+    }
+
+    .story-para.visible { opacity: 1; transform: none; }
+
+    /* Drop cap */
+    .story-para.dropcap::first-letter {
+      font-family: 'Fraunces', serif;
+      font-size: 4.2rem;
+      font-weight: 900;
+      font-style: italic;
+      float: left;
+      line-height: .82;
+      margin: 6px 12px 0 0;
+      background: linear-gradient(135deg, var(--coral), var(--purple));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Dialogue styling */
+    .story-dialogue {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: 1.35rem;
+      font-weight: 700;
+      line-height: 1.5;
+      color: var(--purple-deep);
+      letter-spacing: -.02em;
+      text-align: center;
+      padding: 28px 32px;
+      margin: 36px 0;
+      position: relative;
+      border-radius: 20px;
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity .6s var(--ease-out), transform .6s var(--ease-out);
+    }
+
+    .story-dialogue.visible { opacity: 1; transform: none; }
+
+    .story-dialogue::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 20px;
+      background: linear-gradient(135deg, #fff0f5, #f3e8ff);
+      border: 1.5px solid rgba(199,125,255,.25);
+      z-index: -1;
+    }
+
+    .story-dialogue .speaker {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-style: normal;
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--lavender);
+      margin-bottom: 8px;
+    }
+
+    /* Scene break */
+    .scene-break {
+      text-align: center;
+      margin: 44px 0;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      opacity: 0;
+      transition: opacity .6s var(--ease-out);
+    }
+
+    .scene-break.visible { opacity: 1; }
+
+    .scene-break::before,
+    .scene-break::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(199,125,255,.3), transparent);
+    }
+
+    .scene-break-icon { font-size: 1.2rem; letter-spacing: .2em; }
+
+    /* Highlight pull-quote */
+    .pull-quote {
+      border-left: 4px solid;
+      border-image: linear-gradient(180deg, var(--coral), var(--lavender)) 1;
+      padding: 4px 0 4px 24px;
+      margin: 36px 0;
+      opacity: 0;
+      transform: translateX(-12px);
+      transition: opacity .6s var(--ease-out), transform .6s var(--ease-out);
+    }
+
+    .pull-quote.visible { opacity: 1; transform: none; }
+
+    .pull-quote p {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -.02em;
+      color: var(--ink);
+      line-height: 1.5;
+    }
+
+    /* Moral / ending card */
+    .moral-card {
+      background: linear-gradient(135deg, var(--purple-deep), #2d1b69, var(--purple));
+      border-radius: 28px;
+      padding: 48px 40px;
+      text-align: center;
+      margin: 56px 0 0;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 28px 70px rgba(74,14,143,.28);
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity .8s var(--ease-out), transform .8s var(--ease-out);
+    }
+
+    .moral-card.visible { opacity: 1; transform: none; }
+
+    .moral-card::before {
+      content: '';
+      position: absolute;
+      width: 360px; height: 360px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(199,125,255,.2), transparent 70%);
+      top: -130px; right: -60px;
+    }
+
+    .moral-card-emoji {
+      font-size: 2.8rem;
+      display: block;
+      margin-bottom: 16px;
+      position: relative; z-index: 1;
+      animation: heartBeat 2.5s ease-in-out infinite;
+    }
+
+    @keyframes heartBeat {
+      0%,100% { transform: scale(1); }
+      14% { transform: scale(1.18); }
+      28% { transform: scale(1); }
+      42% { transform: scale(1.12); }
+      56% { transform: scale(1); }
+    }
+
+    .moral-card p {
+      font-family: 'Fraunces', serif;
+      font-style: italic;
+      font-size: clamp(1.3rem, 3vw, 1.9rem);
+      font-weight: 900;
+      letter-spacing: -.03em;
+      color: white;
+      line-height: 1.35;
+      position: relative; z-index: 1;
+    }
+
+    .moral-card cite {
+      display: block;
+      font-family: 'DM Sans', sans-serif;
+      font-style: normal;
+      font-size: .82rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.55);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      margin-top: 16px;
+      position: relative; z-index: 1;
+    }
+
+    /* ── POST-STORY CTA ──────────────────────────────── */
+    .post-story {
+      background: var(--cream);
+      padding: 80px 0 90px;
+    }
+
+    .post-story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .post-card {
+      background: white;
+      border-radius: 24px;
+      padding: 32px 28px;
+      box-shadow: var(--shadow-md);
+      text-align: center;
+      transition: transform .3s var(--ease-bounce), box-shadow .3s;
+    }
+
+    .post-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); }
+
+    .post-card-emoji { font-size: 2.4rem; margin-bottom: 14px; }
+
+    .post-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.35rem;
+      font-weight: 900;
+      letter-spacing: -.03em;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+
+    .post-card p { font-size: .92rem; color: #6b6080; margin-bottom: 20px; line-height: 1.6; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 12px 22px; border-radius: 999px;
+      font-weight: 600; font-size: .92rem;
+      font-family: 'DM Sans', sans-serif;
+      border: none; cursor: pointer;
+      transition: transform .25s var(--ease-bounce), box-shadow .25s;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--coral), var(--purple));
+      color: white;
+      box-shadow: 0 10px 26px rgba(255,77,109,.28);
+    }
+
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 16px 36px rgba(255,77,109,.36); }
+
+    .btn-ghost {
+      background: white; color: var(--ink);
+      border: 1.5px solid rgba(26,10,46,.12);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-ghost:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+    /* section heading centred */
+    .post-story-heading {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .post-story-heading span {
+      display: inline-block;
+      font-size: .82rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .12em;
+      color: var(--purple); margin-bottom: 10px;
+    }
+
+    .post-story-heading h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+      font-weight: 900; letter-spacing: -.04em;
+      color: var(--ink); line-height: 1.1;
+    }
+
+    /* ── FOOTER ──────────────────────────────────────── */
+    .site-footer { background: var(--ink); padding: 36px 0; }
+
+    .footer-inner {
+      display: flex; justify-content: space-between;
+      align-items: center; gap: 16px; flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      font-family: 'Fraunces', serif; font-weight: 900;
+      font-size: 1.15rem; color: white; letter-spacing: -.03em;
+    }
+
+    .footer-logo span {
+      background: linear-gradient(135deg, var(--coral), var(--lavender));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .footer-copy { font-size: .85rem; color: rgba(255,255,255,.4); }
+    .footer-hearts { font-size: 1rem; letter-spacing: .1em; }
+
+    /* ── SHARED ANIMATIONS ───────────────────────────── */
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity .65s var(--ease-out), transform .65s var(--ease-out);
+    }
+    .reveal.visible { opacity: 1; transform: none; }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 700px) {
+      .post-story-grid { grid-template-columns: 1fr; max-width: 420px; }
+      .story-dialogue { padding: 22px 20px; font-size: 1.15rem; }
+      .moral-card { padding: 36px 24px; border-radius: 22px; }
+      .story-content { padding: 40px 16px 60px; }
+    }
+
+    @media (max-width: 640px) {
+      .header-inner { border-radius: 20px; padding: 10px 10px 10px 16px; flex-wrap: wrap; }
+      nav a { padding: 7px 12px; font-size: .82rem; }
+      .story-hero { padding: 52px 0 0; }
+      .story-h1 { font-size: clamp(2.4rem, 10vw, 3.5rem); }
+      .footer-inner { flex-direction: column; text-align: center; }
+    }
+  </style>
 </head>
 <body>
 
+  <!-- READING PROGRESS -->
+  <div class="progress-bar" id="progressBar"></div>
+
+  <!-- HEADER -->
   <header class="site-header">
-    <div class="container nav">
-      <div class="logo">Jemima's Creative Corner</div>
+    <div class="header-inner">
+      <div class="logo">Jemima's <span>Creative Corner</span></div>
       <nav>
         <a href="index.html">Home</a>
         <a href="youtube.html">YouTube</a>
-        <a href="story.html">Story</a>
+        <a href="story.html" class="nav-active">Story</a>
         <a href="gallery.html">Gallery</a>
-        <a href="donate.html">Donate</a>
+        <a href="donate.html" class="nav-donate">Donate ✦</a>
       </nav>
     </div>
   </header>
 
-  <main class="section">
-    <div class="container story-page">
-      <h1 class="section-title">Chloe’s Best Friend</h1>
-      <p class="story-author">A featured project by Jemima Adumeta</p>
-
-      <div class="story-card">
-        <p>
-          Chloe was a cheerful little girl who loved to laugh, play, and explore.
-          Every day felt like a new adventure to her.
-        </p>
-
-        <p>
-          One sunny afternoon, Chloe went to the park with a happy smile on her face.
-          The sky was bright, the birds were singing, and the soft breeze made the day feel perfect.
-        </p>
-
-        <p>
-          Chloe ran across the grass, looked at the flowers, and enjoyed the sound of children playing nearby.
-          She felt excited and full of energy.
-        </p>
-
-        <p>
-          Then she noticed another little girl sitting quietly by herself on a bench.
-          She looked shy and a little lonely.
-        </p>
-
-        <p>
-          Chloe walked over kindly and said, “Hi, my name is Chloe. Do you want to play with me?”
-        </p>
-
-        <p>
-          The girl looked up and smiled. “My name is Sam,” she said softly.
-        </p>
-
-        <p>
-          Chloe smiled back, and soon the two girls began to play together.
-          They ran around the park, laughed, and made up fun games.
-        </p>
-
-        <p>
-          They pretended they were explorers in a magical world, discovering secret places and searching for treasure.
-          Every moment was full of joy and imagination.
-        </p>
-
-        <p>
-          As the day went on, Chloe and Sam talked, played, and shared happy little stories with each other.
-          It felt as though they had known each other for a very long time.
-        </p>
-
-        <p>
-          By the end of the day, Chloe knew something special had happened.
-          She had made a brand new best friend.
-        </p>
-
-        <p>
-          From that day on, Chloe and Sam spent more time together, sharing laughter, kindness, and wonderful adventures.
-        </p>
-
-        <p>
-          Chloe learned that sometimes the best friendships begin with a simple hello.
-        </p>
+  <!-- STORY HERO -->
+  <section class="story-hero">
+    <div class="wrap story-hero-inner">
+      <div class="story-eyebrow">📖 A children's story by Jemima</div>
+      <h1 class="story-h1">Chloe's<br><em>Best Friend</em></h1>
+      <p class="story-author">Written by <strong>Jemima Adumeta</strong></p>
+      <div class="story-meta">
+        <div class="meta-chip">🌸 Friendship</div>
+        <div class="meta-chip">💛 Kindness</div>
+        <div class="meta-chip">✨ Imagination</div>
+        <div class="meta-chip">⏱ 3 min read</div>
+      </div>
+      <div class="scene-strip">
+        <div class="scene-emojis">
+          <span class="scene-emoji">🌸</span>
+          <span class="scene-emoji">🌳</span>
+          <span class="scene-emoji">☀️</span>
+          <span class="scene-emoji">🦋</span>
+          <span class="scene-emoji">🌼</span>
+        </div>
       </div>
     </div>
-  </main>
+  </section>
 
+  <!-- STORY CONTENT -->
+  <div class="story-body">
+    <div class="hills-top"></div>
+
+    <div class="story-content">
+
+      <div class="chapter-opener">
+        <div class="chapter-num">✦ The Story ✦</div>
+        <div class="chapter-title">A sunny day at the park</div>
+      </div>
+
+      <p class="story-para dropcap">
+        Chloe was a cheerful little girl who loved to laugh, play, and explore.
+        Every day felt like a new adventure to her.
+      </p>
+
+      <p class="story-para">
+        One sunny afternoon, Chloe went to the park with a happy smile on her face.
+        The sky was bright, the birds were singing, and the soft breeze made the day feel absolutely perfect.
+      </p>
+
+      <p class="story-para">
+        Chloe ran across the grass, looked at the flowers, and enjoyed the sound of children playing nearby.
+        She felt excited and full of energy, as if the whole world had been made just for her.
+      </p>
+
+      <div class="scene-break">
+        <span class="scene-break-icon">🌸 ✦ 🌸</span>
+      </div>
+
+      <p class="story-para">
+        Then she noticed another little girl sitting quietly by herself on a bench.
+        She looked shy and a little lonely, watching the other children play from a distance.
+      </p>
+
+      <div class="story-dialogue">
+        <span class="speaker">Chloe said</span>
+        "Hi, my name is Chloe. Do you want to play with me?"
+      </div>
+
+      <div class="story-dialogue">
+        <span class="speaker">The girl replied</span>
+        "My name is Sam," she said softly, looking up with a gentle smile.
+      </div>
+
+      <div class="scene-break">
+        <span class="scene-break-icon">🌼 ✦ 🌼</span>
+      </div>
+
+      <p class="story-para">
+        Chloe smiled back, and soon the two girls began to play together.
+        They ran around the park, laughed, and made up fun games that only they understood.
+      </p>
+
+      <div class="pull-quote">
+        <p>They pretended they were explorers in a magical world — discovering secret places and searching for hidden treasure.</p>
+      </div>
+
+      <p class="story-para">
+        Every moment was full of joy and imagination. The park had become their kingdom, and they were its bravest adventurers.
+      </p>
+
+      <p class="story-para">
+        As the day went on, Chloe and Sam talked, played, and shared happy little stories with each other.
+        It felt as though they had known each other for a very long time.
+      </p>
+
+      <div class="scene-break">
+        <span class="scene-break-icon">☀️ ✦ ☀️</span>
+      </div>
+
+      <p class="story-para">
+        By the end of the day, Chloe knew something special had happened.
+        She had made a brand new best friend.
+      </p>
+
+      <p class="story-para">
+        From that day on, Chloe and Sam spent more time together, sharing laughter, kindness,
+        and wonderful adventures that grew more magical with every passing week.
+      </p>
+
+      <!-- Moral card -->
+      <div class="moral-card">
+        <span class="moral-card-emoji">💜</span>
+        <p>"Sometimes the best friendships begin with a simple hello."</p>
+        <cite>— Chloe's Best Friend, by Jemima Adumeta</cite>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- POST STORY -->
+  <section class="post-story">
+    <div class="wrap">
+      <div class="post-story-heading reveal">
+        <span>You finished the story!</span>
+        <h2>What would you like to do next?</h2>
+      </div>
+      <div class="post-story-grid reveal">
+        <div class="post-card">
+          <div class="post-card-emoji">💛</div>
+          <h3>Support the Book</h3>
+          <p>Help Jemima bring Chloe's Best Friend to life as a real printed book for children everywhere.</p>
+          <a href="donate.html" class="btn btn-primary">Donate Now ✦</a>
+        </div>
+        <div class="post-card">
+          <div class="post-card-emoji">🎨</div>
+          <h3>See the Artwork</h3>
+          <p>Explore the colourful illustrations and creative artwork inspired by Jemima's stories.</p>
+          <a href="gallery.html" class="btn btn-ghost">View Gallery →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
   <footer class="site-footer">
-    <div class="container">
-      <p>© 2026 Jemima's Creative Corner. All rights reserved.</p>
+    <div class="wrap footer-inner">
+      <div class="footer-logo">Jemima's <span>Creative Corner</span></div>
+      <div class="footer-copy">© 2026 Jemima's Creative Corner. All rights reserved.</div>
+      <div class="footer-hearts">🌸 ⭐ 🎨</div>
     </div>
   </footer>
 
+  <script>
+    // ── Reading progress bar ──────────────────────────
+    const bar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = (window.scrollY / total * 100) + '%';
+    });
+
+    // ── Scroll reveal ─────────────────────────────────
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll(
+      '.story-para, .story-dialogue, .scene-break, .pull-quote, .moral-card, .reveal'
+    ).forEach(el => io.observe(el));
+  </script>
 </body>
 </html>
