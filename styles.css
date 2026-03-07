@@ -51,14 +51,18 @@ nav a:hover {
 
 .hero {
   background: linear-gradient(180deg, #fff6fb 0%, #f5fdff 100%);
-  padding: 70px 0;
+  padding: 90px 0;
 }
 
-.hero-grid {
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 40px;
+.hero-center {
+  display: flex;
+  justify-content: center;
   align-items: center;
+  text-align: center;
+}
+
+.hero-text {
+  max-width: 750px;
 }
 
 .hero-text h1 {
@@ -69,17 +73,18 @@ nav a:hover {
 
 .hero-text p {
   font-size: 1.1rem;
-  max-width: 600px;
+  max-width: 680px;
+  margin: 0 auto;
 }
 
 .hero-buttons {
   margin-top: 24px;
   display: flex;
   gap: 14px;
+  justify-content: center;
   flex-wrap: wrap;
 }
 
-.hero-card,
 .card,
 .story-card,
 .video-card,
@@ -89,37 +94,6 @@ nav a:hover {
   background: #ffffff;
   border-radius: 18px;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
-}
-
-.hero-card {
-  padding: 20px;
-}
-
-.video-frame {
-  position: relative;
-  width: 100%;
-  padding-bottom: 56.25%;
-  overflow: hidden;
-  border-radius: 14px;
-  margin-top: 12px;
-}
-
-.video-frame iframe,
-.video-card iframe {
-  width: 100%;
-  height: 100%;
-  border-radius: 14px;
-}
-
-.video-frame iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.small-text {
-  font-size: 0.9rem;
-  color: #666;
 }
 
 .section {
@@ -243,7 +217,10 @@ nav a:hover {
 }
 
 .video-card iframe {
+  width: 100%;
   aspect-ratio: 16 / 9;
+  border: none;
+  border-radius: 14px;
 }
 
 .center-btn {
@@ -275,10 +252,6 @@ nav a:hover {
   animation: fadeIn 1s ease-in-out;
 }
 
-.float {
-  animation: floaty 3s ease-in-out infinite;
-}
-
 .pop {
   transition: transform 0.25s ease;
 }
@@ -298,14 +271,7 @@ nav a:hover {
   }
 }
 
-@keyframes floaty {
-  0% { transform: translateY(0); }
-  50% { transform: translateY(-8px); }
-  100% { transform: translateY(0); }
-}
-
 @media (max-width: 900px) {
-  .hero-grid,
   .two-col,
   .card-grid,
   .gallery-grid,
