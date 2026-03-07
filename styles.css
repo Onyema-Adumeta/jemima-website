@@ -62,7 +62,18 @@ nav a:hover {
 }
 
 .hero-text {
-  max-width: 750px;
+  max-width: 760px;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  background: #ffe6ef;
+  color: #c63d68;
+  font-size: 0.95rem;
+  font-weight: 700;
 }
 
 .hero-text h1 {
@@ -92,7 +103,9 @@ nav a:hover {
 .bubble-box,
 .cta-box,
 .amount-card,
-.donation-highlight {
+.donation-highlight,
+.about-box,
+.channel-feature {
   background: #ffffff;
   border-radius: 18px;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
@@ -117,8 +130,6 @@ nav a:hover {
 
 .card-grid,
 .gallery-grid,
-.video-grid,
-.donate-grid,
 .amount-grid {
   display: grid;
   gap: 24px;
@@ -155,10 +166,28 @@ nav a:hover {
   background: linear-gradient(135deg, #fff0f6, #f0fbff);
 }
 
+.about-box {
+  padding: 24px 28px;
+}
+
 .cta-box {
   padding: 40px;
   text-align: center;
   background: linear-gradient(135deg, #ffedd8, #fff6d6);
+}
+
+.channel-feature {
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 36px 28px;
+  text-align: center;
+  background: linear-gradient(135deg, #fff0f6, #f7fcff);
+}
+
+.channel-feature h2 {
+  margin-top: 0;
+  color: #ef476f;
+  font-size: 2rem;
 }
 
 .btn {
@@ -209,31 +238,6 @@ nav a:hover {
   display: block;
   border-radius: 18px;
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.08);
-}
-
-.video-grid {
-  grid-template-columns: repeat(3, 1fr);
-}
-
-.video-card {
-  padding: 16px;
-}
-
-.video-card iframe {
-  width: 100%;
-  aspect-ratio: 16 / 9;
-  border: none;
-  border-radius: 14px;
-}
-
-.center-btn {
-  text-align: center;
-  margin-top: 30px;
-}
-
-.donate-grid {
-  grid-template-columns: repeat(2, 1fr);
-  margin-top: 30px;
 }
 
 .note-box {
@@ -347,8 +351,6 @@ nav a:hover {
   .two-col,
   .card-grid,
   .gallery-grid,
-  .video-grid,
-  .donate-grid,
   .amount-grid {
     grid-template-columns: 1fr;
   }
@@ -368,7 +370,8 @@ nav a:hover {
     font-size: 2.2rem;
   }
 
-  .donation-highlight h2 {
+  .donation-highlight h2,
+  .channel-feature h2 {
     font-size: 1.5rem;
   }
 
