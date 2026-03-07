@@ -1,0 +1,33 @@
+{
+  "routes": [
+    {
+      "route": "/donate",
+      "rewrite": "/donate.html"
+    },
+    {
+      "route": "/gallery",
+      "rewrite": "/gallery.html"
+    },
+    {
+      "route": "/story",
+      "rewrite": "/story.html"
+    },
+    {
+      "route": "/youtube",
+      "rewrite": "/youtube.html"
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/*.html", "/images/*", "/*.css", "/*.js", "/*.json", "/*.png", "/*.jpg", "/*.svg"]
+  },
+  "responseOverrides": {
+    "404": {
+      "rewrite": "/index.html",
+      "statusCode": 200
+    }
+  },
+  "globalHeaders": {
+    "cache-control": "no-cache"
+  }
+}
