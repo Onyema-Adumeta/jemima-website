@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const cards = document.querySelectorAll(".card, .gallery-item, .video-card");
+  const cards = document.querySelectorAll(".card, .gallery-item, .amount-card, .channel-feature");
 
   cards.forEach((item, index) => {
     item.style.opacity = "0";
