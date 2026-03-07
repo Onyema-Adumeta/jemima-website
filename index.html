@@ -4,121 +4,1099 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Jemima's Creative Corner</title>
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,300;0,400;0,700;0,900;1,300;1,700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    /* ── DESIGN TOKENS ─────────────────────────────── */
+    :root {
+      --ink:        #1a0a2e;
+      --cream:      #fef9f0;
+      --blush:      #ff6b9d;
+      --coral:      #ff4d6d;
+      --sun:        #ffbe0b;
+      --sky:        #74c7ec;
+      --mint:       #06d6a0;
+      --lavender:   #c77dff;
+      --purple:     #7b2ff7;
+      --purple-deep:#4a0e8f;
+      --white:      #ffffff;
+
+      --r-xl:  28px;
+      --r-2xl: 40px;
+      --r-pill:999px;
+
+      --shadow-sm: 0 4px 16px rgba(26,10,46,.08);
+      --shadow-md: 0 12px 36px rgba(26,10,46,.13);
+      --shadow-lg: 0 24px 60px rgba(26,10,46,.18);
+
+      --ease-bounce: cubic-bezier(.34,1.56,.64,1);
+      --ease-out:    cubic-bezier(.22,1,.36,1);
+    }
+
+    /* ── RESET ─────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      line-height: 1.65;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    /* ── NOISE OVERLAY ─────────────────────────────── */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9999;
+      opacity: .6;
+    }
+
+    /* ── CONTAINER ─────────────────────────────────── */
+    .wrap { width: min(1160px, 92%); margin: auto; }
+
+    /* ── HEADER ────────────────────────────────────── */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      padding: 0 0;
+    }
+
+    .header-inner {
+      margin: 12px auto;
+      width: min(1100px, 92%);
+      background: rgba(255,255,255,.72);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      border: 1px solid rgba(255,255,255,.8);
+      border-radius: var(--r-pill);
+      padding: 10px 10px 10px 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 8px 32px rgba(26,10,46,.10), 0 0 0 1px rgba(255,255,255,.5);
+      gap: 16px;
+    }
+
+    .logo {
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: 1.3rem;
+      color: var(--purple-deep);
+      letter-spacing: -.03em;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .logo span {
+      background: linear-gradient(135deg, var(--coral), var(--lavender));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    nav a {
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--ink);
+      padding: 9px 18px;
+      border-radius: var(--r-pill);
+      transition: background .2s, color .2s;
+      opacity: .75;
+    }
+
+    nav a:hover { background: rgba(123,47,247,.08); color: var(--purple); opacity: 1; }
+
+    .nav-cta {
+      background: linear-gradient(135deg, var(--coral), var(--purple)) !important;
+      color: white !important;
+      opacity: 1 !important;
+      box-shadow: 0 6px 20px rgba(255,77,109,.3);
+      transition: transform .2s var(--ease-bounce), box-shadow .2s !important;
+    }
+    .nav-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(255,77,109,.4) !important;
+      background: linear-gradient(135deg, var(--coral), var(--purple)) !important;
+    }
+
+    /* ── HERO ──────────────────────────────────────── */
+    .hero {
+      position: relative;
+      padding: 80px 0 90px;
+      overflow: hidden;
+    }
+
+    /* Blob background */
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 700px;
+      height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(199,125,255,.22) 0%, transparent 70%);
+      top: -200px;
+      right: -150px;
+      pointer-events: none;
+      animation: blobDrift 10s ease-in-out infinite alternate;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,107,157,.18) 0%, transparent 70%);
+      bottom: -150px;
+      left: -100px;
+      pointer-events: none;
+      animation: blobDrift 13s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes blobDrift {
+      from { transform: translate(0, 0) scale(1); }
+      to   { transform: translate(30px, 20px) scale(1.06); }
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #fff0f5, #f3e8ff);
+      border: 1px solid rgba(199,125,255,.3);
+      color: var(--purple);
+      padding: 8px 18px;
+      border-radius: var(--r-pill);
+      font-size: .85rem;
+      font-weight: 600;
+      margin-bottom: 22px;
+      box-shadow: var(--shadow-sm);
+      animation: slideDown .6s var(--ease-out) both;
+    }
+
+    .hero-eyebrow::before {
+      content: '✦';
+      font-size: .7rem;
+      animation: spin 4s linear infinite;
+    }
+
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .hero-h1 {
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: clamp(2.6rem, 5vw, 4.2rem);
+      line-height: 1.0;
+      letter-spacing: -.04em;
+      color: var(--ink);
+      margin-bottom: 20px;
+      animation: slideDown .7s var(--ease-out) .1s both;
+    }
+
+    .hero-h1 em {
+      font-style: italic;
+      background: linear-gradient(135deg, var(--coral) 0%, var(--lavender) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero-sub {
+      font-size: 1.08rem;
+      color: #6b6080;
+      max-width: 500px;
+      margin-bottom: 36px;
+      font-weight: 400;
+      animation: slideDown .7s var(--ease-out) .2s both;
+    }
+
+    .hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      animation: slideDown .7s var(--ease-out) .3s both;
+    }
+
+    /* ── BUTTONS ───────────────────────────────────── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 26px;
+      border-radius: var(--r-pill);
+      font-weight: 600;
+      font-size: .975rem;
+      font-family: 'DM Sans', sans-serif;
+      transition: transform .25s var(--ease-bounce), box-shadow .25s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--coral), var(--purple));
+      color: white;
+      box-shadow: 0 12px 30px rgba(255,77,109,.30);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 18px 40px rgba(255,77,109,.38);
+    }
+
+    .btn-ghost {
+      background: white;
+      color: var(--ink);
+      border: 1.5px solid rgba(26,10,46,.12);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-ghost:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--shadow-md);
+      border-color: rgba(26,10,46,.2);
+    }
+
+    .btn-icon {
+      width: 22px;
+      height: 22px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255,255,255,.25);
+      border-radius: 50%;
+      font-size: .75rem;
+    }
+
+    /* ── HERO CARD ─────────────────────────────────── */
+    .hero-card {
+      background: white;
+      border-radius: 32px;
+      padding: 36px;
+      box-shadow: var(--shadow-lg), 0 0 0 1px rgba(255,255,255,.9);
+      position: relative;
+      overflow: hidden;
+      animation: slideUp .8s var(--ease-out) .2s both;
+    }
+
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(255,190,11,.06), rgba(199,125,255,.08));
+      pointer-events: none;
+    }
+
+    .hero-card-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, var(--sun), #ff9e00);
+      color: #3d2000;
+      padding: 6px 14px;
+      border-radius: var(--r-pill);
+      font-size: .8rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+      box-shadow: 0 6px 18px rgba(255,190,11,.35);
+    }
+
+    .hero-card h2 {
+      font-family: 'Fraunces', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      letter-spacing: -.03em;
+      color: var(--ink);
+      margin-bottom: 12px;
+      line-height: 1.1;
+    }
+
+    .hero-card p {
+      color: #6b6080;
+      font-size: .97rem;
+      margin-bottom: 24px;
+    }
+
+    .hero-card-deco {
+      position: absolute;
+      bottom: -20px;
+      right: -20px;
+      width: 120px;
+      height: 120px;
+      background: linear-gradient(135deg, var(--lavender), var(--sky));
+      border-radius: 50%;
+      opacity: .12;
+    }
+
+    /* ── FLOATING EMOJIS ───────────────────────────── */
+    .floats {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .float {
+      position: absolute;
+      font-size: 1.8rem;
+      animation: floatUp linear infinite;
+      opacity: 0;
+    }
+
+    .float:nth-child(1) { left: 5%;  animation-duration: 8s;  animation-delay: 0s;   font-size: 1.4rem; }
+    .float:nth-child(2) { left: 20%; animation-duration: 11s; animation-delay: 2s;   font-size: 2.2rem; }
+    .float:nth-child(3) { left: 80%; animation-duration: 9s;  animation-delay: 1s;   font-size: 1.6rem; }
+    .float:nth-child(4) { left: 92%; animation-duration: 12s; animation-delay: 3.5s; font-size: 1.3rem; }
+    .float:nth-child(5) { left: 55%; animation-duration: 10s; animation-delay: 5s;   font-size: 1.9rem; }
+
+    @keyframes floatUp {
+      0%   { transform: translateY(100vh) rotate(0deg);   opacity: 0; }
+      10%  { opacity: .5; }
+      90%  { opacity: .4; }
+      100% { transform: translateY(-120px) rotate(360deg); opacity: 0; }
+    }
+
+    /* ── SECTION SHARED ────────────────────────────── */
+    .section { padding: 90px 0; }
+
+    .section-eyebrow {
+      display: inline-block;
+      font-size: .82rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: var(--purple);
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      letter-spacing: -.04em;
+      color: var(--ink);
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+
+    .section-sub {
+      color: #6b6080;
+      font-size: 1.05rem;
+      max-width: 560px;
+    }
+
+    .text-center { text-align: center; }
+    .text-center .section-sub { margin: 0 auto; }
+
+    /* ── DIVIDER WAVE ──────────────────────────────── */
+    .wave-divider { line-height: 0; overflow: hidden; }
+    .wave-divider svg { display: block; width: 100%; }
+
+    /* ── CARD GRID (4 cards) ───────────────────────── */
+    .explore-section {
+      background: var(--ink);
+      padding: 90px 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .explore-section::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .explore-section .section-title { color: white; }
+    .explore-section .section-eyebrow { color: var(--sun); }
+    .explore-section .section-sub { color: rgba(255,255,255,.6); }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 52px;
+    }
+
+    .exp-card {
+      background: rgba(255,255,255,.06);
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 24px;
+      padding: 28px 24px;
+      transition: transform .3s var(--ease-bounce), background .3s, border-color .3s;
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .exp-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 24px;
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .exp-card:nth-child(1)::after { background: linear-gradient(135deg, rgba(255,77,109,.15), transparent); }
+    .exp-card:nth-child(2)::after { background: linear-gradient(135deg, rgba(255,190,11,.12), transparent); }
+    .exp-card:nth-child(3)::after { background: linear-gradient(135deg, rgba(6,214,160,.12), transparent); }
+    .exp-card:nth-child(4)::after { background: linear-gradient(135deg, rgba(199,125,255,.15), transparent); }
+
+    .exp-card:hover { transform: translateY(-6px); border-color: rgba(255,255,255,.25); }
+    .exp-card:hover::after { opacity: 1; }
+
+    .exp-card-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 18px;
+    }
+
+    .exp-card:nth-child(1) .exp-card-icon { background: rgba(255,77,109,.18); }
+    .exp-card:nth-child(2) .exp-card-icon { background: rgba(255,190,11,.18); }
+    .exp-card:nth-child(3) .exp-card-icon { background: rgba(6,214,160,.18); }
+    .exp-card:nth-child(4) .exp-card-icon { background: rgba(199,125,255,.18); }
+
+    .exp-card h3 {
+      font-family: 'Fraunces', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: white;
+      margin-bottom: 10px;
+      letter-spacing: -.02em;
+    }
+
+    .exp-card p { color: rgba(255,255,255,.55); font-size: .93rem; line-height: 1.6; }
+
+    .exp-card-arrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .85rem;
+      font-weight: 600;
+      margin-top: 18px;
+      opacity: 0;
+      transform: translateX(-8px);
+      transition: opacity .3s, transform .3s;
+    }
+
+    .exp-card:nth-child(1) .exp-card-arrow { color: #ff8fab; }
+    .exp-card:nth-child(2) .exp-card-arrow { color: var(--sun); }
+    .exp-card:nth-child(3) .exp-card-arrow { color: var(--mint); }
+    .exp-card:nth-child(4) .exp-card-arrow { color: var(--lavender); }
+
+    .exp-card:hover .exp-card-arrow { opacity: 1; transform: translateX(0); }
+
+    /* ── ABOUT SECTION ─────────────────────────────── */
+    .about-section {
+      background: var(--cream);
+      padding: 90px 0;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .about-visual {
+      position: relative;
+    }
+
+    .about-quote-card {
+      background: white;
+      border-radius: 28px;
+      padding: 36px 32px;
+      box-shadow: var(--shadow-lg);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .about-quote-card::before {
+      content: '\201C';
+      position: absolute;
+      top: -10px;
+      left: 20px;
+      font-family: 'Fraunces', serif;
+      font-size: 10rem;
+      color: rgba(199,125,255,.1);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    .about-quote-card blockquote {
+      font-family: 'Fraunces', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      font-style: italic;
+      line-height: 1.4;
+      color: var(--ink);
+      letter-spacing: -.02em;
+      position: relative;
+    }
+
+    .about-quote-card blockquote em {
+      background: linear-gradient(135deg, var(--blush), var(--lavender));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      font-style: normal;
+    }
+
+    .about-quote-card .quote-attr {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .quote-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--blush), var(--lavender));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      box-shadow: 0 6px 18px rgba(255,107,157,.3);
+    }
+
+    .quote-name {
+      font-weight: 700;
+      font-size: .92rem;
+      color: var(--ink);
+    }
+
+    .quote-role {
+      font-size: .82rem;
+      color: #9988b0;
+    }
+
+    /* Floating stat chips */
+    .stat-chip {
+      position: absolute;
+      background: white;
+      border-radius: var(--r-pill);
+      padding: 10px 18px;
+      box-shadow: var(--shadow-md);
+      font-weight: 700;
+      font-size: .9rem;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .stat-chip:nth-child(2) {
+      top: -20px;
+      right: -24px;
+      animation: floatChip 4s ease-in-out infinite;
+    }
+
+    .stat-chip:nth-child(3) {
+      bottom: -18px;
+      left: -20px;
+      animation: floatChip 5s ease-in-out infinite .8s;
+    }
+
+    @keyframes floatChip {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-8px); }
+    }
+
+    .chip-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+
+    /* About text side */
+    .about-text .section-eyebrow { display: block; margin-bottom: 14px; }
+    .about-text .section-title { margin-bottom: 16px; }
+
+    .about-text p {
+      color: #6b6080;
+      font-size: 1.02rem;
+      margin-bottom: 16px;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin: 24px 0 32px;
+    }
+
+    .feature-list li {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      color: #4a3860;
+      font-size: .97rem;
+      border-bottom: 1px solid rgba(0,0,0,.05);
+    }
+
+    .feature-list li:last-child { border: none; }
+
+    .feature-list .fi-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 8px;
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .9rem;
+      margin-top: 2px;
+    }
+
+    /* ── CTA SECTION ───────────────────────────────── */
+    .cta-section { padding: 90px 0; background: var(--cream); }
+
+    .cta-inner {
+      background: linear-gradient(135deg, var(--purple-deep) 0%, #2d1b69 50%, var(--purple) 100%);
+      border-radius: 36px;
+      padding: 70px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 30px 80px rgba(74,14,143,.35);
+    }
+
+    .cta-inner::before {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(199,125,255,.2) 0%, transparent 70%);
+      top: -200px;
+      right: -100px;
+    }
+
+    .cta-inner::after {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,107,157,.15) 0%, transparent 70%);
+      bottom: -150px;
+      left: -80px;
+    }
+
+    .cta-inner h2 {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      letter-spacing: -.04em;
+      color: white;
+      margin-bottom: 16px;
+      line-height: 1.1;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-inner p {
+      color: rgba(255,255,255,.72);
+      font-size: 1.05rem;
+      max-width: 560px;
+      margin: 0 auto 32px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .cta-inner .cta-date {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: var(--r-pill);
+      padding: 8px 18px;
+      font-size: .88rem;
+      color: rgba(255,255,255,.85);
+      font-weight: 600;
+      margin-bottom: 28px;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      width: max-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .cta-btns {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      position: relative;
+      z-index: 1;
+    }
+
+    .btn-white {
+      background: white;
+      color: var(--purple-deep);
+      box-shadow: 0 12px 30px rgba(0,0,0,.25);
+    }
+
+    .btn-white:hover {
+      transform: translateY(-3px) scale(1.02);
+      box-shadow: 0 18px 40px rgba(0,0,0,.3);
+    }
+
+    .btn-outline {
+      background: transparent;
+      color: white;
+      border: 1.5px solid rgba(255,255,255,.35);
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,.1);
+      transform: translateY(-3px);
+    }
+
+    /* ── FOOTER ────────────────────────────────────── */
+    .site-footer {
+      background: var(--ink);
+      padding: 40px 0;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .footer-logo {
+      font-family: 'Fraunces', serif;
+      font-weight: 900;
+      font-size: 1.2rem;
+      color: white;
+      letter-spacing: -.03em;
+    }
+
+    .footer-logo span {
+      background: linear-gradient(135deg, var(--coral), var(--lavender));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .footer-copy {
+      font-size: .85rem;
+      color: rgba(255,255,255,.4);
+    }
+
+    .footer-hearts {
+      font-size: 1.1rem;
+      letter-spacing: .1em;
+    }
+
+    /* ── ANIMATIONS ────────────────────────────────── */
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-16px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* scroll reveal */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity .7s var(--ease-out), transform .7s var(--ease-out);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+
+    /* stagger children */
+    .stagger > * { opacity: 0; transform: translateY(24px); transition: opacity .6s var(--ease-out), transform .6s var(--ease-out); }
+    .stagger.visible > *:nth-child(1) { opacity: 1; transform: none; transition-delay: 0s; }
+    .stagger.visible > *:nth-child(2) { opacity: 1; transform: none; transition-delay: .1s; }
+    .stagger.visible > *:nth-child(3) { opacity: 1; transform: none; transition-delay: .2s; }
+    .stagger.visible > *:nth-child(4) { opacity: 1; transform: none; transition-delay: .3s; }
+
+    /* ── RESPONSIVE ────────────────────────────────── */
+    @media (max-width: 960px) {
+      .hero-grid, .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .cards-grid { grid-template-columns: 1fr 1fr; }
+      .cta-inner { padding: 50px 32px; }
+    }
+
+    @media (max-width: 640px) {
+      .header-inner { padding: 10px 10px 10px 18px; border-radius: 20px; flex-wrap: wrap; }
+      nav { gap: 4px; }
+      nav a { padding: 7px 12px; font-size: .82rem; }
+      .hero { padding: 50px 0 60px; }
+      .cards-grid { grid-template-columns: 1fr; gap: 14px; }
+      .cta-inner { padding: 40px 22px; border-radius: 24px; }
+      .footer-inner { flex-direction: column; text-align: center; }
+      .about-quote-card { padding: 28px 22px; }
+      .hero-btns { flex-direction: column; }
+      .hero-btns .btn { width: 100%; justify-content: center; }
+      .stat-chip:nth-child(2) { top: auto; right: auto; position: static; margin-bottom: 10px; }
+      .stat-chip:nth-child(3) { position: static; margin-top: 10px; }
+      .about-visual { display: flex; flex-direction: column; gap: 12px; }
+    }
+  </style>
 </head>
 <body>
 
+  <!-- FLOATING EMOJIS -->
+  <div class="floats" aria-hidden="true">
+    <div class="float">🌸</div>
+    <div class="float">⭐</div>
+    <div class="float">🎨</div>
+    <div class="float">📖</div>
+    <div class="float">✨</div>
+  </div>
+
+  <!-- HEADER -->
   <header class="site-header">
-    <div class="container nav">
-      <div class="logo">Jemima's Creative Corner</div>
+    <div class="header-inner">
+      <div class="logo">Jemima's <span>Creative Corner</span></div>
       <nav>
         <a href="index.html">Home</a>
         <a href="youtube.html">YouTube</a>
         <a href="story.html">Story</a>
         <a href="gallery.html">Gallery</a>
-        <a href="donate.html">Donate</a>
+        <a href="donate.html" class="nav-cta">Donate ✦</a>
       </nav>
     </div>
   </header>
 
+  <!-- HERO -->
   <section class="hero">
-    <div class="container hero-home">
-      <div class="hero-text fade-in">
-        <div class="hero-pill">Young Author • Creator • Storyteller</div>
-        <h1>Welcome to Jemima's Creative Corner</h1>
-        <p>
+    <div class="wrap hero-grid">
+      <div class="hero-left">
+        <div class="hero-eyebrow">Young Author · Creator · Storyteller</div>
+        <h1 class="hero-h1">
+          Where <em>stories</em><br>come to life
+        </h1>
+        <p class="hero-sub">
           A joyful space where Jemima shares her stories, artwork, imagination,
-          and creative projects with children and families.
+          and creative projects with children and families everywhere.
         </p>
-
-        <div class="hero-buttons">
-          <a href="story.html" class="btn primary">Read Chloe's Best Friend</a>
-          <a href="youtube.html" class="btn secondary">Watch on YouTube</a>
+        <div class="hero-btns">
+          <a href="story.html" class="btn btn-primary">
+            Read Chloe's Best Friend
+            <span class="btn-icon">→</span>
+          </a>
+          <a href="youtube.html" class="btn btn-ghost">
+            ▶ &nbsp;Watch on YouTube
+          </a>
         </div>
       </div>
 
-      <div class="hero-feature-card fade-in">
-        <p class="feature-label">Featured Project</p>
+      <div class="hero-card">
+        <div class="hero-card-badge">⭐ Featured Project</div>
         <h2>Chloe's Best Friend</h2>
         <p>
-          One of Jemima’s special projects is <strong>Chloe’s Best Friend</strong>,
-          a heartwarming children’s story about friendship, kindness, and the
-          power of saying hello.
+          A heartwarming children's story about <strong>friendship, kindness</strong>, and the
+          power of saying hello — written with love by Jemima.
         </p>
-        <a href="donate.html" class="btn primary">Support the Book Launch</a>
+        <a href="donate.html" class="btn btn-primary">Support the Book Launch</a>
+        <div class="hero-card-deco"></div>
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      <h2 class="section-title">Explore Jemima's World</h2>
-      <p class="center-text">
-        Discover stories, videos, artwork, and joyful creative projects designed
-        to inspire children and families.
-      </p>
+  <!-- WAVE -->
+  <div class="wave-divider" style="background:var(--cream);">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#1a0a2e" d="M0,30 C360,60 1080,0 1440,30 L1440,60 L0,60 Z"/>
+    </svg>
+  </div>
 
-      <div class="card-grid">
-        <a class="card pop" href="story.html">
+  <!-- EXPLORE -->
+  <section class="explore-section">
+    <div class="wrap">
+      <div class="text-center reveal">
+        <span class="section-eyebrow">Discover</span>
+        <h2 class="section-title">Explore Jemima's World</h2>
+        <p class="section-sub">Stories, videos, artwork, and joyful creative projects designed to inspire.</p>
+      </div>
+
+      <div class="cards-grid stagger">
+        <a class="exp-card" href="story.html">
+          <div class="exp-card-icon">📖</div>
           <h3>Stories</h3>
-          <p>Read original children’s stories filled with kindness, fun, and imagination.</p>
+          <p>Read original children's stories filled with kindness, fun, and boundless imagination.</p>
+          <div class="exp-card-arrow">Read now →</div>
         </a>
 
-        <a class="card pop" href="youtube.html">
+        <a class="exp-card" href="youtube.html">
+          <div class="exp-card-icon">▶️</div>
           <h3>YouTube Channel</h3>
-          <p>Watch family-friendly videos on Jemima’s YouTube channel, ThinkPlayLabx.</p>
+          <p>Watch family-friendly videos on Jemima's YouTube channel, ThinkPlayLabx.</p>
+          <div class="exp-card-arrow">Watch now →</div>
         </a>
 
-        <a class="card pop" href="gallery.html">
+        <a class="exp-card" href="gallery.html">
+          <div class="exp-card-icon">🎨</div>
           <h3>Artwork</h3>
-          <p>Enjoy colorful illustrations and creative ideas inspired by Jemima’s stories.</p>
+          <p>Enjoy colourful illustrations and creative ideas inspired by Jemima's stories.</p>
+          <div class="exp-card-arrow">View gallery →</div>
         </a>
 
-        <a class="card pop" href="donate.html">
+        <a class="exp-card" href="donate.html">
+          <div class="exp-card-icon">✨</div>
           <h3>Creative Projects</h3>
           <p>Discover special projects, book ideas, and exciting new creations from Jemima.</p>
+          <div class="exp-card-arrow">Explore →</div>
         </a>
       </div>
     </div>
   </section>
 
-  <section class="highlight section alt-bg">
-    <div class="container two-col">
-      <div>
-        <p class="feature-label">About Jemima</p>
-        <h2>A young creator with a big imagination</h2>
+  <!-- WAVE reverse -->
+  <div class="wave-divider" style="background:#1a0a2e;">
+    <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="#fef9f0" d="M0,30 C360,0 1080,60 1440,30 L1440,60 L0,60 Z"/>
+    </svg>
+  </div>
+
+  <!-- ABOUT -->
+  <section class="about-section">
+    <div class="wrap about-grid">
+      <div class="about-visual reveal">
+        <div class="about-quote-card">
+          <blockquote>
+            "Sometimes the best friendships begin with a <em>simple hello</em>."
+          </blockquote>
+          <div class="quote-attr">
+            <div class="quote-avatar">🌸</div>
+            <div>
+              <div class="quote-name">Jemima</div>
+              <div class="quote-role">Author of Chloe's Best Friend</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="stat-chip">
+          <div class="chip-dot" style="background:var(--coral);"></div>
+          Book launch March 14 🎉
+        </div>
+
+        <div class="stat-chip">
+          <div class="chip-dot" style="background:var(--mint);"></div>
+          For children & families 💛
+        </div>
+      </div>
+
+      <div class="about-text reveal">
+        <span class="section-eyebrow">About Jemima</span>
+        <h2 class="section-title">A young creator with a big imagination</h2>
         <p>
           Jemima enjoys storytelling, creativity, and sharing joyful ideas with
           others. This website celebrates her stories, videos, artwork, and
           featured projects in one cheerful space.
         </p>
-      </div>
 
-      <div class="bubble-box">
+        <ul class="feature-list">
+          <li>
+            <div class="fi-icon" style="background:#fff0f5;">📖</div>
+            Original children's stories with heart and imagination
+          </li>
+          <li>
+            <div class="fi-icon" style="background:#fffbe6;">🎬</div>
+            Family-friendly YouTube videos for all ages
+          </li>
+          <li>
+            <div class="fi-icon" style="background:#f0fff8;">🎨</div>
+            Colourful artwork and joyful illustrations
+          </li>
+          <li>
+            <div class="fi-icon" style="background:#f3e8ff;">✨</div>
+            Inspiring projects that spark creativity in kids
+          </li>
+        </ul>
+
+        <a href="story.html" class="btn btn-primary">Discover Jemima's Story</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="wrap">
+      <div class="cta-inner reveal">
+        <div class="cta-date">📅 &nbsp;Book launch — March 14, 2026</div>
+        <h2>Support the Chloe's Best<br>Friend Book Launch</h2>
         <p>
-          “Sometimes the best friendships begin with a simple hello.”
+          Your support helps Jemima share this special story with more children
+          and families around the world.
         </p>
+        <div class="cta-btns">
+          <a href="donate.html" class="btn btn-white">Donate Now ✦</a>
+          <a href="story.html" class="btn btn-outline">Read a Preview →</a>
+        </div>
       </div>
     </div>
   </section>
 
-  <section class="cta section">
-    <div class="container cta-box">
-      <h2>Support the Chloe's Best Friend Book Launch</h2>
-      <p>
-        The book launch is coming on <strong>March 14, 2026</strong>. Your support
-        helps Jemima share this special story with more children and families.
-      </p>
-      <a href="donate.html" class="btn primary">Go to Donation Page</a>
-    </div>
-  </section>
-
+  <!-- FOOTER -->
   <footer class="site-footer">
-    <div class="container">
-      <p>© 2026 Jemima's Creative Corner. All rights reserved.</p>
+    <div class="wrap footer-inner">
+      <div class="footer-logo">Jemima's <span>Creative Corner</span></div>
+      <div class="footer-copy">© 2026 All rights reserved.</div>
+      <div class="footer-hearts">🌸 ⭐ 🎨</div>
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal, .stagger').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
