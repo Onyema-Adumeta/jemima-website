@@ -295,3 +295,39 @@ nav a:hover {
     font-size: 2.2rem;
   }
 }
+
+.donate-intro {
+  margin-bottom: 40px;
+}
+
+.amount-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  margin-bottom: 35px;
+}
+
+.amount-card {
+  background: linear-gradient(135deg, #fff7f0, #fffdf8);
+  border-radius: 18px;
+  padding: 22px;
+  text-align: center;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+
+.amount-card h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 2rem;
+  color: #ef476f;
+}
+
+.donate-card p {
+  margin-bottom: 18px;
+}
+
+@media (max-width: 900px) {
+  .amount-grid {
+    grid-template-columns: 1fr;
+  }
+}
