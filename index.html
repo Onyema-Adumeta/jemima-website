@@ -3,6 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#7b2ff7">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Jemima's Corner">
   <title>Jemima's Creative Corner</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -491,11 +497,41 @@
     .drawer-panel .nav-donate, .drawer-panel .nav-cta { background: linear-gradient(135deg, var(--coral), var(--purple)); color: white !important; opacity: 1 !important; }
     .drawer-close { position: absolute; top: 20px; right: 20px; background: rgba(123,47,247,.08); border: none; border-radius: 50%; width: 36px; height: 36px; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--ink); }
     @media (max-width: 820px) { nav { display: none !important; } .hamburger { display: flex; } }
+    /* ── CONFETTI CANVAS ── */
+    #confettiCanvas {
+      position: fixed; inset: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 9998;
+    }
+    /* ── PWA INSTALL PROMPT ─────────────────────────────── */
+    .pwa-prompt {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 600;
+      background: white; border-top: 1px solid rgba(199,125,255,.2);
+      padding: 16px 20px; display: flex; align-items: center; gap: 14px;
+      box-shadow: 0 -8px 32px rgba(26,10,46,.12);
+      transform: translateY(100%); transition: transform .4s cubic-bezier(.22,1,.36,1);
+      font-family: 'DM Sans', sans-serif;
+    }
+    .pwa-prompt.show { transform: translateY(0); }
+    .pwa-prompt-icon { font-size: 2rem; flex-shrink: 0; }
+    .pwa-prompt-text { flex: 1; }
+    .pwa-prompt-text strong { display: block; font-size: .92rem; font-weight: 700; color: var(--ink, #1a0a2e); margin-bottom: 2px; }
+    .pwa-prompt-text span { font-size: .78rem; color: #9988b0; }
+    .pwa-prompt-install {
+      background: linear-gradient(135deg, #ff4d6d, #7b2ff7);
+      color: white; border: none; border-radius: 999px;
+      padding: 9px 18px; font-size: .82rem; font-weight: 700;
+      font-family: 'DM Sans', sans-serif; cursor: pointer; white-space: nowrap;
+      box-shadow: 0 6px 18px rgba(123,47,247,.3);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .pwa-prompt-install:hover { transform: scale(1.05); }
+    .pwa-prompt-dismiss { background: none; border: none; color: #9988b0; cursor: pointer; font-size: 1.1rem; padding: 4px; flex-shrink: 0; }
+    .pwa-prompt-dismiss:hover { color: var(--ink, #1a0a2e); }
   </style>
 </head>
-<body>
+<canvas id="confettiCanvas"></canvas>
 
-  <!-- ══════════════════════════════════════════════
+  <div class="progress-bar"<!-- ══════════════════════════════════════════════
        SPLASH SCREEN
   ══════════════════════════════════════════════ -->
   <div id="splash-screen">
@@ -815,6 +851,13 @@
       if (diff <= 0) {
         document.getElementById('countdownGrid').style.display = 'none';
         document.getElementById('countdownLaunched').classList.add('show');
+        // 🎉 Fire confetti once on launch
+        if (window.fireConfetti && !window._confettiFired) {
+          window._confettiFired = true;
+          window.fireConfetti();
+          setTimeout(window.fireConfetti, 3000);
+          setTimeout(window.fireConfetti, 6000);
+        }
         return;
       }
       animFlip(els.days,  pad(Math.floor(diff/86400000)));
@@ -824,6 +867,11 @@
     }
     tick();
     setInterval(tick, 1000);
+    // If already past launch time when page loads, fire confetti immediately
+    if (Date.now() >= LAUNCH && !window._confettiFired) {
+      window._confettiFired = true;
+      setTimeout(function(){ if(window.fireConfetti) window.fireConfetti(); }, 1500);
+    }
   })();
   </script>
 
@@ -850,6 +898,132 @@
     backdrop.addEventListener('click',closeD);
     closeBtn.addEventListener('click',closeD);
     document.addEventListener('keydown',function(e){ if(e.key==='Escape') closeD(); });
+  })();
+  </script>
+
+  <!-- ── CONFETTI ENGINE ── -->
+  <script>
+  (function(){
+    var canvas = document.getElementById('confettiCanvas');
+    var ctx    = canvas.getContext('2d');
+    var particles = [];
+    var running = false;
+    var COLORS = ['#ff4d6d','#ffbe0b','#7b2ff7','#c77dff','#06d6a0','#ff9f43','#48dbfb'];
+
+    function resize(){ canvas.width = innerWidth; canvas.height = innerHeight; }
+    window.addEventListener('resize', resize); resize();
+
+    function Particle() {
+      this.reset = function() {
+        this.x  = Math.random() * canvas.width;
+        this.y  = Math.random() * canvas.height - canvas.height;
+        this.w  = Math.random() * 10 + 5;
+        this.h  = Math.random() * 5 + 3;
+        this.color = COLORS[Math.floor(Math.random() * COLORS.length)];
+        this.speed = Math.random() * 3 + 2;
+        this.angle = Math.random() * Math.PI * 2;
+        this.spin  = (Math.random() - 0.5) * 0.2;
+        this.drift = (Math.random() - 0.5) * 1.5;
+        this.alpha = 1;
+        this.fade  = Math.random() * 0.005 + 0.003;
+      };
+      this.reset();
+    }
+
+    function spawnBurst() {
+      for (var i = 0; i < 180; i++) {
+        var p = new Particle();
+        p.y = Math.random() * canvas.height * 0.5; // start from top half
+        particles.push(p);
+      }
+    }
+
+    function loop() {
+      if (!running) return;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles = particles.filter(function(p){ return p.alpha > 0; });
+      if (particles.length === 0) { running = false; return; }
+      particles.forEach(function(p) {
+        p.y     += p.speed;
+        p.x     += p.drift;
+        p.angle += p.spin;
+        p.alpha -= p.fade;
+        ctx.save();
+        ctx.globalAlpha = Math.max(0, p.alpha);
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.angle);
+        ctx.fillStyle = p.color;
+        ctx.fillRect(-p.w/2, -p.h/2, p.w, p.h);
+        ctx.restore();
+      });
+      requestAnimationFrame(loop);
+    }
+
+    window.fireConfetti = function() {
+      if (running) return;
+      running = true;
+      spawnBurst();
+      // Second wave after 600ms for extra wow
+      setTimeout(function(){ spawnBurst(); }, 600);
+      loop();
+    };
+  })();
+  </script>
+
+  <!-- PWA Install Prompt -->
+  <div class="pwa-prompt" id="pwaPrompt">
+    <div class="pwa-prompt-icon">📚</div>
+    <div class="pwa-prompt-text">
+      <strong>Add to Home Screen</strong>
+      <span>Read Chloe's story anytime, even offline!</span>
+    </div>
+    <button class="pwa-prompt-install" id="pwaInstall">Install</button>
+    <button class="pwa-prompt-dismiss" id="pwaDismiss">✕</button>
+  </div>
+
+  <script>
+  // ── SERVICE WORKER ─────────────────────────────────────────
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    });
+  }
+  // ── PWA INSTALL PROMPT ─────────────────────────────────────
+  (function(){
+    var deferredPrompt = null;
+    var prompt  = document.getElementById('pwaPrompt');
+    var install = document.getElementById('pwaInstall');
+    var dismiss = document.getElementById('pwaDismiss');
+    if (!prompt) return;
+
+    // Don't show if already installed or dismissed recently
+    try {
+      if (localStorage.getItem('pwa-dismissed')) return;
+    } catch(e) {}
+
+    window.addEventListener('beforeinstallprompt', function(e) {
+      e.preventDefault();
+      deferredPrompt = e;
+      setTimeout(function(){ prompt.classList.add('show'); }, 3000);
+    });
+
+    install && install.addEventListener('click', function() {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(function(r){
+        deferredPrompt = null;
+        prompt.classList.remove('show');
+      });
+    });
+
+    dismiss && dismiss.addEventListener('click', function() {
+      prompt.classList.remove('show');
+      try { localStorage.setItem('pwa-dismissed', '1'); } catch(e) {}
+    });
+
+    window.addEventListener('appinstalled', function() {
+      prompt.classList.remove('show');
+    });
   })();
   </script>
 </body>
