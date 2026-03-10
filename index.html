@@ -397,52 +397,6 @@
     .exp-card:nth-child(5) .exp-card-arrow{color:var(--sky);}
     .exp-card:hover .exp-card-arrow{opacity:1;transform:translateX(0);}
 
-    /* ── REVIEWS TEASER ── */
-    .reviews-teaser {
-      background: var(--cream);
-      padding: 80px 0 72px;
-    }
-    .reviews-teaser-inner {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: center;
-    }
-    .teaser-left .section-eyebrow { display: block; margin-bottom: 14px; }
-    .teaser-left .section-title { margin-bottom: 14px; }
-    .teaser-left p { color: #6b6080; font-size: 1rem; margin-bottom: 28px; max-width: 420px; }
-
-    .teaser-cards { display: flex; flex-direction: column; gap: 14px; }
-
-    .teaser-review {
-      background: white;
-      border-radius: 20px;
-      padding: 22px 24px;
-      box-shadow: var(--shadow-sm);
-      border: 1px solid rgba(199,125,255,.1);
-      position: relative; overflow: hidden;
-      animation: teaserFloat ease-in-out infinite alternate;
-    }
-    .teaser-review:nth-child(1){ animation-duration: 4s; }
-    .teaser-review:nth-child(2){ animation-duration: 5.2s; animation-delay: .8s; }
-    .teaser-review:nth-child(3){ animation-duration: 4.6s; animation-delay: .4s; }
-    @keyframes teaserFloat { from{transform:translateY(0);}to{transform:translateY(-6px);} }
-
-    .teaser-review::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
-    .teaser-review:nth-child(1)::before{background:linear-gradient(90deg,var(--coral),var(--sun));}
-    .teaser-review:nth-child(2)::before{background:linear-gradient(90deg,var(--lavender),var(--purple));}
-    .teaser-review:nth-child(3)::before{background:linear-gradient(90deg,var(--mint),var(--lavender));}
-
-    .teaser-stars { color: var(--sun); font-size: 1rem; letter-spacing: 2px; margin-bottom: 8px; }
-    .teaser-text { font-family: 'Fraunces', serif; font-style: italic; font-size: .97rem; color: #3d2f54; line-height: 1.6; margin-bottom: 12px; }
-    .teaser-author { font-size: .8rem; font-weight: 700; color: #9988b0; }
-    .teaser-empty { text-align: center; padding: 32px 20px; opacity: .6; font-size: .95rem; color: #9988b0; }
-    .teaser-empty a { color: var(--purple); font-weight: 700; }
-    .teaser-loading { display: flex; align-items: center; justify-content: center; min-height: 100px; background: white !important; }
-    .teaser-loading-inner { display: flex; align-items: center; gap: 10px; color: #9988b0; font-size: .88rem; font-weight: 600; }
-    .teaser-spinner { width: 18px; height: 18px; border: 2px solid rgba(123,47,247,.2); border-top-color: var(--purple); border-radius: 50%; animation: spin .7s linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-
     /* ── ABOUT ── */
     .about-section { background: var(--cream); padding: 90px 0; }
     .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
@@ -499,7 +453,7 @@
     /* ── RESPONSIVE ── */
     @media(max-width:1100px){ .cards-grid{grid-template-columns:repeat(3,1fr);} }
     @media(max-width:960px){
-      .hero-grid,.about-grid,.reviews-teaser-inner{grid-template-columns:1fr;gap:36px;}
+      .hero-grid,.about-grid{grid-template-columns:1fr;gap:36px;}
       .cards-grid{grid-template-columns:1fr 1fr;}
       .cta-inner{padding:50px 32px;}
     }
@@ -728,36 +682,6 @@
       <path fill="#fef9f0" d="M0,30 C360,0 1080,60 1440,30 L1440,60 L0,60 Z"/>
     </svg>
   </div>
-
-  <!-- REVIEWS TEASER -->
-  <section class="reviews-teaser">
-    <div class="wrap reviews-teaser-inner">
-      <div class="teaser-left reveal">
-        <span class="section-eyebrow">⭐ What Readers Say</span>
-        <h2 class="section-title">Readers love<br><em>Chloe's story</em></h2>
-        <p>Every review means the world to Jemima. Read what families and young readers think — then share your own thoughts.</p>
-        <a href="reviews.html" class="btn btn-primary">Leave a Review ✦</a>
-      </div>
-
-      <div class="teaser-cards reveal">
-        <div class="teaser-review">
-          <div class="teaser-stars">★★★★★</div>
-          <div class="teaser-text">"This story made me cry happy tears. My daughter read it three times in one afternoon!"</div>
-          <div class="teaser-author">— Sarah M., parent</div>
-        </div>
-        <div class="teaser-review">
-          <div class="teaser-stars">★★★★★</div>
-          <div class="teaser-text">"I loved Chloe and Sam so much. It felt like reading about my own best friend."</div>
-          <div class="teaser-author">— Amara, age 9</div>
-        </div>
-        <div class="teaser-review">
-          <div class="teaser-stars">★★★★★</div>
-          <div class="teaser-text">"Beautifully written for a 9-year-old. Jemima has a rare gift for storytelling."</div>
-          <div class="teaser-author">— Mrs. Erin Penner, teacher</div>
-        </div>
-      </div>
-    </div>
-  </section>
 
   <!-- ABOUT -->
   <section class="about-section">
