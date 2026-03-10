@@ -436,6 +436,12 @@
     .teaser-stars { color: var(--sun); font-size: 1rem; letter-spacing: 2px; margin-bottom: 8px; }
     .teaser-text { font-family: 'Fraunces', serif; font-style: italic; font-size: .97rem; color: #3d2f54; line-height: 1.6; margin-bottom: 12px; }
     .teaser-author { font-size: .8rem; font-weight: 700; color: #9988b0; }
+    .teaser-empty { text-align: center; padding: 32px 20px; opacity: .6; font-size: .95rem; color: #9988b0; }
+    .teaser-empty a { color: var(--purple); font-weight: 700; }
+    .teaser-loading { display: flex; align-items: center; justify-content: center; min-height: 100px; background: white !important; }
+    .teaser-loading-inner { display: flex; align-items: center; gap: 10px; color: #9988b0; font-size: .88rem; font-weight: 600; }
+    .teaser-spinner { width: 18px; height: 18px; border: 2px solid rgba(123,47,247,.2); border-top-color: var(--purple); border-radius: 50%; animation: spin .7s linear infinite; }
+    @keyframes spin { to { transform: rotate(360deg); } }
 
     /* ── ABOUT ── */
     .about-section { background: var(--cream); padding: 90px 0; }
@@ -595,7 +601,7 @@
   ══════════════════════════════════════════════ -->
   <section class="countdown-section">
     <div class="countdown-inner reveal">
-      <div class="countdown-eyebrow">🚀 Book Launch — March 14, 2026</div>
+      <div class="countdown-eyebrow">🚀 Book Launch — March 14, 2026 at 4 PM PST</div>
       <h2 class="countdown-title"><em>Chloe's Best Friend</em> arrives in</h2>
 
       <div class="countdown-launched" id="countdownLaunched">
@@ -708,6 +714,11 @@
           <div class="teaser-stars">★★★★★</div>
           <div class="teaser-text">"I loved Chloe and Sam so much. It felt like reading about my own best friend."</div>
           <div class="teaser-author">— Amara, age 9</div>
+        </div>
+        <div class="teaser-review">
+          <div class="teaser-stars">★★★★★</div>
+          <div class="teaser-text">"Beautifully written for a 9-year-old. Jemima has a rare gift for storytelling."</div>
+          <div class="teaser-author">— Mrs. Erin Penner, teacher</div>
         </div>
       </div>
     </div>
@@ -825,7 +836,7 @@
   ══════════════════════════════════════════════ -->
   <script>
   (function() {
-    const LAUNCH = new Date('2026-03-14T00:00:00').getTime();
+    const LAUNCH = new Date('2026-03-14T16:00:00-08:00').getTime();
     const els = {
       days:  document.getElementById('cd-days'),
       hours: document.getElementById('cd-hours'),
