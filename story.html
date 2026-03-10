@@ -3,6 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="manifest" href="/manifest.json">
+  <meta name="theme-color" content="#7b2ff7">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="Jemima's Corner">
   <title>Chloe's Best Friend · Jemima's Creative Corner</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -188,6 +194,16 @@
     .toc-list li a { font-size: .83rem; font-weight: 600; color: #7b6090; display: flex; align-items: center; gap: 6px; transition: color .2s; }
     .toc-list li a:hover { color: var(--purple); }
     .toc-list li a::before { content: "→"; font-size: .75rem; opacity: .5; }
+    .toc-list li { display: flex; align-items: center; gap: 4px; }
+    .toc-copy {
+      background: none; border: none; cursor: pointer; padding: 2px 4px;
+      color: rgba(123,47,247,.35); font-size: .78rem; line-height: 1;
+      border-radius: 4px; transition: color .2s, background .2s;
+      flex-shrink: 0; opacity: 0;
+    }
+    .toc-list li:hover .toc-copy { opacity: 1; }
+    .toc-copy:hover { color: var(--purple); background: rgba(123,47,247,.08); }
+    .toc-copy.copied { color: var(--mint) !important; opacity: 1 !important; }
 
     /* Scene strip */
     .scene-strip { display: flex; justify-content: center; align-items: flex-end; gap: 0; height: 100px; animation: slideDown .65s var(--ease-out) .36s both; position: relative; }
@@ -309,6 +325,61 @@
       .footer-inner { flex-direction: column; text-align: center; }
     }
 
+    /* ── PRINT BUTTON ──────────────────────────────────── */
+    .print-btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      background: white; border: 1.5px solid rgba(26,10,46,.12);
+      border-radius: 999px; padding: 7px 16px;
+      font-size: .83rem; font-weight: 600; color: #6b6080;
+      font-family: 'DM Sans', sans-serif; cursor: pointer;
+      box-shadow: var(--shadow-sm);
+      transition: transform .2s var(--ease-bounce), box-shadow .2s, border-color .2s;
+    }
+    .print-btn:hover { transform: scale(1.05); box-shadow: var(--shadow-md); border-color: rgba(123,47,247,.25); color: var(--purple); }
+
+    /* ── PRINT STYLES ──────────────────────────────────── */
+    @media print {
+      .site-header, .story-hero, .letter-strip, .toc-strip,
+      .scene-strip, .hills-top, .progress-bar, .music-btn,
+      .mobile-drawer, .share-strip, .post-story, .site-footer,
+      body::before { display: none !important; }
+      body { background: white !important; }
+      .story-body { background: white !important; }
+      .story-content { padding: 0 !important; max-width: 100% !important; }
+      .story-para, .story-dialogue, .pull-quote, .illus-wrap,
+      .scene-break, .moral-card, .ack-card, .chapter-opener,
+      .reveal { opacity: 1 !important; transform: none !important; }
+      .illus-img { max-width: 300px; box-shadow: none !important; }
+      .moral-card { box-shadow: none !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .chapter-opener { break-before: auto; }
+      .story-para { font-size: 11pt !important; line-height: 1.7 !important; color: #000 !important; }
+      @page { margin: 2cm; }
+    }
+    /* ── PWA INSTALL PROMPT ─────────────────────────────── */
+    .pwa-prompt {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 600;
+      background: white; border-top: 1px solid rgba(199,125,255,.2);
+      padding: 16px 20px; display: flex; align-items: center; gap: 14px;
+      box-shadow: 0 -8px 32px rgba(26,10,46,.12);
+      transform: translateY(100%); transition: transform .4s cubic-bezier(.22,1,.36,1);
+      font-family: 'DM Sans', sans-serif;
+    }
+    .pwa-prompt.show { transform: translateY(0); }
+    .pwa-prompt-icon { font-size: 2rem; flex-shrink: 0; }
+    .pwa-prompt-text { flex: 1; }
+    .pwa-prompt-text strong { display: block; font-size: .92rem; font-weight: 700; color: var(--ink, #1a0a2e); margin-bottom: 2px; }
+    .pwa-prompt-text span { font-size: .78rem; color: #9988b0; }
+    .pwa-prompt-install {
+      background: linear-gradient(135deg, #ff4d6d, #7b2ff7);
+      color: white; border: none; border-radius: 999px;
+      padding: 9px 18px; font-size: .82rem; font-weight: 700;
+      font-family: 'DM Sans', sans-serif; cursor: pointer; white-space: nowrap;
+      box-shadow: 0 6px 18px rgba(123,47,247,.3);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .pwa-prompt-install:hover { transform: scale(1.05); }
+    .pwa-prompt-dismiss { background: none; border: none; color: #9988b0; cursor: pointer; font-size: 1.1rem; padding: 4px; flex-shrink: 0; }
+    .pwa-prompt-dismiss:hover { color: var(--ink, #1a0a2e); }
   </style>
 </head>
 <body>
@@ -367,6 +438,8 @@
         <div class="meta-chip">💜 Family</div>
         <div class="meta-chip">✨ Hope</div>
         <div class="meta-chip">⏱ 10 chapters</div>
+        <div class="meta-chip">📖 ~30 min read</div>
+        <button class="print-btn" onclick="window.print()">🖨️ Print / Save PDF</button>
       </div>
 
       <div class="letter-strip">
@@ -381,18 +454,18 @@
       <div class="toc-strip">
         <h3>📚 Table of Contents</h3>
         <ul class="toc-list">
-          <li><a href="#ch1">Chapter 1: New York</a></li>
-          <li><a href="#ch2">Chapter 2: The Secret Getaway</a></li>
-          <li><a href="#ch3">Chapter 3: Goodbye Mom</a></li>
-          <li><a href="#ch4">Chapter 4: The Picture Frame</a></li>
-          <li><a href="#ch5">Chapter 5: Home Alone</a></li>
-          <li><a href="#ch6">Chapter 6: Reunited</a></li>
-          <li><a href="#ch7">Chapter 7: A New Beginning</a></li>
-          <li><a href="#ch8">Chapter 8: The Long Week</a></li>
-          <li><a href="#ch9">Chapter 9: Home Again</a></li>
-          <li><a href="#ch10">Chapter 10: Birthday Wishes</a></li>
-          <li><a href="#epilogue">Epilogue: Forever Friends</a></li>
-          <li><a href="#moral">Moral of the Story</a></li>
+          <li><a href="#ch1">Chapter 1: New York</a><button class="toc-copy" data-anchor="ch1" title="Copy link to Chapter 1: New York">🔗</button></li>
+          <li><a href="#ch2">Chapter 2: The Secret Getaway</a><button class="toc-copy" data-anchor="ch2" title="Copy link to Chapter 2: The Secret Getaway">🔗</button></li>
+          <li><a href="#ch3">Chapter 3: Goodbye Mom</a><button class="toc-copy" data-anchor="ch3" title="Copy link to Chapter 3: Goodbye Mom">🔗</button></li>
+          <li><a href="#ch4">Chapter 4: The Picture Frame</a><button class="toc-copy" data-anchor="ch4" title="Copy link to Chapter 4: The Picture Frame">🔗</button></li>
+          <li><a href="#ch5">Chapter 5: Home Alone</a><button class="toc-copy" data-anchor="ch5" title="Copy link to Chapter 5: Home Alone">🔗</button></li>
+          <li><a href="#ch6">Chapter 6: Reunited</a><button class="toc-copy" data-anchor="ch6" title="Copy link to Chapter 6: Reunited">🔗</button></li>
+          <li><a href="#ch7">Chapter 7: A New Beginning</a><button class="toc-copy" data-anchor="ch7" title="Copy link to Chapter 7: A New Beginning">🔗</button></li>
+          <li><a href="#ch8">Chapter 8: The Long Week</a><button class="toc-copy" data-anchor="ch8" title="Copy link to Chapter 8: The Long Week">🔗</button></li>
+          <li><a href="#ch9">Chapter 9: Home Again</a><button class="toc-copy" data-anchor="ch9" title="Copy link to Chapter 9: Home Again">🔗</button></li>
+          <li><a href="#ch10">Chapter 10: Birthday Wishes</a><button class="toc-copy" data-anchor="ch10" title="Copy link to Chapter 10: Birthday Wishes">🔗</button></li>
+          <li><a href="#epilogue">Epilogue: Forever Friends</a><button class="toc-copy" data-anchor="epilogue" title="Copy link to Epilogue: Forever Friends">🔗</button></li>
+          <li><a href="#moral">Moral of the Story</a><button class="toc-copy" data-anchor="moral" title="Copy link to Moral of the Story">🔗</button></li>
         </ul>
       </div>
 
@@ -1045,6 +1118,84 @@
         t.style.transform = 'translateX(-50%) translateY(20px)';
       }, 3200);
     }
+
+    // ── TOC CHAPTER DEEP-LINKS ─────────────────────────────────
+    document.querySelectorAll('.toc-copy').forEach(btn => {
+      btn.addEventListener('click', e => {
+        e.preventDefault();
+        const anchor = btn.dataset.anchor;
+        const url = window.location.origin + window.location.pathname + '#' + anchor;
+        navigator.clipboard.writeText(url).then(() => {
+          btn.textContent = '✅';
+          btn.classList.add('copied');
+          setTimeout(() => { btn.textContent = '🔗'; btn.classList.remove('copied'); }, 2000);
+        }).catch(() => {
+          // fallback: select a temp input
+          const inp = document.createElement('input');
+          inp.value = url; document.body.appendChild(inp);
+          inp.select(); document.execCommand('copy'); document.body.removeChild(inp);
+          btn.textContent = '✅'; btn.classList.add('copied');
+          setTimeout(() => { btn.textContent = '🔗'; btn.classList.remove('copied'); }, 2000);
+        });
+      });
+    });
+  </script>
+
+  <!-- PWA Install Prompt -->
+  <div class="pwa-prompt" id="pwaPrompt">
+    <div class="pwa-prompt-icon">📚</div>
+    <div class="pwa-prompt-text">
+      <strong>Add to Home Screen</strong>
+      <span>Read Chloe's story anytime, even offline!</span>
+    </div>
+    <button class="pwa-prompt-install" id="pwaInstall">Install</button>
+    <button class="pwa-prompt-dismiss" id="pwaDismiss">✕</button>
+  </div>
+
+  <script>
+  // ── SERVICE WORKER ─────────────────────────────────────────
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {});
+    });
+  }
+  // ── PWA INSTALL PROMPT ─────────────────────────────────────
+  (function(){
+    var deferredPrompt = null;
+    var prompt  = document.getElementById('pwaPrompt');
+    var install = document.getElementById('pwaInstall');
+    var dismiss = document.getElementById('pwaDismiss');
+    if (!prompt) return;
+
+    // Don't show if already installed or dismissed recently
+    try {
+      if (localStorage.getItem('pwa-dismissed')) return;
+    } catch(e) {}
+
+    window.addEventListener('beforeinstallprompt', function(e) {
+      e.preventDefault();
+      deferredPrompt = e;
+      setTimeout(function(){ prompt.classList.add('show'); }, 3000);
+    });
+
+    install && install.addEventListener('click', function() {
+      if (!deferredPrompt) return;
+      deferredPrompt.prompt();
+      deferredPrompt.userChoice.then(function(r){
+        deferredPrompt = null;
+        prompt.classList.remove('show');
+      });
+    });
+
+    dismiss && dismiss.addEventListener('click', function() {
+      prompt.classList.remove('show');
+      try { localStorage.setItem('pwa-dismissed', '1'); } catch(e) {}
+    });
+
+    window.addEventListener('appinstalled', function() {
+      prompt.classList.remove('show');
+    });
+  })();
   </script>
 </body>
 </html>
