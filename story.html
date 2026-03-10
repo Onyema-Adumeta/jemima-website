@@ -309,156 +309,12 @@
       .footer-inner { flex-direction: column; text-align: center; }
     }
 
-    /* ── DARK MODE ─────────────────────────────────────── */
-    body.dark {
-      --ink:      #f0e6ff;
-      --cream:    #130a24;
-      --purple:   #c77dff;
-      --purple-deep: #d4a8ff;
-      --lavender: #e0b8ff;
-    }
-    body.dark { background: #130a24; color: #f0e6ff; }
-    body.dark .story-body { background: #1a0f30; }
-    body.dark .hills-top { background: linear-gradient(180deg, #130a24 50%, #1a0f30 50%); }
-    body.dark .hills-top::after { background: #130a24; }
-    body.dark .story-para { color: #d8c8f0; }
-    body.dark .story-dialogue::before { background: linear-gradient(135deg, #2a1545, #1f1040); }
-    body.dark .chapter-opener { border-top-color: rgba(199,125,255,.15); }
-    body.dark .toc-strip { background: #1f1040; }
-    body.dark .toc-list li a { color: #b09ac8; }
-    body.dark .letter-strip { background: linear-gradient(135deg, #1e0f30, #17082e); border-color: rgba(199,125,255,.15); }
-    body.dark .letter-strip p { color: #c8b0e0; }
-    body.dark .share-strip { background: linear-gradient(135deg, #1e0f30, #17082e); border-color: rgba(199,125,255,.15); }
-    body.dark .ack-card { background: linear-gradient(135deg, #1e1030, #17082e); border-color: rgba(199,125,255,.15); }
-    body.dark .ack-card p { color: #b8a0d0; }
-    body.dark .post-story { background: #130a24; }
-    body.dark .post-card { background: #1a0f30; }
-    body.dark .post-card p { color: #9980b8; }
-    body.dark .header-inner { background: rgba(19,10,36,.82); border-color: rgba(199,125,255,.15); }
-    body.dark nav a { color: #d4c0e8; }
-    body.dark nav a:hover { background: rgba(199,125,255,.12); }
-    body.dark .drawer-panel { background: #1a0f30; }
-    body.dark .drawer-panel a { color: #d4c0e8; }
-    body.dark .hamburger span { background: #d4c0e8; }
-    body.dark .music-btn { background: rgba(26,15,48,.9); color: #d4a8ff; border-color: rgba(199,125,255,.2); }
-    body.dark .illus-caption { color: #8870a8; }
-    body.dark .pull-quote p { color: #f0e6ff; }
-    body.dark .meta-chip { background: #1f1040; color: #9980b8; border-color: rgba(199,125,255,.15); }
-    body.dark .btn-ghost { background: #1a0f30; color: #d4c0e8; border-color: rgba(199,125,255,.2); }
-    body.dark .story-illustrator { color: #8870a8; }
-    body.dark .story-author { color: #9980b8; }
-    /* transition for smooth dark mode switch */
-    body, body.dark, .story-body, .header-inner, .story-para,
-    .toc-strip, .letter-strip, .share-strip, .post-card, .post-story,
-    .ack-card, .drawer-panel, .meta-chip, .music-btn {
-      transition: background-color .35s ease, color .35s ease, border-color .35s ease;
-    }
-
-    /* ── DARK MODE TOGGLE BUTTON ───────────────────────── */
-    .dark-toggle {
-      position: fixed; bottom: 28px; right: 28px; z-index: 400;
-      width: 46px; height: 46px;
-      background: rgba(255,255,255,.9);
-      backdrop-filter: blur(16px);
-      border: 1.5px solid rgba(199,125,255,.3);
-      border-radius: 50%;
-      cursor: pointer;
-      box-shadow: 0 8px 28px rgba(26,10,46,.12);
-      font-size: 1.2rem;
-      display: flex; align-items: center; justify-content: center;
-      transition: transform .2s var(--ease-bounce), box-shadow .2s, background .35s, border-color .35s;
-    }
-    .dark-toggle:hover { transform: scale(1.12); box-shadow: 0 12px 36px rgba(26,10,46,.2); }
-    body.dark .dark-toggle { background: rgba(26,15,48,.9); border-color: rgba(199,125,255,.25); }
-    @media (max-width: 700px) { .dark-toggle { bottom: 16px; right: 16px; width: 40px; height: 40px; font-size: 1rem; } }
-
-    /* ── BOOKMARK TOAST ────────────────────────────────── */
-    .bm-toast {
-      position: fixed; top: 80px; left: 50%; transform: translateX(-50%) translateY(-12px);
-      background: linear-gradient(135deg, var(--purple-deep), var(--purple));
-      color: white; padding: 12px 22px; border-radius: 999px;
-      font-family: 'DM Sans', sans-serif; font-size: .88rem; font-weight: 700;
-      box-shadow: 0 10px 30px rgba(74,14,143,.35); z-index: 9999;
-      opacity: 0; transition: opacity .3s, transform .3s; pointer-events: none;
-      white-space: nowrap; max-width: 90vw; text-align: center;
-    }
-    .bm-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-
-    /* ── RESUME BANNER ─────────────────────────────────── */
-    .resume-banner {
-      position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(80px);
-      background: linear-gradient(135deg, var(--purple-deep), var(--purple));
-      color: white; padding: 14px 22px 14px 18px;
-      border-radius: 999px; z-index: 500;
-      font-family: 'DM Sans', sans-serif; font-size: .88rem; font-weight: 700;
-      box-shadow: 0 12px 40px rgba(74,14,143,.4);
-      display: flex; align-items: center; gap: 14px;
-      opacity: 0; transition: opacity .4s, transform .5s var(--ease-bounce);
-      pointer-events: none;
-    }
-    .resume-banner.show { opacity: 1; transform: translateX(-50%) translateY(0); pointer-events: auto; }
-    .resume-banner-text span { display: block; font-size: .72rem; opacity: .7; font-weight: 500; margin-top: 1px; }
-    .resume-btn {
-      background: rgba(255,255,255,.2); border: 1.5px solid rgba(255,255,255,.35);
-      color: white; padding: 7px 16px; border-radius: 999px;
-      font-size: .82rem; font-weight: 700; font-family: 'DM Sans', sans-serif;
-      cursor: pointer; transition: background .2s; white-space: nowrap;
-    }
-    .resume-btn:hover { background: rgba(255,255,255,.32); }
-    .resume-dismiss { background: none; border: none; color: rgba(255,255,255,.6); cursor: pointer; font-size: 1rem; padding: 0 2px; line-height: 1; }
-    .resume-dismiss:hover { color: white; }
-
-    /* ── PROGRESS BADGE ────────────────────────────────── */
-    .progress-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: white; border: 1px solid rgba(26,10,46,.08);
-      border-radius: 999px; padding: 7px 16px;
-      font-size: .83rem; font-weight: 600; color: #6b6080;
-      box-shadow: var(--shadow-sm);
-      transition: background .35s, border-color .35s, color .35s;
-    }
-    body.dark .progress-badge { background: #1f1040; color: #9980b8; border-color: rgba(199,125,255,.15); }
-    .progress-badge-bar {
-      width: 60px; height: 5px; background: rgba(123,47,247,.15);
-      border-radius: 999px; overflow: hidden;
-    }
-    .progress-badge-fill {
-      height: 100%; background: linear-gradient(90deg, var(--coral), var(--purple));
-      border-radius: 999px; width: 0%; transition: width .4s ease;
-    }
-
-    /* ── BOOKMARK ICON in header meta ──────────────────── */
-    .bm-btn {
-      display: inline-flex; align-items: center; gap: 6px;
-      background: none; border: 1.5px solid rgba(199,125,255,.3);
-      border-radius: 999px; padding: 7px 16px;
-      font-size: .83rem; font-weight: 600; color: var(--purple);
-      font-family: 'DM Sans', sans-serif; cursor: pointer;
-      transition: background .2s, transform .2s var(--ease-bounce), border-color .35s;
-      box-shadow: var(--shadow-sm);
-    }
-    .bm-btn:hover { background: rgba(123,47,247,.07); transform: scale(1.05); }
-    .bm-btn.saved { background: linear-gradient(135deg, var(--coral), var(--purple)); color: white; border-color: transparent; box-shadow: 0 6px 20px rgba(255,77,109,.28); }
-    body.dark .bm-btn { border-color: rgba(199,125,255,.25); }
-
   </style>
 </head>
 <body>
 
   <div class="progress-bar" id="progressBar"></div>
 
-  <!-- Dark mode toggle -->
-  <button class="dark-toggle" id="darkToggle" aria-label="Toggle dark mode" title="Toggle dark mode">🌙</button>
-
-  <!-- Bookmark toast notification -->
-  <div class="bm-toast" id="bmToast"></div>
-
-  <!-- Resume banner (shown when returning reader has a saved spot) -->
-  <div class="resume-banner" id="resumeBanner">
-    <div class="resume-banner-text">
-      🔖 Welcome back!
-      <span id="resumeChapterLabel">Continue where you left off</span>
-    </div>
     <button class="resume-btn" id="resumeBtn">Jump there</button>
     <button class="resume-dismiss" id="resumeDismiss">✕</button>
   </div>
@@ -511,11 +367,6 @@
         <div class="meta-chip">💜 Family</div>
         <div class="meta-chip">✨ Hope</div>
         <div class="meta-chip">⏱ 10 chapters</div>
-        <div class="meta-chip progress-badge" id="progressBadge">
-          <span id="progressPct">0%</span> read
-          <div class="progress-badge-bar"><div class="progress-badge-fill" id="progressFill"></div></div>
-        </div>
-        <button class="bm-btn" id="bmBtn">🔖 Bookmark</button>
       </div>
 
       <div class="letter-strip">
@@ -1081,58 +932,25 @@
   </footer>
 
   <script>
-    // ══════════════════════════════════════════════════════
-    // PROGRESS BAR + READING PROGRESS BADGE
-    // ══════════════════════════════════════════════════════
-    const bar         = document.getElementById('progressBar');
-    const progressPct = document.getElementById('progressPct');
-    const progressFill= document.getElementById('progressFill');
-
-    // Chapters for bookmark detection (in DOM order)
-    const CHAPTERS = [
-      { id: 'ch1',      label: 'Chapter 1 · New York' },
-      { id: 'ch2',      label: 'Chapter 2 · The Secret Getaway' },
-      { id: 'ch3',      label: 'Chapter 3 · Goodbye Mom' },
-      { id: 'ch4',      label: 'Chapter 4 · The Picture Frame' },
-      { id: 'ch5',      label: 'Chapter 5 · Home Alone' },
-      { id: 'ch6',      label: 'Chapter 6 · Reunited' },
-      { id: 'ch7',      label: 'Chapter 7 · A New Beginning' },
-      { id: 'ch8',      label: 'Chapter 8 · The Long Week' },
-      { id: 'ch9',      label: 'Chapter 9 · The New Baby' },
-      { id: 'ch10',     label: 'Chapter 10 · The Birthday' },
-      { id: 'epilogue', label: 'Epilogue' },
-      { id: 'moral',    label: 'The Moral' },
-    ];
-
-    function getScrollPct() {
-      const total = document.documentElement.scrollHeight - window.innerHeight;
-      return total > 0 ? Math.min(100, Math.round(window.scrollY / total * 100)) : 0;
-    }
-
+    // ── PROGRESS BAR ──────────────────────────────────────────
+    const bar = document.getElementById('progressBar');
     window.addEventListener('scroll', () => {
-      const pct = getScrollPct();
-      bar.style.width = pct + '%';
-      // Update badge
-      progressPct.textContent  = pct + '%';
-      progressFill.style.width = pct + '%';
-      // Auto-save scroll position every 2s debounce
-      clearTimeout(window._saveTimer);
-      window._saveTimer = setTimeout(() => saveScrollPos(pct), 800);
-    }, { passive: true });
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      bar.style.width = (window.scrollY / total * 100) + '%';
+    });
 
-    // ══════════════════════════════════════════════════════
-    // SCROLL REVEAL
-    // ══════════════════════════════════════════════════════
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-    }, { threshold: 0.1 });
-    document.querySelectorAll(
+    // ── SCROLL REVEAL ──────────────────────────────────────────
+    const revealEls = document.querySelectorAll(
       '.story-para, .story-dialogue, .scene-break, .pull-quote, .moral-card, .reveal, .illus-wrap, .ack-card'
-    ).forEach(el => io.observe(el));
+    );
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+    }, { threshold: 0.05, rootMargin: '0px 0px -20px 0px' });
+    revealEls.forEach(el => io.observe(el));
+    // Fallback: anything still invisible after 800ms gets shown (handles anchor-jump cases)
+    setTimeout(() => { revealEls.forEach(el => el.classList.add('visible')); }, 800);
 
-    // ══════════════════════════════════════════════════════
-    // HAMBURGER MENU
-    // ══════════════════════════════════════════════════════
+    // ── HAMBURGER MENU ─────────────────────────────────────────
     const hamburger = document.getElementById('hamburger');
     const drawer    = document.getElementById('mobileDrawer');
     const backdrop  = document.getElementById('drawerBackdrop');
@@ -1153,144 +971,6 @@
     backdrop.addEventListener('click', closeDrawer);
     closeBtn.addEventListener('click', closeDrawer);
     document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
-
-    // ══════════════════════════════════════════════════════
-    // DARK MODE TOGGLE
-    // ══════════════════════════════════════════════════════
-    const darkToggle = document.getElementById('darkToggle');
-    const DARK_KEY   = 'chloe-dark-mode';
-
-    function applyDark(on) {
-      document.body.classList.toggle('dark', on);
-      darkToggle.textContent = on ? '☀️' : '🌙';
-      darkToggle.title = on ? 'Switch to light mode' : 'Switch to dark mode';
-      try { localStorage.setItem(DARK_KEY, on ? '1' : '0'); } catch(e) {}
-    }
-
-    // Restore preference on load
-    (function() {
-      try {
-        const saved = localStorage.getItem(DARK_KEY);
-        if (saved === '1') applyDark(true);
-      } catch(e) {}
-    })();
-
-    darkToggle.addEventListener('click', () => {
-      applyDark(!document.body.classList.contains('dark'));
-    });
-
-    // ══════════════════════════════════════════════════════
-    // BOOKMARK — save & restore reading position
-    // ══════════════════════════════════════════════════════
-    const BM_KEY     = 'chloe-bookmark-v1';
-    const bmBtn      = document.getElementById('bmBtn');
-    const bmToast    = document.getElementById('bmToast');
-
-    function getCurrentChapter() {
-      // Walk chapters in reverse; return first one above viewport midpoint
-      const mid = window.scrollY + window.innerHeight * 0.4;
-      let current = CHAPTERS[0];
-      for (const ch of CHAPTERS) {
-        const el = document.getElementById(ch.id);
-        if (el && el.getBoundingClientRect().top + window.scrollY <= mid) {
-          current = ch;
-        }
-      }
-      return current;
-    }
-
-    function showBmToast(msg) {
-      bmToast.textContent = msg;
-      bmToast.classList.add('show');
-      clearTimeout(bmToast._t);
-      bmToast._t = setTimeout(() => bmToast.classList.remove('show'), 2800);
-    }
-
-    function saveScrollPos(pct) {
-      // silent autosave — just updates scroll %, doesn't toast
-      try {
-        const existing = JSON.parse(localStorage.getItem(BM_KEY) || 'null');
-        if (existing) {
-          existing.scrollPct = pct;
-          existing.scrollY   = window.scrollY;
-          localStorage.setItem(BM_KEY, JSON.stringify(existing));
-        }
-      } catch(e) {}
-    }
-
-    bmBtn.addEventListener('click', () => {
-      const ch  = getCurrentChapter();
-      const pct = getScrollPct();
-      const data = { chapterId: ch.id, chapterLabel: ch.label, scrollY: window.scrollY, scrollPct: pct, ts: Date.now() };
-      try { localStorage.setItem(BM_KEY, JSON.stringify(data)); } catch(e) {}
-      bmBtn.classList.add('saved');
-      bmBtn.textContent = '🔖 Saved!';
-      showBmToast('📌 Bookmarked at ' + ch.label + ' (' + pct + '% through)');
-      setTimeout(() => {
-        bmBtn.textContent = '🔖 Bookmark';
-      }, 2500);
-    });
-
-    // ══════════════════════════════════════════════════════
-    // RESUME BANNER — shown on return visits
-    // ══════════════════════════════════════════════════════
-    const resumeBanner = document.getElementById('resumeBanner');
-    const resumeBtn    = document.getElementById('resumeBtn');
-    const resumeDismiss= document.getElementById('resumeDismiss');
-    const resumeLabel  = document.getElementById('resumeChapterLabel');
-
-    (function checkResume() {
-      try {
-        const bm = JSON.parse(localStorage.getItem(BM_KEY) || 'null');
-        if (!bm || !bm.chapterId || bm.scrollPct < 2) return;
-        // Only show if they've read at least 2% and page just loaded near top
-        if (window.scrollY > 400) return;
-        resumeLabel.textContent = bm.chapterLabel + ' · ' + bm.scrollPct + '% read';
-        // Show after short delay
-        setTimeout(() => resumeBanner.classList.add('show'), 1200);
-      } catch(e) {}
-    })();
-
-    resumeBtn.addEventListener('click', () => {
-      try {
-        const bm = JSON.parse(localStorage.getItem(BM_KEY) || 'null');
-        if (bm && bm.chapterId) {
-          const el = document.getElementById(bm.chapterId);
-          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      } catch(e) {}
-      resumeBanner.classList.remove('show');
-    });
-
-    resumeDismiss.addEventListener('click', () => resumeBanner.classList.remove('show'));
-
-    // ══════════════════════════════════════════════════════
-    // ESTIMATED PROGRESS BADGE — fun "X% of readers" note
-    // Simulated distribution: most readers cluster around 60-80%
-    // ══════════════════════════════════════════════════════
-    // We show the badge as personal progress (actual %) — and add a
-    // fun milestone tooltip when they pass key thresholds
-    const MILESTONES = [
-      { pct: 10,  msg: '🌟 You've started — Chloe is waiting!' },
-      { pct: 25,  msg: '📖 25% in — the adventure begins!' },
-      { pct: 50,  msg: '💜 Halfway through — hang in there, Chloe!' },
-      { pct: 75,  msg: '🏃 75% — nearly there, the best is coming!' },
-      { pct: 90,  msg: '✨ Almost done — the ending will stay with you.' },
-      { pct: 100, msg: '🎉 You finished! Thank you for reading Chloe's story.' },
-    ];
-    let lastMilestone = -1;
-
-    window.addEventListener('scroll', () => {
-      const pct = getScrollPct();
-      for (const m of MILESTONES) {
-        if (pct >= m.pct && lastMilestone < m.pct) {
-          lastMilestone = m.pct;
-          showBmToast(m.msg);
-        }
-      }
-    }, { passive: true });
-
-
 
     // ── BACKGROUND MUSIC ───────────────────────────────────────
     const musicBtn  = document.getElementById('musicBtn');
@@ -1317,7 +997,7 @@
 
     // ── SHARE BUTTONS ──────────────────────────────────────────
     const shareUrl  = encodeURIComponent(window.location.href);
-    const shareText = encodeURIComponent("I just read 'Chloe's Best Friend' — a beautiful story written by 9-year-old Jemima Adumeta! 💜📖");
+    const shareText = encodeURIComponent("I just read 'Chloe\'s Best Friend' — a beautiful story written by 9-year-old Jemima Adumeta! 💜📖");
 
     document.getElementById('shareWa').href =
       `https://api.whatsapp.com/send?text=${shareText}%20${shareUrl}`;
@@ -1325,7 +1005,6 @@
     document.getElementById('shareFb').href =
       `https://www.facebook.com/sharer/sharer.php?u=${shareUrl}&quote=${shareText}`;
 
-    // Instagram: no direct share URL API — open Instagram and show toast
     document.getElementById('shareIg').addEventListener('click', (e) => {
       e.preventDefault();
       navigator.clipboard.writeText(window.location.href).catch(()=>{});
