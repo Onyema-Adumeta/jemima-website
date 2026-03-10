@@ -676,27 +676,14 @@
   </footer>
 
   <script>
-    // ── Storage key ──────────────────────────────────
-    const STORAGE_KEY = 'chloe-reviews-v1';
-
-    // ── Star label text ──────────────────────────────
     const starLabels = { 1:'😔 Not for me', 2:'😐 It was okay', 3:'🙂 Pretty good!', 4:'😊 Really loved it!', 5:'🤩 Absolutely amazing!' };
 
-    // ── Scroll reveal ────────────────────────────────
     const io = new IntersectionObserver(entries => {
       entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
     }, { threshold: 0.12 });
     document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
-    // ── Star rating interaction ──────────────────────
     const starText = document.getElementById('starText');
-    document.querySelectorAll('.star-rating label').forEach(lbl => {
-      lbl.addEventListener('mouseenter', () => {
-        const val = lbl.previousElementSibling?.value || lbl.htmlFor?.replace('s','');
-        const v = document.getElementById('s' + (lbl.getAttribute('for').replace('s','')))?.value;
-        starText.textContent = starLabels[v] || 'Tap a star to rate';
-      });
-    });
     document.querySelectorAll('.star-rating input').forEach(inp => {
       inp.addEventListener('change', () => {
         starText.textContent = starLabels[inp.value];
@@ -704,152 +691,106 @@
       });
     });
 
-    // ── Anonymous toggle ────────────────────────────
-    const anonToggle = document.getElementById('anonToggle');
+    const anonToggle     = document.getElementById('anonToggle');
     const identityFields = document.getElementById('identityFields');
     anonToggle.addEventListener('change', () => {
       identityFields.classList.toggle('hidden', anonToggle.checked);
     });
 
-    // ── Char counter ─────────────────────────────────
     const reviewText = document.getElementById('reviewText');
-    const charCount = document.getElementById('charCount');
-    reviewText.addEventListener('input', () => {
-      charCount.textContent = reviewText.value.length;
-    });
+    const charCount  = document.getElementById('charCount');
+    reviewText.addEventListener('input', () => { charCount.textContent = reviewText.value.length; });
 
-    // ── Load & display reviews ───────────────────────
+    const STORAGE_KEY = 'chloe-reviews-v1';
     function loadReviews() {
-      try {
-        const raw = localStorage.getItem(STORAGE_KEY);
-        return raw ? JSON.parse(raw) : [];
-      } catch { return []; }
+      try { const raw = localStorage.getItem(STORAGE_KEY); return raw ? JSON.parse(raw) : []; }
+      catch { return []; }
+    }
+    function saveReviews(r) {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(r)); } catch(e) {}
     }
 
-    function saveReviews(reviews) {
-      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(reviews)); } catch(e) {}
+    function starsHtml(n) { return '★'.repeat(n) + '☆'.repeat(5 - n); }
+    function escapeHtml(s) {
+      return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
     }
-
-    function starsHtml(n) {
-      return '★'.repeat(n) + '☆'.repeat(5 - n);
-    }
-
     function timeAgo(ts) {
       const diff = Date.now() - ts;
-      const mins = Math.floor(diff / 60000);
-      const hrs = Math.floor(diff / 3600000);
-      const days = Math.floor(diff / 86400000);
-      if (mins < 2) return 'Just now';
-      if (mins < 60) return `${mins}m ago`;
-      if (hrs < 24) return `${hrs}h ago`;
-      if (days < 7) return `${days}d ago`;
-      return new Date(ts).toLocaleDateString('en-US', { month:'short', day:'numeric', year:'numeric' });
+      const mins = Math.floor(diff/60000), hrs = Math.floor(diff/3600000), days = Math.floor(diff/86400000);
+      if (mins < 2)  return 'Just now';
+      if (mins < 60) return mins + 'm ago';
+      if (hrs  < 24) return hrs  + 'h ago';
+      if (days < 7)  return days + 'd ago';
+      return new Date(ts).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
     }
 
     function renderReviews() {
       let reviews = loadReviews();
-      const grid = document.getElementById('reviewsGrid');
-      const empty = document.getElementById('emptyState');
-      const statsBar = document.getElementById('statsBar');
-      const toolbar = document.getElementById('reviewsToolbar');
-      const sort = document.getElementById('sortSelect').value;
-
-      // Sort
-      if (sort === 'newest') reviews.sort((a,b) => b.ts - a.ts);
-      else if (sort === 'oldest') reviews.sort((a,b) => a.ts - b.ts);
-      else if (sort === 'highest') reviews.sort((a,b) => b.rating - a.rating);
-      else if (sort === 'lowest') reviews.sort((a,b) => a.rating - b.rating);
-
-      grid.innerHTML = '';
-
-      if (reviews.length === 0) {
-        empty.classList.add('show');
-        statsBar.style.display = 'none';
-        toolbar.style.display = 'none';
-        return;
+      const grid=document.getElementById('reviewsGrid'), empty=document.getElementById('emptyState'),
+            statsBar=document.getElementById('statsBar'), toolbar=document.getElementById('reviewsToolbar'),
+            sort=document.getElementById('sortSelect').value;
+      if (sort==='newest')  reviews.sort((a,b)=>b.ts-a.ts);
+      if (sort==='oldest')  reviews.sort((a,b)=>a.ts-b.ts);
+      if (sort==='highest') reviews.sort((a,b)=>b.rating-a.rating);
+      if (sort==='lowest')  reviews.sort((a,b)=>a.rating-b.rating);
+      grid.innerHTML='';
+      if (reviews.length===0) {
+        empty.classList.add('show'); statsBar.style.display='none'; toolbar.style.display='none'; return;
       }
-
-      empty.classList.remove('show');
-      statsBar.style.display = 'flex';
-      toolbar.style.display = 'flex';
-
-      // Stats
-      const avg = (reviews.reduce((s,r) => s + r.rating, 0) / reviews.length).toFixed(1);
-      document.getElementById('statCount').textContent = reviews.length;
-      document.getElementById('statAvg').textContent = avg;
-      document.getElementById('statStars').textContent = starsHtml(Math.round(avg));
-      document.getElementById('reviewsCount').textContent = `${reviews.length} review${reviews.length !== 1 ? 's' : ''}`;
-
-      // Cards
-      reviews.forEach((r, i) => {
-        const card = document.createElement('div');
-        card.className = 'review-card';
-        card.style.animationDelay = `${i * 0.06}s`;
-        card.innerHTML = `
-          <div class="review-card-stars" style="color:var(--sun)">${starsHtml(r.rating)}</div>
-          <div class="review-card-text">${escapeHtml(r.text)}</div>
-          <div class="review-card-footer">
-            <div class="reviewer-info">
-              <div class="reviewer-name">${r.anon ? '✨ Anonymous Reader' : escapeHtml(r.name || 'A Reader')}</div>
-              ${!r.anon && r.age ? `<div class="reviewer-age">Age ${escapeHtml(r.age)}</div>` : ''}
-            </div>
-            <div class="review-date">${timeAgo(r.ts)}</div>
-          </div>`;
+      empty.classList.remove('show'); statsBar.style.display='flex'; toolbar.style.display='flex';
+      const avg=(reviews.reduce((s,r)=>s+r.rating,0)/reviews.length).toFixed(1);
+      document.getElementById('statCount').textContent=reviews.length;
+      document.getElementById('statAvg').textContent=avg;
+      document.getElementById('statStars').textContent=starsHtml(Math.round(avg));
+      document.getElementById('reviewsCount').textContent=reviews.length+' review'+(reviews.length!==1?'s':'');
+      reviews.forEach((r,i)=>{
+        const card=document.createElement('div');
+        card.className='review-card'; card.style.animationDelay=(i*0.06)+'s';
+        card.innerHTML=
+          '<div class="review-card-stars" style="color:var(--sun)">'+starsHtml(r.rating)+'</div>'+
+          '<div class="review-card-text">'+escapeHtml(r.text)+'</div>'+
+          '<div class="review-card-footer">'+
+            '<div class="reviewer-info">'+
+              '<div class="reviewer-name">'+(r.anon?'✨ Anonymous Reader':escapeHtml(r.name||'A Reader'))+'</div>'+
+              (!r.anon&&r.age?'<div class="reviewer-age">Age '+escapeHtml(r.age)+'</div>':'')+
+            '</div>'+
+            '<div class="review-date">'+timeAgo(r.ts)+'</div>'+
+          '</div>';
         grid.appendChild(card);
       });
     }
 
-    function escapeHtml(str) {
-      return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-    }
-
-    // ── Submit ───────────────────────────────────────
-    document.getElementById('submitBtn').addEventListener('click', () => {
-      const rating = document.querySelector('.star-rating input:checked')?.value;
-      const anon = anonToggle.checked;
-      const name = document.getElementById('nameInput').value.trim();
-      const age = document.getElementById('ageInput').value.trim();
-      const text = reviewText.value.trim();
-      const errEl = document.getElementById('errorMsg');
-
-      errEl.style.display = 'none';
-
-      if (!rating) { errEl.textContent = 'Please select a star rating before submitting.'; errEl.style.display = 'block'; return; }
-      if (!text) { errEl.textContent = 'Please write a short review — even a sentence means a lot!'; errEl.style.display = 'block'; return; }
-      if (!anon && !name) { errEl.textContent = 'Please enter your name, or switch on anonymous mode.'; errEl.style.display = 'block'; return; }
-
-      const review = { rating: parseInt(rating), text, anon, name: anon ? '' : name, age: anon ? '' : age, ts: Date.now() };
-      const reviews = loadReviews();
-      reviews.unshift(review);
+    document.getElementById('submitBtn').addEventListener('click', ()=>{
+      const rating=document.querySelector('.star-rating input:checked')?.value;
+      const anon=anonToggle.checked, name=document.getElementById('nameInput').value.trim(),
+            age=document.getElementById('ageInput').value.trim(), text=reviewText.value.trim(),
+            errEl=document.getElementById('errorMsg');
+      errEl.style.display='none';
+      if (!rating){errEl.textContent='Please select a star rating before submitting.';errEl.style.display='block';return;}
+      if (!text)  {errEl.textContent='Please write a short review — even a sentence means a lot!';errEl.style.display='block';return;}
+      if (!anon&&!name){errEl.textContent='Please enter your name, or switch on anonymous mode.';errEl.style.display='block';return;}
+      const reviews=loadReviews();
+      reviews.unshift({rating:parseInt(rating),text,anon,name:anon?'':name,age:anon?'':age,ts:Date.now()});
       saveReviews(reviews);
-
-      document.getElementById('formContent').style.display = 'none';
+      document.getElementById('formContent').style.display='none';
       document.getElementById('successMsg').classList.add('show');
       renderReviews();
-
-      // scroll to reviews section smoothly
-      setTimeout(() => {
-        document.querySelector('.reviews-display').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }, 800);
+      setTimeout(()=>{ document.querySelector('.reviews-display').scrollIntoView({behavior:'smooth',block:'start'}); },800);
     });
 
-    // ── Write another ────────────────────────────────
-    document.getElementById('anotherBtn').addEventListener('click', () => {
+    document.getElementById('anotherBtn').addEventListener('click', ()=>{
       document.getElementById('successMsg').classList.remove('show');
-      document.getElementById('formContent').style.display = 'block';
-      document.querySelector('.star-rating input:checked') && (document.querySelector('.star-rating input:checked').checked = false);
-      reviewText.value = ''; charCount.textContent = '0';
-      document.getElementById('nameInput').value = '';
-      document.getElementById('ageInput').value = '';
-      document.getElementById('starText').textContent = 'Tap a star to rate';
-      document.getElementById('starText').style.color = '';
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      document.getElementById('formContent').style.display='block';
+      const checked=document.querySelector('.star-rating input:checked');
+      if(checked) checked.checked=false;
+      reviewText.value=''; charCount.textContent='0';
+      document.getElementById('nameInput').value='';
+      document.getElementById('ageInput').value='';
+      starText.textContent='Tap a star to rate'; starText.style.color='';
+      window.scrollTo({top:0,behavior:'smooth'});
     });
 
-    // ── Sort change ──────────────────────────────────
     document.getElementById('sortSelect').addEventListener('change', renderReviews);
-
-    // ── Init ─────────────────────────────────────────
     renderReviews();
   </script>
 </body>
