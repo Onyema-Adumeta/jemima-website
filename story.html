@@ -68,16 +68,17 @@
 
     /* HAMBURGER */
     .hamburger { display: none; flex-direction: column; justify-content: center; gap: 5px; width: 40px; height: 40px; background: rgba(123,47,247,.08); border: none; border-radius: 12px; cursor: pointer; padding: 8px; flex-shrink: 0; }
-    .hamburger span { display: block; height: 2px; background: var(--ink); border-radius: 2px; transition: transform .3s, opacity .3s, width .3s; }
+    .hamburger span { display: block; height: 2px; background: var(--ink); border-radius: 2px; transition: transform .3s, opacity .3s; }
     .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
     .hamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
     .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-    /* MOBILE DRAWER */
-    .mobile-drawer { display: none; position: fixed; inset: 0; z-index: 199; }
-    .drawer-backdrop { position: absolute; inset: 0; background: rgba(26,10,46,.45); backdrop-filter: blur(4px); }
+    /* MOBILE DRAWER — always in DOM, toggled via visibility */
+    .mobile-drawer { position: fixed; inset: 0; z-index: 199; visibility: hidden; pointer-events: none; }
+    .drawer-backdrop { position: absolute; inset: 0; background: rgba(26,10,46,.45); backdrop-filter: blur(4px); opacity: 0; transition: opacity .3s; }
     .drawer-panel { position: absolute; top: 0; right: 0; bottom: 0; width: min(300px, 85vw); background: white; padding: 80px 28px 40px; display: flex; flex-direction: column; gap: 6px; box-shadow: -20px 0 60px rgba(26,10,46,.2); transform: translateX(100%); transition: transform .35s cubic-bezier(.22,1,.36,1); }
-    .mobile-drawer.open { display: block; }
+    .mobile-drawer.open { visibility: visible; pointer-events: auto; }
+    .mobile-drawer.open .drawer-backdrop { opacity: 1; }
     .mobile-drawer.open .drawer-panel { transform: translateX(0); }
     .drawer-panel a { font-size: 1.1rem; font-weight: 700; color: var(--ink); padding: 14px 18px; border-radius: 16px; transition: background .2s, color .2s; opacity: .8; font-family: 'DM Sans', sans-serif; }
     .drawer-panel a:hover { background: rgba(123,47,247,.08); color: var(--purple); opacity: 1; }
@@ -951,16 +952,11 @@
       drawer.classList.add('open');
       hamburger.classList.add('open');
       document.body.style.overflow = 'hidden';
-      // animate panel with slight delay so display:block takes effect first
-      requestAnimationFrame(() => {
-        drawer.querySelector('.drawer-panel').style.transform = 'translateX(0)';
-      });
     }
     function closeDrawer() {
-      drawer.querySelector('.drawer-panel').style.transform = 'translateX(100%)';
+      drawer.classList.remove('open');
       hamburger.classList.remove('open');
       document.body.style.overflow = '';
-      setTimeout(() => drawer.classList.remove('open'), 350);
     }
 
     hamburger.addEventListener('click', openDrawer);
