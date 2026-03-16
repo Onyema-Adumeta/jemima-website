@@ -3,123 +3,715 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chloe's Best Friend – Story Preview</title>
+<title>Story Preview – Chloe's Best Friend | Jemima's Creative Corner</title>
+<meta name="description" content="Read a preview of Chloe's Best Friend, a heartwarming children's story by Jemima Adumeta about friendship, kindness, and growing up together.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
 <style>
+  /* ── Design Tokens ───────────────────────────────────────────── */
+  :root {
+    --coral:   #ff6b6b;
+    --peach:   #ffa07a;
+    --gold:    #ffd166;
+    --mint:    #a8edca;
+    --lavender:#c9b8ff;
+    --purple:  #9b72cf;
+    --pink:    #ff8fab;
 
-body{
-  font-family: "Georgia", serif;
-  background:#fffdf8;
-  margin:0;
-  padding:0;
-  color:#333;
-  line-height:1.7;
-}
+    --bg:      #fffdf8;
+    --surface: rgba(255,255,255,0.72);
+    --text:    #2d2438;
+    --muted:   #7a6e8a;
+    --border:  rgba(155,114,207,0.18);
 
-.container{
-  max-width:700px;
-  margin:auto;
-  padding:40px 20px;
-}
+    --grad-hero: linear-gradient(135deg, #ff8fab 0%, #ffd166 45%, #a8edca 80%, #c9b8ff 100%);
+    --grad-btn:  linear-gradient(135deg, var(--coral), var(--purple));
 
-h1{
-  text-align:center;
-  color:#ff6fa5;
-  font-size:2.4rem;
-}
+    --r-card:  20px;
+    --r-pill:  100px;
+    --shadow:  0 8px 40px rgba(155,114,207,0.18);
+    --shadow-lg: 0 20px 60px rgba(155,114,207,0.22);
+  }
 
-.subtitle{
-  text-align:center;
-  margin-bottom:40px;
-  color:#777;
-}
+  /* ── Reset & Base ─────────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-.story{
-  font-size:1.1rem;
-}
+  html { scroll-behavior: smooth; }
 
-.cta{
-  text-align:center;
-  margin-top:50px;
-}
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+    overflow-x: hidden;
+    min-height: 100vh;
+  }
 
-.email-btn{
-  display:inline-block;
-  padding:14px 28px;
-  background:#ff7aa8;
-  color:white;
-  text-decoration:none;
-  border-radius:30px;
-  font-weight:bold;
-  transition:0.3s;
-}
+  /* ── Noise texture overlay ───────────────────────────────────── */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.6;
+  }
 
-.email-btn:hover{
-  background:#ff5f94;
-}
+  /* ── Floating blobs ──────────────────────────────────────────── */
+  .blobs {
+    position: fixed;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+  }
+  .blob {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(70px);
+    opacity: 0.25;
+    animation: drift 18s ease-in-out infinite alternate;
+  }
+  .blob-1 { width: 520px; height: 520px; background: var(--pink);    top: -120px; left: -100px; animation-duration: 22s; }
+  .blob-2 { width: 400px; height: 400px; background: var(--gold);    top: 40%;   right: -80px;  animation-duration: 17s; animation-delay: -6s; }
+  .blob-3 { width: 350px; height: 350px; background: var(--lavender);bottom: -80px; left: 30%;  animation-duration: 25s; animation-delay: -12s; }
+  .blob-4 { width: 280px; height: 280px; background: var(--mint);    top: 60%;   left: -60px;  animation-duration: 20s; animation-delay: -3s; }
 
-.back{
-  text-align:center;
-  margin-top:40px;
-}
+  @keyframes drift {
+    from { transform: translate(0, 0) scale(1); }
+    to   { transform: translate(40px, 30px) scale(1.08); }
+  }
 
-.back a{
-  color:#777;
-  text-decoration:none;
-}
+  /* ── Navbar ──────────────────────────────────────────────────── */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    padding: 0 28px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255,253,248,0.75);
+    backdrop-filter: blur(18px) saturate(1.4);
+    -webkit-backdrop-filter: blur(18px) saturate(1.4);
+    border-bottom: 1px solid var(--border);
+    box-shadow: 0 2px 24px rgba(155,114,207,0.08);
+  }
 
-.back a:hover{
-  text-decoration:underline;
-}
+  .nav-brand {
+    font-family: 'Fraunces', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: var(--grad-btn);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    text-decoration: none;
+    letter-spacing: -0.02em;
+  }
 
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-size: 0.88rem;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 6px 14px;
+    border-radius: var(--r-pill);
+    transition: all 0.2s;
+  }
+  .nav-links a:hover, .nav-links a.active {
+    color: var(--purple);
+    background: rgba(155,114,207,0.1);
+  }
+
+  /* ── Page wrapper ────────────────────────────────────────────── */
+  .page {
+    position: relative;
+    z-index: 1;
+    padding-top: 68px;
+  }
+
+  /* ── Hero ────────────────────────────────────────────────────── */
+  .hero {
+    text-align: center;
+    padding: 80px 24px 60px;
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--purple);
+    background: rgba(155,114,207,0.12);
+    border: 1px solid rgba(155,114,207,0.22);
+    border-radius: var(--r-pill);
+    padding: 6px 16px;
+    margin-bottom: 24px;
+    animation: fadeUp 0.6s ease both;
+  }
+
+  .hero h1 {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(2.4rem, 6vw, 3.8rem);
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -0.03em;
+    background: linear-gradient(135deg, #ff6b6b 0%, #9b72cf 60%, #ff8fab 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+    animation: fadeUp 0.6s 0.1s ease both;
+  }
+
+  .hero-byline {
+    font-family: 'Fraunces', serif;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: var(--muted);
+    animation: fadeUp 0.6s 0.2s ease both;
+  }
+
+  /* Decorative divider */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 40px auto;
+    max-width: 260px;
+  }
+  .divider-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--lavender), transparent); }
+  .divider-icon { font-size: 1.2rem; }
+
+  /* ── Story card ──────────────────────────────────────────────── */
+  .story-card {
+    max-width: 720px;
+    margin: 0 auto 60px;
+    padding: 0 24px;
+  }
+
+  .story-inner {
+    background: var(--surface);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 56px 52px 48px;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    overflow: hidden;
+    animation: fadeUp 0.7s 0.3s ease both;
+  }
+
+  /* Decorative corner accent */
+  .story-inner::before {
+    content: '✦';
+    position: absolute;
+    top: 22px; right: 26px;
+    font-size: 1rem;
+    color: var(--lavender);
+    opacity: 0.7;
+  }
+
+  .chapter-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--coral);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .chapter-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--coral) 0%, transparent 100%);
+    opacity: 0.3;
+  }
+
+  .story-text {
+    font-family: 'Fraunces', serif;
+    font-size: 1.15rem;
+    line-height: 1.85;
+    color: var(--text);
+  }
+
+  .story-text p { margin-bottom: 1.6em; }
+  .story-text p:last-child { margin-bottom: 0; }
+
+  .story-text .drop-cap::first-letter {
+    font-size: 3.8em;
+    font-weight: 700;
+    float: left;
+    line-height: 0.82;
+    margin: 0.06em 0.1em 0 0;
+    background: var(--grad-btn);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* ── Fade-out + lock overlay ─────────────────────────────────── */
+  .story-fade {
+    position: relative;
+    margin-top: -60px;
+  }
+  .story-fade::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 120px;
+    background: linear-gradient(to bottom, transparent, var(--bg));
+    z-index: 2;
+    /* so it layers over story text in the card below */
+    pointer-events: none;
+  }
+
+  .locked-preview {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+  }
+
+  .locked-block {
+    background: var(--surface);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--border);
+    border-radius: 28px;
+    padding: 40px 52px;
+    filter: blur(3.5px);
+    user-select: none;
+    pointer-events: none;
+    opacity: 0.55;
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    line-height: 1.85;
+  }
+
+  .locked-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    z-index: 10;
+    border-radius: 28px;
+    padding: 24px;
+  }
+
+  .lock-badge {
+    width: 56px; height: 56px;
+    background: var(--grad-btn);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    box-shadow: 0 8px 28px rgba(155,114,207,0.35);
+  }
+
+  .lock-label {
+    font-family: 'Fraunces', serif;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--text);
+    text-align: center;
+  }
+  .lock-sub {
+    font-size: 0.92rem;
+    color: var(--muted);
+    text-align: center;
+    max-width: 300px;
+    line-height: 1.5;
+  }
+
+  /* ── CTA section ─────────────────────────────────────────────── */
+  .cta-section {
+    max-width: 680px;
+    margin: 60px auto 0;
+    padding: 0 24px 80px;
+    text-align: center;
+    animation: fadeUp 0.7s 0.5s ease both;
+  }
+
+  .cta-heading {
+    font-family: 'Fraunces', serif;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .cta-sub {
+    font-size: 1rem;
+    color: var(--muted);
+    max-width: 440px;
+    margin: 0 auto 36px;
+    line-height: 1.6;
+  }
+
+  /* Email form */
+  .request-form {
+    display: flex;
+    gap: 10px;
+    max-width: 460px;
+    margin: 0 auto 18px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .request-form input[type="email"] {
+    flex: 1;
+    min-width: 220px;
+    padding: 14px 20px;
+    border: 1.5px solid var(--border);
+    border-radius: var(--r-pill);
+    background: rgba(255,255,255,0.85);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .request-form input[type="email"]:focus {
+    border-color: var(--purple);
+    box-shadow: 0 0 0 3px rgba(155,114,207,0.15);
+  }
+  .request-form input[type="email"]::placeholder { color: var(--muted); }
+
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 28px;
+    background: var(--grad-btn);
+    color: white;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border: none;
+    border-radius: var(--r-pill);
+    cursor: pointer;
+    text-decoration: none;
+    transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+    box-shadow: 0 6px 24px rgba(155,114,207,0.3);
+    white-space: nowrap;
+  }
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(155,114,207,0.4);
+  }
+  .btn-primary:active { transform: translateY(0); }
+
+  .btn-secondary {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 13px 26px;
+    background: transparent;
+    color: var(--purple);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 600;
+    font-size: 0.93rem;
+    border: 1.5px solid rgba(155,114,207,0.35);
+    border-radius: var(--r-pill);
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .btn-secondary:hover {
+    background: rgba(155,114,207,0.08);
+    border-color: var(--purple);
+  }
+
+  .form-note {
+    font-size: 0.8rem;
+    color: var(--muted);
+    margin-bottom: 28px;
+  }
+
+  /* Or divider */
+  .or-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    max-width: 380px;
+    margin: 0 auto 24px;
+    color: var(--muted);
+    font-size: 0.82rem;
+  }
+  .or-row span { flex: 1; height: 1px; background: var(--border); display: block; }
+
+  /* ── Success toast ───────────────────────────────────────────── */
+  .toast {
+    position: fixed;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: #2d2438;
+    color: white;
+    padding: 14px 26px;
+    border-radius: var(--r-pill);
+    font-size: 0.9rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 8px 32px rgba(45,36,56,0.3);
+    z-index: 200;
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s;
+    opacity: 0;
+    pointer-events: none;
+    white-space: nowrap;
+  }
+  .toast.show {
+    transform: translateX(-50%) translateY(0);
+    opacity: 1;
+  }
+
+  /* ── Info cards row ──────────────────────────────────────────── */
+  .info-row {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 48px;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .info-card {
+    flex: 1;
+    min-width: 160px;
+    max-width: 200px;
+    background: var(--surface);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    border: 1px solid var(--border);
+    border-radius: 18px;
+    padding: 20px 18px;
+    text-align: center;
+  }
+
+  .info-icon { font-size: 1.6rem; margin-bottom: 8px; }
+  .info-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
+  .info-value { font-family: 'Fraunces', serif; font-size: 0.95rem; font-weight: 600; color: var(--text); }
+
+  /* ── Back link ───────────────────────────────────────────────── */
+  .back-row {
+    text-align: center;
+    padding: 16px 24px 48px;
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--muted);
+    font-size: 0.88rem;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--purple); }
+
+  /* ── Animations ──────────────────────────────────────────────── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(28px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* ── Responsive ──────────────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .story-inner { padding: 36px 26px 32px; }
+    .locked-block { padding: 28px 26px; }
+    .nav-links { display: none; }
+    .info-card { min-width: 130px; }
+  }
 </style>
-
 </head>
-
 <body>
 
-<div class="container">
-
-<h1>Chloe's Best Friend</h1>
-<p class="subtitle">A Story by Jemima Adumeta</p>
-
-<div class="story">
-
-<p>
-One summer, there were two girls named Chloe and Sam who were more than just two little girls who lived on the same street — they were best friends who acted like sisters.
-</p>
-
-<p>
-They did everything together. Chloe had curly brown hair and a big laugh that filled any room, while Sam had short tan hair and an interesting mind that never stopped asking questions. They played hopscotch, rode their bikes, and even wore matching pink bracelets that said, “BFFs Forever.”
-</p>
-
-<p>
-But one day, something happened that would test their friendship in a way neither of them expected...
-</p>
-
+<!-- Ambient blobs -->
+<div class="blobs">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+  <div class="blob blob-4"></div>
 </div>
 
-<div class="cta">
+<!-- Navbar -->
+<nav>
+  <a class="nav-brand" href="index.html">Jemima's Creative Corner ✦</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="story.html" class="active">Story</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="youtube.html">Videos</a></li>
+    <li><a href="donate.html">Support</a></li>
+  </ul>
+</nav>
 
-<h2>📖 Want to read the full story?</h2>
+<!-- Page -->
+<div class="page">
 
-<p>
-The complete book <strong>“Chloe's Best Friend”</strong> is available by request.
-Send us an email and we will happily share a copy with you.
-</p>
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-badge">📖 Story Preview</div>
+    <h1>Chloe's Best Friend</h1>
+    <p class="hero-byline">A story by Jemima Adumeta</p>
+  </header>
 
-<a class="email-btn"
-href="mailto:hello@jemimaadumeta.com?subject=Book Request - Chloe's Best Friend">
-Request the Full Book
-</a>
+  <!-- Story teaser -->
+  <section class="story-card">
+    <div class="story-inner reveal">
+      <div class="chapter-label">Chapter One</div>
+      <div class="story-text">
+        <p class="drop-cap">One summer, there were two girls named Chloe and Sam who were more than just two little girls who lived on the same street — they were best friends who acted like sisters.</p>
+        <p>They did everything together. Chloe had curly brown hair and a big laugh that filled any room, while Sam had short tan hair and an interesting mind that never stopped asking questions. They played hopscotch, rode their bikes, and even wore matching pink bracelets that said, "BFFs Forever."</p>
+        <p>But one day, something happened that would test their friendship in a way neither of them expected…</p>
+      </div>
+    </div>
+  </section>
 
+  <!-- Locked preview (blurred) -->
+  <div class="locked-preview reveal" style="margin-top: -8px;">
+    <div class="locked-block" aria-hidden="true">
+      <p>The next morning, Chloe knocked on Sam's door three times like she always did. One knock, two knocks, three knocks — their special secret code. But this time, no one answered. Chloe pressed her ear against the cool wood of the door and listened.</p>
+      <p>Inside, she could hear footsteps. And then a voice — a new voice — laughing at something she couldn't hear. Her heart sank all the way down to her sneakers.</p>
+    </div>
+    <div class="locked-overlay">
+      <div class="lock-badge">🔒</div>
+      <p class="lock-label">The story continues…</p>
+      <p class="lock-sub">Request the full book to find out what happens next!</p>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="cta-section reveal">
+    <div class="divider"><div class="divider-line"></div><div class="divider-icon">✨</div><div class="divider-line"></div></div>
+
+    <h2 class="cta-heading">Want to read the whole story?</h2>
+    <p class="cta-sub">The complete <strong>Chloe's Best Friend</strong> is available by request. Drop your email and Jemima will send a copy your way — completely free!</p>
+
+    <!-- Email form -->
+    <form class="request-form" id="requestForm" onsubmit="handleRequest(event)">
+      <input
+        type="email"
+        id="emailInput"
+        placeholder="your@email.com"
+        required
+        autocomplete="email"
+        aria-label="Your email address"
+      >
+      <button type="submit" class="btn-primary">
+        📬 Request the Book
+      </button>
+    </form>
+
+    <p class="form-note">No spam, ever. Just one lovely story. 🌸</p>
+
+    <div class="or-row"><span></span>or<span></span></div>
+
+    <a href="mailto:jemimaadumeta@gmail.com?subject=Book%20Request%20%E2%80%93%20Chloe%27s%20Best%20Friend&body=Hi%20Jemima%2C%0A%0AI%20would%20love%20to%20read%20Chloe%27s%20Best%20Friend!%20Please%20send%20me%20a%20copy.%0A%0AThank%20you!" class="btn-secondary">
+      ✉️ Email Jemima directly
+    </a>
+
+    <!-- Info cards -->
+    <div class="info-row">
+      <div class="info-card">
+        <div class="info-icon">🎂</div>
+        <div class="info-label">Age Range</div>
+        <div class="info-value">5 – 10 years</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">📖</div>
+        <div class="info-label">Reading Time</div>
+        <div class="info-value">~30 minutes</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">💛</div>
+        <div class="info-label">Theme</div>
+        <div class="info-value">Friendship & Kindness</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="back-row">
+    <a class="back-link" href="index.html">← Back to Jemima's Creative Corner</a>
+  </div>
+
+</div><!-- /page -->
+
+<!-- Toast notification -->
+<div class="toast" id="toast" role="status" aria-live="polite">
+  ✅ Request sent! Jemima will be in touch soon.
 </div>
 
-<div class="back">
-<a href="index.html">← Back to Jemima's Creative Corner</a>
-</div>
+<script>
+  // ── Scroll reveal ─────────────────────────────────────────────
+  const revealEls = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(
+    entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }),
+    { threshold: 0.12 }
+  );
+  revealEls.forEach(el => observer.observe(el));
 
-</div>
+  // ── Email form handler ────────────────────────────────────────
+  function handleRequest(e) {
+    e.preventDefault();
+    const email = document.getElementById('emailInput').value.trim();
+    if (!email) return;
+
+    // Build a mailto link and open it
+    const subject = encodeURIComponent("Book Request – Chloe's Best Friend");
+    const body = encodeURIComponent(
+      `Hi Jemima,\n\nI would love to read Chloe's Best Friend! My email is: ${email}\n\nPlease send me a copy when you can.\n\nThank you! 😊`
+    );
+    window.location.href = `mailto:jemimaadumeta@gmail.com?subject=${subject}&body=${body}`;
+
+    // Show toast
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 4000);
+
+    document.getElementById('requestForm').reset();
+  }
+</script>
 
 </body>
 </html>
