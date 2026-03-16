@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kids Activities – Jemima's Creative Corner</title>
+<meta name="description" content="Free kids activities inspired by Chloe's Best Friend — colouring pages, friendship worksheets, and a write-your-own-story template.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --coral:#ff6b6b; --gold:#ffd166; --mint:#a8edca; --lavender:#c9b8ff;
+    --purple:#9b72cf; --pink:#ff8fab; --teal:#5ec4b6;
+    --bg:#fffdf8; --surface:rgba(255,255,255,0.75);
+    --text:#2d2438; --muted:#7a6e8a; --border:rgba(155,114,207,0.18);
+    --grad-btn:linear-gradient(135deg,var(--coral),var(--purple));
+    --r-pill:100px; --shadow-lg:0 20px 60px rgba(155,114,207,0.22);
+  }
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);line-height:1.75;overflow-x:hidden;min-height:100vh}
+  body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.035'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.6}
+
+  .blobs{position:fixed;inset:0;overflow:hidden;pointer-events:none;z-index:0}
+  .blob{position:absolute;border-radius:50%;filter:blur(70px);opacity:.22;animation:drift 18s ease-in-out infinite alternate}
+  .blob-1{width:500px;height:500px;background:var(--mint);top:-100px;left:-120px;animation-duration:22s}
+  .blob-2{width:380px;height:380px;background:var(--gold);top:35%;right:-80px;animation-duration:17s;animation-delay:-5s}
+  .blob-3{width:320px;height:320px;background:var(--lavender);bottom:-60px;left:25%;animation-duration:24s;animation-delay:-11s}
+  .blob-4{width:260px;height:260px;background:var(--pink);top:55%;left:-50px;animation-duration:19s;animation-delay:-3s}
+  @keyframes drift{from{transform:translate(0,0) scale(1)}to{transform:translate(40px,30px) scale(1.08)}}
+
+  /* ── Nav ─────────────────────────────────────────────────────── */
+  nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:0 28px;height:68px;display:flex;align-items:center;justify-content:space-between;background:rgba(255,253,248,.75);backdrop-filter:blur(18px) saturate(1.4);-webkit-backdrop-filter:blur(18px) saturate(1.4);border-bottom:1px solid var(--border);box-shadow:0 2px 24px rgba(155,114,207,.08)}
+  .nav-brand{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;background:var(--grad-btn);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;text-decoration:none;letter-spacing:-.02em}
+  .nav-links{display:flex;align-items:center;gap:8px;list-style:none}
+  .nav-links a{font-size:.88rem;font-weight:500;color:var(--muted);text-decoration:none;padding:6px 14px;border-radius:var(--r-pill);transition:all .2s}
+  .nav-links a:hover,.nav-links a.active{color:var(--purple);background:rgba(155,114,207,.1)}
+  .nav-links a.nav-donate{background:var(--grad-btn);color:white!important;font-weight:600;padding:8px 18px}
+  .nav-links a.nav-donate:hover{opacity:.88;transform:translateY(-1px)}
+  .nav-burger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:6px}
+  .nav-burger span{display:block;width:22px;height:2px;background:var(--purple);border-radius:2px}
+  .mobile-menu{display:none;position:fixed;top:68px;left:0;right:0;background:rgba(255,253,248,.96);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--border);z-index:99;padding:16px 24px 24px;flex-direction:column;gap:4px}
+  .mobile-menu.open{display:flex}
+  .mobile-menu a{font-size:1rem;font-weight:500;color:var(--muted);text-decoration:none;padding:10px 14px;border-radius:12px;transition:all .2s}
+  .mobile-menu a:hover,.mobile-menu a.active{color:var(--purple);background:rgba(155,114,207,.1)}
+
+  .page{position:relative;z-index:1;padding-top:68px}
+
+  /* ── Hero ────────────────────────────────────────────────────── */
+  .hero{text-align:center;padding:72px 24px 56px;max-width:680px;margin:0 auto}
+  .hero-badge{display:inline-flex;align-items:center;gap:6px;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);background:rgba(155,114,207,.12);border:1px solid rgba(155,114,207,.22);border-radius:var(--r-pill);padding:6px 16px;margin-bottom:20px;animation:fadeUp .5s ease both}
+  .hero h1{font-family:'Fraunces',serif;font-size:clamp(2.2rem,5vw,3.4rem);font-weight:700;line-height:1.1;letter-spacing:-.03em;background:linear-gradient(135deg,#ff6b6b 0%,#9b72cf 60%,#ff8fab 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:14px;animation:fadeUp .5s .1s ease both}
+  .hero-sub{font-size:1.05rem;color:var(--muted);line-height:1.65;animation:fadeUp .5s .2s ease both}
+
+  /* ── Activity grid ───────────────────────────────────────────── */
+  .activities-section{max-width:900px;margin:0 auto;padding:0 24px 80px}
+  .activities-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:24px}
+
+  .activity-card{background:var(--surface);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--border);border-radius:26px;overflow:hidden;box-shadow:0 8px 32px rgba(155,114,207,.12);transition:transform .25s,box-shadow .25s;display:flex;flex-direction:column}
+  .activity-card:hover{transform:translateY(-4px);box-shadow:0 16px 48px rgba(155,114,207,.2)}
+
+  .activity-banner{height:140px;display:flex;align-items:center;justify-content:center;font-size:4rem;position:relative;overflow:hidden}
+  .activity-banner::after{content:'';position:absolute;inset:0;opacity:.18}
+  .banner-colour .activity-banner{background:linear-gradient(135deg,#ffe0ec,#ffd6f5)}
+  .banner-friendship .activity-banner{background:linear-gradient(135deg,#fff3d6,#ffe8a0)}
+  .banner-write .activity-banner{background:linear-gradient(135deg,#d6f5ee,#b8eed8)}
+  .banner-bookmarks .activity-banner{background:linear-gradient(135deg,#e0d6ff,#c9b8ff)}
+  .banner-kindness .activity-banner{background:linear-gradient(135deg,#ffe8d6,#ffd0b0)}
+  .banner-certificate .activity-banner{background:linear-gradient(135deg,#d6eeff,#b0d8ff)}
+
+  .activity-body{padding:26px 28px 28px;flex:1;display:flex;flex-direction:column}
+  .activity-tag{font-size:.68rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--purple);margin-bottom:8px}
+  .activity-title{font-family:'Fraunces',serif;font-size:1.2rem;font-weight:700;color:var(--text);margin-bottom:10px;line-height:1.25}
+  .activity-desc{font-size:.9rem;color:var(--muted);line-height:1.65;flex:1;margin-bottom:20px}
+
+  .activity-meta{display:flex;align-items:center;gap:10px;margin-bottom:18px;flex-wrap:wrap}
+  .meta-pill{font-size:.72rem;font-weight:600;padding:4px 12px;border-radius:var(--r-pill);background:rgba(155,114,207,.1);color:var(--purple);border:1px solid rgba(155,114,207,.2)}
+
+  .btn-download{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px 20px;background:var(--grad-btn);color:white;font-family:'DM Sans',sans-serif;font-weight:600;font-size:.9rem;border:none;border-radius:var(--r-pill);cursor:pointer;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 18px rgba(155,114,207,.28)}
+  .btn-download:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(155,114,207,.38)}
+  .btn-download:active{transform:translateY(0)}
+
+  /* Coming soon state */
+  .btn-soon{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:13px 20px;background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;font-weight:600;font-size:.9rem;border:1.5px dashed rgba(155,114,207,.3);border-radius:var(--r-pill);cursor:default}
+
+  /* ── Note banner ─────────────────────────────────────────────── */
+  .note-banner{max-width:900px;margin:0 auto 48px;padding:0 24px}
+  .note-inner{background:rgba(168,237,202,.2);border:1px solid rgba(94,196,182,.3);border-radius:18px;padding:20px 26px;display:flex;align-items:flex-start;gap:14px}
+  .note-icon{font-size:1.4rem;flex-shrink:0;margin-top:2px}
+  .note-text{font-size:.88rem;color:var(--text);line-height:1.6}
+  .note-text strong{font-weight:700}
+
+  /* Divider */
+  .divider{display:flex;align-items:center;gap:14px;margin:0 auto 48px;max-width:280px}
+  .divider-line{flex:1;height:1px;background:linear-gradient(90deg,transparent,var(--lavender),transparent)}
+  .divider-icon{font-size:1.2rem}
+
+  .back-row{text-align:center;padding:0 24px 48px}
+  .back-link{display:inline-flex;align-items:center;gap:6px;color:var(--muted);font-size:.88rem;text-decoration:none;transition:color .2s}
+  .back-link:hover{color:var(--purple)}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+  .reveal{opacity:0;transform:translateY(28px);transition:opacity .6s ease,transform .6s ease}
+  .reveal.visible{opacity:1;transform:none}
+
+  @media(max-width:640px){
+    .nav-links{display:none}
+    .nav-burger{display:flex}
+    .activities-grid{grid-template-columns:1fr}
+  }
+</style>
+</head>
+<body>
+
+<div class="blobs">
+  <div class="blob blob-1"></div><div class="blob blob-2"></div>
+  <div class="blob blob-3"></div><div class="blob blob-4"></div>
+</div>
+
+<nav>
+  <a class="nav-brand" href="index.html">Jemima's Creative Corner ✦</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="youtube.html">YouTube</a></li>
+    <li><a href="story.html">Story</a></li>
+    <li><a href="gallery.html">Gallery</a></li>
+    <li><a href="reviews.html">Reviews ⭐</a></li>
+    <li><a href="donate.html" class="nav-donate">Donate ✦</a></li>
+  </ul>
+  <button class="nav-burger" id="navBurger" aria-label="Open menu" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html" onclick="closeMobileMenu()">Home</a>
+  <a href="youtube.html" onclick="closeMobileMenu()">YouTube</a>
+  <a href="story.html" onclick="closeMobileMenu()">Story</a>
+  <a href="gallery.html" onclick="closeMobileMenu()">Gallery</a>
+  <a href="reviews.html" onclick="closeMobileMenu()">Reviews ⭐</a>
+  <a href="donate.html" onclick="closeMobileMenu()">Donate ✦</a>
+</div>
+
+<div class="page">
+
+  <!-- Hero -->
+  <header class="hero">
+    <div class="hero-badge">🎨 Free Downloads</div>
+    <h1>Kids Activities</h1>
+    <p class="hero-sub">Fun things to do inspired by <em>Chloe's Best Friend</em> — print them, colour them, fill them in, and make them your own!</p>
+  </header>
+
+  <!-- Note -->
+  <div class="note-banner reveal">
+    <div class="note-inner">
+      <span class="note-icon">💡</span>
+      <p class="note-text"><strong>All activities are free!</strong> Just click Download, print at home or at school, and enjoy. No account needed. Perfect for ages 5–12, classrooms, and family reading time.</p>
+    </div>
+  </div>
+
+  <!-- Activity cards -->
+  <section class="activities-section">
+    <div class="activities-grid">
+
+      <!-- 1. Colouring page -->
+      <div class="activity-card banner-colour reveal">
+        <div class="activity-banner">🖍️</div>
+        <div class="activity-body">
+          <p class="activity-tag">Colouring Page</p>
+          <h2 class="activity-title">Chloe &amp; Sam's Big Adventure</h2>
+          <p class="activity-desc">A beautiful line-art scene of Chloe and Sam on their bikes, ready to colour in any way you like. Great for quiet time or art class!</p>
+          <div class="activity-meta">
+            <span class="meta-pill">🖨️ Printable PDF</span>
+            <span class="meta-pill">Ages 5–12</span>
+          </div>
+          <a href="mailto:jemimaadumeta@gmail.com?subject=Activity%20Request%20%E2%80%93%20Colouring%20Page&body=Hi%20Jemima%2C%0A%0APlease%20send%20me%20the%20Chloe%20%26%20Sam%20colouring%20page!%0A%0AThank%20you!" class="btn-download">🖍️ Request this activity</a>
+        </div>
+      </div>
+
+      <!-- 2. Friendship worksheet -->
+      <div class="activity-card banner-friendship reveal">
+        <div class="activity-banner">💛</div>
+        <div class="activity-body">
+          <p class="activity-tag">Worksheet</p>
+          <h2 class="activity-title">My Friendship Superpower</h2>
+          <p class="activity-desc">Kids reflect on what makes a great friend, draw their best friend, and write what they love most about their friendship. Builds emotional literacy!</p>
+          <div class="activity-meta">
+            <span class="meta-pill">🖨️ Printable PDF</span>
+            <span class="meta-pill">Ages 6–10</span>
+          </div>
+          <a href="mailto:jemimaadumeta@gmail.com?subject=Activity%20Request%20%E2%80%93%20Friendship%20Worksheet&body=Hi%20Jemima%2C%0A%0APlease%20send%20me%20the%20My%20Friendship%20Superpower%20worksheet!%0A%0AThank%20you!" class="btn-download">💛 Request this activity</a>
+        </div>
+      </div>
+
+      <!-- 3. Write your own story -->
+      <div class="activity-card banner-write reveal">
+        <div class="activity-banner">✍️</div>
+        <div class="activity-body">
+          <p class="activity-tag">Story Template</p>
+          <h2 class="activity-title">Write Your Own Story!</h2>
+          <p class="activity-desc">A guided 2-page template that walks kids through creating their very own story — characters, setting, problem, and a happy ending. Future authors start here!</p>
+          <div class="activity-meta">
+            <span class="meta-pill">🖨️ Printable PDF</span>
+            <span class="meta-pill">Ages 7–12</span>
+          </div>
+          <a href="mailto:jemimaadumeta@gmail.com?subject=Activity%20Request%20%E2%80%93%20Story%20Template&body=Hi%20Jemima%2C%0A%0APlease%20send%20me%20the%20Write%20Your%20Own%20Story%20template!%0A%0AThank%20you!" class="btn-download">✍️ Request this activity</a>
+        </div>
+      </div>
+
+      <!-- 4. Bookmarks -->
+      <div class="activity-card banner-bookmarks reveal">
+        <div class="activity-banner">🔖</div>
+        <div class="activity-body">
+          <p class="activity-tag">Craft Activity</p>
+          <h2 class="activity-title">BFF Bookmarks to Colour</h2>
+          <p class="activity-desc">A sheet of four illustrated bookmarks featuring Chloe and Sam — colour them in, cut them out, and share one with your best friend!</p>
+          <div class="activity-meta">
+            <span class="meta-pill">🖨️ Printable PDF</span>
+            <span class="meta-pill">Ages 5–10</span>
+          </div>
+          <a href="mailto:jemimaadumeta@gmail.com?subject=Activity%20Request%20%E2%80%93%20BFF%20Bookmarks&body=Hi%20Jemima%2C%0A%0APlease%20send%20me%20the%20BFF%20Bookmarks%20to%20colour!%0A%0AThank%20you!" class="btn-download">🔖 Request this activity</a>
+        </div>
+      </div>
+
+      <!-- 5. Kindness challenge -->
+      <div class="activity-card banner-kindness reveal">
+        <div class="activity-banner">🌸</div>
+        <div class="activity-body">
+          <p class="activity-tag">7-Day Challenge</p>
+          <h2 class="activity-title">The Kindness Challenge</h2>
+          <p class="activity-desc">Inspired by the story's themes, this 7-day kindness tracker encourages kids to do one small kind thing each day and tick it off. Great for classrooms!</p>
+          <div class="activity-meta">
+            <span class="meta-pill">🖨️ Printable PDF</span>
+            <span class="meta-pill">Ages 6–12</span>
+          </div>
+          <a href="mailto:jemimaadumeta@gmail.com?subject=Activity%20Request%20%E2%80%93%20Kindness%20Challenge&body=Hi%20Jemima%2C%0A%0APlease%20send%20me%20the%207-Day%20Kindness%20Challenge!%0A%0AThank%20you!" class="btn-download">🌸 Request this activity</a>
+        </div>
+      </div>
+
+      <!-- 6. Certificate -->
+      <div class="activity-card banner-certificate reveal">
+        <div class="activity-banner">🏅</div>
+        <div class="activity-body">
+          <p class="activity-tag">Printable Certificate</p>
+          <h2 class="activity-title">Best Friend Forever Award</h2>
+          <p class="activity-desc">A fill-in certificate kids can give to their best friend. Write in names, decorate it, and present it — a keepsake they'll treasure!</p>
+          <div class="activity-meta">
+            <span class="meta-pill">🖨️ Printable PDF</span>
+            <span class="meta-pill">All ages</span>
+          </div>
+          <a href="mailto:jemimaadumeta@gmail.com?subject=Activity%20Request%20%E2%80%93%20BFF%20Certificate&body=Hi%20Jemima%2C%0A%0APlease%20send%20me%20the%20Best%20Friend%20Forever%20Award%20certificate!%0A%0AThank%20you!" class="btn-download">🏅 Request this activity</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider reveal"><div class="divider-line"></div><div class="divider-icon">📚</div><div class="divider-line"></div></div>
+
+  <div class="back-row">
+    <a class="back-link" href="story.html">← Back to the Story</a>
+  </div>
+
+</div>
+
+<script>
+  function toggleMobileMenu(){document.getElementById('mobileMenu').classList.toggle('open')}
+  function closeMobileMenu(){document.getElementById('mobileMenu').classList.remove('open')}
+  document.addEventListener('click',function(e){
+    const m=document.getElementById('mobileMenu'),b=document.getElementById('navBurger');
+    if(m.classList.contains('open')&&!m.contains(e.target)&&!b.contains(e.target))m.classList.remove('open');
+  });
+  const obs=new IntersectionObserver(entries=>entries.forEach(e=>{
+    if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}
+  }),{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>
