@@ -10,7 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
 <style>
-  /* ── Design Tokens ───────────────────────────────────────────── */
+  /* Design Tokens */
   :root {
     --coral:   #ff6b6b;
     --peach:   #ffa07a;
@@ -19,27 +19,18 @@
     --lavender:#c9b8ff;
     --purple:  #9b72cf;
     --pink:    #ff8fab;
-
     --bg:      #fffdf8;
     --surface: rgba(255,255,255,0.72);
     --text:    #2d2438;
     --muted:   #7a6e8a;
     --border:  rgba(155,114,207,0.18);
-
-    --grad-hero: linear-gradient(135deg, #ff8fab 0%, #ffd166 45%, #a8edca 80%, #c9b8ff 100%);
-    --grad-btn:  linear-gradient(135deg, var(--coral), var(--purple));
-
-    --r-card:  20px;
+    --grad-btn: linear-gradient(135deg, var(--coral), var(--purple));
     --r-pill:  100px;
-    --shadow:  0 8px 40px rgba(155,114,207,0.18);
     --shadow-lg: 0 20px 60px rgba(155,114,207,0.22);
   }
 
-  /* ── Reset & Base ─────────────────────────────────────────────── */
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
   html { scroll-behavior: smooth; }
-
   body {
     font-family: 'DM Sans', sans-serif;
     background: var(--bg);
@@ -49,7 +40,7 @@
     min-height: 100vh;
   }
 
-  /* ── Noise texture overlay ───────────────────────────────────── */
+  /* Noise texture */
   body::before {
     content: '';
     position: fixed;
@@ -60,14 +51,8 @@
     opacity: 0.6;
   }
 
-  /* ── Floating blobs ──────────────────────────────────────────── */
-  .blobs {
-    position: fixed;
-    inset: 0;
-    overflow: hidden;
-    pointer-events: none;
-    z-index: 0;
-  }
+  /* Floating blobs */
+  .blobs { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
   .blob {
     position: absolute;
     border-radius: 50%;
@@ -76,16 +61,16 @@
     animation: drift 18s ease-in-out infinite alternate;
   }
   .blob-1 { width: 520px; height: 520px; background: var(--pink);    top: -120px; left: -100px; animation-duration: 22s; }
-  .blob-2 { width: 400px; height: 400px; background: var(--gold);    top: 40%;   right: -80px;  animation-duration: 17s; animation-delay: -6s; }
-  .blob-3 { width: 350px; height: 350px; background: var(--lavender);bottom: -80px; left: 30%;  animation-duration: 25s; animation-delay: -12s; }
-  .blob-4 { width: 280px; height: 280px; background: var(--mint);    top: 60%;   left: -60px;  animation-duration: 20s; animation-delay: -3s; }
+  .blob-2 { width: 400px; height: 400px; background: var(--gold);    top: 40%;   right: -80px; animation-duration: 17s; animation-delay: -6s; }
+  .blob-3 { width: 350px; height: 350px; background: var(--lavender);bottom: -80px; left: 30%; animation-duration: 25s; animation-delay: -12s; }
+  .blob-4 { width: 280px; height: 280px; background: var(--mint);    top: 60%;   left: -60px; animation-duration: 20s; animation-delay: -3s; }
 
   @keyframes drift {
     from { transform: translate(0, 0) scale(1); }
     to   { transform: translate(40px, 30px) scale(1.08); }
   }
 
-  /* ── Navbar ──────────────────────────────────────────────────── */
+  /* Navbar */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -101,7 +86,6 @@
     border-bottom: 1px solid var(--border);
     box-shadow: 0 2px 24px rgba(155,114,207,0.08);
   }
-
   .nav-brand {
     font-family: 'Fraunces', serif;
     font-size: 1.2rem;
@@ -113,14 +97,12 @@
     text-decoration: none;
     letter-spacing: -0.02em;
   }
-
   .nav-links {
     display: flex;
     align-items: center;
     gap: 8px;
     list-style: none;
   }
-
   .nav-links a {
     font-size: 0.88rem;
     font-weight: 500;
@@ -134,7 +116,6 @@
     color: var(--purple);
     background: rgba(155,114,207,0.1);
   }
-
   .nav-links a.nav-donate {
     background: var(--grad-btn);
     color: white !important;
@@ -143,25 +124,71 @@
   }
   .nav-links a.nav-donate:hover {
     opacity: 0.88;
-    background: var(--grad-btn);
     transform: translateY(-1px);
   }
 
-  /* ── Page wrapper ────────────────────────────────────────────── */
+  /* Hamburger */
+  .nav-burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+  }
+  .nav-burger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--purple);
+    border-radius: 2px;
+    transition: all 0.25s;
+  }
+
+  /* Mobile menu */
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 68px; left: 0; right: 0;
+    background: rgba(255,253,248,0.96);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+    z-index: 99;
+    padding: 16px 24px 24px;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 10px 14px;
+    border-radius: 12px;
+    transition: all 0.2s;
+  }
+  .mobile-menu a:hover, .mobile-menu a.active {
+    color: var(--purple);
+    background: rgba(155,114,207,0.1);
+  }
+
+  /* Page wrapper */
   .page {
     position: relative;
     z-index: 1;
     padding-top: 68px;
   }
 
-  /* ── Hero ────────────────────────────────────────────────────── */
+  /* Hero */
   .hero {
     text-align: center;
     padding: 80px 24px 60px;
     max-width: 680px;
     margin: 0 auto;
   }
-
   .hero-badge {
     display: inline-flex;
     align-items: center;
@@ -178,7 +205,6 @@
     margin-bottom: 24px;
     animation: fadeUp 0.6s ease both;
   }
-
   .hero h1 {
     font-family: 'Fraunces', serif;
     font-size: clamp(2.4rem, 6vw, 3.8rem);
@@ -192,7 +218,6 @@
     margin-bottom: 16px;
     animation: fadeUp 0.6s 0.1s ease both;
   }
-
   .hero-byline {
     font-family: 'Fraunces', serif;
     font-style: italic;
@@ -212,13 +237,12 @@
   .divider-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--lavender), transparent); }
   .divider-icon { font-size: 1.2rem; }
 
-  /* ── Story card ──────────────────────────────────────────────── */
+  /* Story card */
   .story-card {
     max-width: 720px;
     margin: 0 auto 60px;
     padding: 0 24px;
   }
-
   .story-inner {
     background: var(--surface);
     backdrop-filter: blur(20px);
@@ -231,8 +255,6 @@
     overflow: hidden;
     animation: fadeUp 0.7s 0.3s ease both;
   }
-
-  /* Decorative corner accent */
   .story-inner::before {
     content: '✦';
     position: absolute;
@@ -241,7 +263,6 @@
     color: var(--lavender);
     opacity: 0.7;
   }
-
   .chapter-label {
     font-size: 0.75rem;
     font-weight: 700;
@@ -260,17 +281,14 @@
     background: linear-gradient(90deg, var(--coral) 0%, transparent 100%);
     opacity: 0.3;
   }
-
   .story-text {
     font-family: 'Fraunces', serif;
     font-size: 1.15rem;
     line-height: 1.85;
     color: var(--text);
   }
-
   .story-text p { margin-bottom: 1.6em; }
   .story-text p:last-child { margin-bottom: 0; }
-
   .story-text .drop-cap::first-letter {
     font-size: 3.8em;
     font-weight: 700;
@@ -283,29 +301,13 @@
     background-clip: text;
   }
 
-  /* ── Fade-out + lock overlay ─────────────────────────────────── */
-  .story-fade {
-    position: relative;
-    margin-top: -60px;
-  }
-  .story-fade::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 120px;
-    background: linear-gradient(to bottom, transparent, var(--bg));
-    z-index: 2;
-    /* so it layers over story text in the card below */
-    pointer-events: none;
-  }
-
+  /* Locked preview */
   .locked-preview {
     max-width: 720px;
     margin: 0 auto;
     padding: 0 24px;
     position: relative;
   }
-
   .locked-block {
     background: var(--surface);
     backdrop-filter: blur(14px);
@@ -321,7 +323,6 @@
     font-size: 1.1rem;
     line-height: 1.85;
   }
-
   .locked-overlay {
     position: absolute;
     inset: 0;
@@ -334,7 +335,6 @@
     border-radius: 28px;
     padding: 24px;
   }
-
   .lock-badge {
     width: 56px; height: 56px;
     background: var(--grad-btn);
@@ -345,7 +345,6 @@
     font-size: 1.5rem;
     box-shadow: 0 8px 28px rgba(155,114,207,0.35);
   }
-
   .lock-label {
     font-family: 'Fraunces', serif;
     font-size: 1.35rem;
@@ -361,7 +360,7 @@
     line-height: 1.5;
   }
 
-  /* ── CTA section ─────────────────────────────────────────────── */
+  /* CTA section */
   .cta-section {
     max-width: 680px;
     margin: 60px auto 0;
@@ -369,7 +368,6 @@
     text-align: center;
     animation: fadeUp 0.7s 0.5s ease both;
   }
-
   .cta-heading {
     font-family: 'Fraunces', serif;
     font-size: clamp(1.6rem, 4vw, 2.2rem);
@@ -378,7 +376,6 @@
     color: var(--text);
     margin-bottom: 12px;
   }
-
   .cta-sub {
     font-size: 1rem;
     color: var(--muted);
@@ -396,7 +393,6 @@
     flex-wrap: wrap;
     justify-content: center;
   }
-
   .request-form input[type="email"] {
     flex: 1;
     min-width: 220px;
@@ -430,14 +426,11 @@
     border-radius: var(--r-pill);
     cursor: pointer;
     text-decoration: none;
-    transition: transform 0.2s, box-shadow 0.2s, opacity 0.2s;
+    transition: transform 0.2s, box-shadow 0.2s;
     box-shadow: 0 6px 24px rgba(155,114,207,0.3);
     white-space: nowrap;
   }
-  .btn-primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 32px rgba(155,114,207,0.4);
-  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(155,114,207,0.4); }
   .btn-primary:active { transform: translateY(0); }
 
   .btn-secondary {
@@ -456,10 +449,7 @@
     text-decoration: none;
     transition: all 0.2s;
   }
-  .btn-secondary:hover {
-    background: rgba(155,114,207,0.08);
-    border-color: var(--purple);
-  }
+  .btn-secondary:hover { background: rgba(155,114,207,0.08); border-color: var(--purple); }
 
   .form-note {
     font-size: 0.8rem;
@@ -467,7 +457,6 @@
     margin-bottom: 28px;
   }
 
-  /* Or divider */
   .or-row {
     display: flex;
     align-items: center;
@@ -479,7 +468,7 @@
   }
   .or-row span { flex: 1; height: 1px; background: var(--border); display: block; }
 
-  /* ── Success toast ───────────────────────────────────────────── */
+  /* Toast */
   .toast {
     position: fixed;
     bottom: 28px;
@@ -501,12 +490,9 @@
     pointer-events: none;
     white-space: nowrap;
   }
-  .toast.show {
-    transform: translateX(-50%) translateY(0);
-    opacity: 1;
-  }
+  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-  /* ── Info cards row ──────────────────────────────────────────── */
+  /* Info cards */
   .info-row {
     display: flex;
     gap: 16px;
@@ -517,7 +503,6 @@
     margin-left: auto;
     margin-right: auto;
   }
-
   .info-card {
     flex: 1;
     min-width: 160px;
@@ -530,16 +515,12 @@
     padding: 20px 18px;
     text-align: center;
   }
-
   .info-icon { font-size: 1.6rem; margin-bottom: 8px; }
   .info-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
   .info-value { font-family: 'Fraunces', serif; font-size: 0.95rem; font-weight: 600; color: var(--text); }
 
-  /* ── Back link ───────────────────────────────────────────────── */
-  .back-row {
-    text-align: center;
-    padding: 16px 24px 48px;
-  }
+  /* Back link */
+  .back-row { text-align: center; padding: 16px 24px 48px; }
   .back-link {
     display: inline-flex;
     align-items: center;
@@ -551,68 +532,19 @@
   }
   .back-link:hover { color: var(--purple); }
 
-  /* ── Animations ──────────────────────────────────────────────── */
+  /* Animations */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
   }
-
   .reveal {
     opacity: 0;
     transform: translateY(28px);
     transition: opacity 0.6s ease, transform 0.6s ease;
   }
-  .reveal.visible {
-    opacity: 1;
-    transform: none;
-  }
+  .reveal.visible { opacity: 1; transform: none; }
 
-  /* ── Responsive ──────────────────────────────────────────────── */
-  .nav-burger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    padding: 6px;
-  }
-  .nav-burger span {
-    display: block;
-    width: 22px;
-    height: 2px;
-    background: var(--purple);
-    border-radius: 2px;
-    transition: all 0.25s;
-  }
-
-  .mobile-menu {
-    display: none;
-    position: fixed;
-    top: 68px; left: 0; right: 0;
-    background: rgba(255,253,248,0.96);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    border-bottom: 1px solid var(--border);
-    z-index: 99;
-    padding: 16px 24px 24px;
-    flex-direction: column;
-    gap: 4px;
-  }
-  .mobile-menu.open { display: flex; }
-  .mobile-menu a {
-    font-size: 1rem;
-    font-weight: 500;
-    color: var(--muted);
-    text-decoration: none;
-    padding: 10px 14px;
-    border-radius: 12px;
-    transition: all 0.2s;
-  }
-  .mobile-menu a:hover, .mobile-menu a.active {
-    color: var(--purple);
-    background: rgba(155,114,207,0.1);
-  }
+  /* Responsive */
   @media (max-width: 640px) {
     .story-inner { padding: 36px 26px 32px; }
     .locked-block { padding: 28px 26px; }
@@ -652,13 +584,15 @@
 
 <!-- Mobile menu -->
 <div class="mobile-menu" id="mobileMenu">
-  <a href="index.html">Home</a>
-  <a href="youtube.html">YouTube</a>
-  <a href="story.html" class="active">Story</a>
-  <a href="gallery.html">Gallery</a>
-  <a href="reviews.html">Reviews ⭐</a>
-  <a href="donate.html">Donate ✦</a>
+  <a href="index.html" onclick="closeMobileMenu()">Home</a>
+  <a href="youtube.html" onclick="closeMobileMenu()">YouTube</a>
+  <a href="story.html" class="active" onclick="closeMobileMenu()">Story</a>
+  <a href="gallery.html" onclick="closeMobileMenu()">Gallery</a>
+  <a href="reviews.html" onclick="closeMobileMenu()">Reviews ⭐</a>
+  <a href="donate.html" onclick="closeMobileMenu()">Donate ✦</a>
 </div>
+
+<!-- Page -->
 <div class="page">
 
   <!-- Hero -->
@@ -719,7 +653,7 @@
 
     <div class="or-row"><span></span>or<span></span></div>
 
-    <a href="/cdn-cgi/l/email-protection#84eee1e9ede9e5e5e0f1e9e1f0e5c4e3e9e5ede8aae7ebe9bbf7f1e6eee1e7f0b9c6ebebefa1b6b4d6e1f5f1e1f7f0a1b6b4a1c1b6a1bcb4a1bdb7a1b6b4c7ece8ebe1a1b6b3f7a1b6b4c6e1f7f0a1b6b4c2f6ede1eae0a2e6ebe0fdb9cceda1b6b4cee1e9ede9e5a1b6c7a1b4c5a1b4c5cda1b6b4f3ebf1e8e0a1b6b4e8ebf2e1a1b6b4f0eba1b6b4f6e1e5e0a1b6b4c7ece8ebe1a1b6b3f7a1b6b4c6e1f7f0a1b6b4c2f6ede1eae0a5a1b6b4d4e8e1e5f7e1a1b6b4f7e1eae0a1b6b4e9e1a1b6b4e5a1b6b4e7ebf4fdaaa1b4c5a1b4c5d0ece5eaefa1b6b4fdebf1a5" class="btn-secondary">
+    <a href="mailto:jemimaadumeta@gmail.com?subject=Book%20Request%20%E2%80%93%20Chloe%27s%20Best%20Friend&body=Hi%20Jemima%2C%0A%0AI%20would%20love%20to%20read%20Chloe%27s%20Best%20Friend!%20Please%20send%20me%20a%20copy.%0A%0AThank%20you!" class="btn-secondary">
       ✉️ Email Jemima directly
     </a>
 
@@ -728,7 +662,7 @@
       <div class="info-card">
         <div class="info-icon">💛</div>
         <div class="info-label">Theme</div>
-        <div class="info-value">Friendship & Kindness</div>
+        <div class="info-value">Friendship &amp; Kindness</div>
       </div>
       <div class="info-card">
         <div class="info-icon">✍️</div>
@@ -741,8 +675,6 @@
         <div class="info-value">Children's Book</div>
       </div>
     </div>
-
-
   </section>
 
   <div class="back-row">
@@ -756,26 +688,51 @@
   ✅ Request sent! Jemima will be in touch soon.
 </div>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-  // ── Mobile menu ───────────────────────────────────────────────
+<script>
+  // Mobile menu — toggle, close on link tap, close on outside tap
   function toggleMobileMenu() {
     document.getElementById('mobileMenu').classList.toggle('open');
   }
+  function closeMobileMenu() {
+    document.getElementById('mobileMenu').classList.remove('open');
+  }
+  document.addEventListener('click', function(e) {
+    const menu = document.getElementById('mobileMenu');
+    const burger = document.getElementById('navBurger');
+    if (menu.classList.contains('open') && !menu.contains(e.target) && !burger.contains(e.target)) {
+      menu.classList.remove('open');
+    }
+  });
 
-  // ── Scroll reveal ─────────────────────────────────────────────
+  // Scroll reveal
   const revealEls = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver(
-    entries => entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } }),
+    entries => entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+    }),
     { threshold: 0.12 }
   );
   revealEls.forEach(el => observer.observe(el));
 
+  // Email form — builds a mailto with the reader's address pre-filled in the body
   function handleRequest(e) {
     e.preventDefault();
     const email = document.getElementById('emailInput').value.trim();
     if (!email) return;
 
-    // Build a mailto link and open it
-    const subject = encodeURIComponent("Book Request – Chloe's Best Friend");
+    const subject = encodeURIComponent("Book Request - Chloe's Best Friend");
     const body = encodeURIComponent(
-      `Hi Jemima,\n\nI would love to read Chloe's Best Friend! My email is: ${email}\n\nPlease send me a copy when you can.\n\nThank you! �
+      'Hi Jemima,\n\nI would love to read Chloe\'s Best Friend! My email is: ' + email + '\n\nPlease send me a copy when you can.\n\nThank you!'
+    );
+    window.location.href = 'mailto:jemimaadumeta@gmail.com?subject=' + subject + '&body=' + body;
+
+    const toast = document.getElementById('toast');
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 4000);
+
+    document.getElementById('requestForm').reset();
+  }
+</script>
+
+</body>
+</html>
