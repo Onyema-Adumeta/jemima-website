@@ -135,6 +135,18 @@
     background: rgba(155,114,207,0.1);
   }
 
+  .nav-links a.nav-donate {
+    background: var(--grad-btn);
+    color: white !important;
+    font-weight: 600;
+    padding: 8px 18px;
+  }
+  .nav-links a.nav-donate:hover {
+    opacity: 0.88;
+    background: var(--grad-btn);
+    transform: translateY(-1px);
+  }
+
   /* ── Page wrapper ────────────────────────────────────────────── */
   .page {
     position: relative;
@@ -556,11 +568,59 @@
   }
 
   /* ── Responsive ──────────────────────────────────────────────── */
-  @media (max-width: 600px) {
+  .nav-burger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 6px;
+  }
+  .nav-burger span {
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--purple);
+    border-radius: 2px;
+    transition: all 0.25s;
+  }
+
+  .mobile-menu {
+    display: none;
+    position: fixed;
+    top: 68px; left: 0; right: 0;
+    background: rgba(255,253,248,0.96);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border-bottom: 1px solid var(--border);
+    z-index: 99;
+    padding: 16px 24px 24px;
+    flex-direction: column;
+    gap: 4px;
+  }
+  .mobile-menu.open { display: flex; }
+  .mobile-menu a {
+    font-size: 1rem;
+    font-weight: 500;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 10px 14px;
+    border-radius: 12px;
+    transition: all 0.2s;
+  }
+  .mobile-menu a:hover, .mobile-menu a.active {
+    color: var(--purple);
+    background: rgba(155,114,207,0.1);
+  }
+  @media (max-width: 640px) {
     .story-inner { padding: 36px 26px 32px; }
     .locked-block { padding: 28px 26px; }
     .nav-links { display: none; }
+    .nav-burger { display: flex; }
     .info-card { min-width: 130px; }
+    .request-form { flex-direction: column; align-items: stretch; }
+    .request-form input[type="email"] { min-width: unset; }
   }
 </style>
 </head>
@@ -579,14 +639,26 @@
   <a class="nav-brand" href="index.html">Jemima's Creative Corner ✦</a>
   <ul class="nav-links">
     <li><a href="index.html">Home</a></li>
+    <li><a href="youtube.html">YouTube</a></li>
     <li><a href="story.html" class="active">Story</a></li>
     <li><a href="gallery.html">Gallery</a></li>
-    <li><a href="youtube.html">Videos</a></li>
-    <li><a href="donate.html">Support</a></li>
+    <li><a href="reviews.html">Reviews ⭐</a></li>
+    <li><a href="donate.html" class="nav-donate">Donate ✦</a></li>
   </ul>
+  <button class="nav-burger" id="navBurger" aria-label="Open menu" onclick="toggleMobileMenu()">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
 
-<!-- Page -->
+<!-- Mobile menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <a href="index.html">Home</a>
+  <a href="youtube.html">YouTube</a>
+  <a href="story.html" class="active">Story</a>
+  <a href="gallery.html">Gallery</a>
+  <a href="reviews.html">Reviews ⭐</a>
+  <a href="donate.html">Donate ✦</a>
+</div>
 <div class="page">
 
   <!-- Hero -->
@@ -647,28 +719,30 @@
 
     <div class="or-row"><span></span>or<span></span></div>
 
-    <a href="mailto:jemimaadumeta@gmail.com?subject=Book%20Request%20%E2%80%93%20Chloe%27s%20Best%20Friend&body=Hi%20Jemima%2C%0A%0AI%20would%20love%20to%20read%20Chloe%27s%20Best%20Friend!%20Please%20send%20me%20a%20copy.%0A%0AThank%20you!" class="btn-secondary">
+    <a href="/cdn-cgi/l/email-protection#84eee1e9ede9e5e5e0f1e9e1f0e5c4e3e9e5ede8aae7ebe9bbf7f1e6eee1e7f0b9c6ebebefa1b6b4d6e1f5f1e1f7f0a1b6b4a1c1b6a1bcb4a1bdb7a1b6b4c7ece8ebe1a1b6b3f7a1b6b4c6e1f7f0a1b6b4c2f6ede1eae0a2e6ebe0fdb9cceda1b6b4cee1e9ede9e5a1b6c7a1b4c5a1b4c5cda1b6b4f3ebf1e8e0a1b6b4e8ebf2e1a1b6b4f0eba1b6b4f6e1e5e0a1b6b4c7ece8ebe1a1b6b3f7a1b6b4c6e1f7f0a1b6b4c2f6ede1eae0a5a1b6b4d4e8e1e5f7e1a1b6b4f7e1eae0a1b6b4e9e1a1b6b4e5a1b6b4e7ebf4fdaaa1b4c5a1b4c5d0ece5eaefa1b6b4fdebf1a5" class="btn-secondary">
       ✉️ Email Jemima directly
     </a>
 
     <!-- Info cards -->
     <div class="info-row">
       <div class="info-card">
-        <div class="info-icon">🎂</div>
-        <div class="info-label">Age Range</div>
-        <div class="info-value">5 – 10 years</div>
-      </div>
-      <div class="info-card">
-        <div class="info-icon">📖</div>
-        <div class="info-label">Reading Time</div>
-        <div class="info-value">~30 minutes</div>
-      </div>
-      <div class="info-card">
         <div class="info-icon">💛</div>
         <div class="info-label">Theme</div>
         <div class="info-value">Friendship & Kindness</div>
       </div>
+      <div class="info-card">
+        <div class="info-icon">✍️</div>
+        <div class="info-label">Author</div>
+        <div class="info-value">Jemima Adumeta</div>
+      </div>
+      <div class="info-card">
+        <div class="info-icon">🌟</div>
+        <div class="info-label">Format</div>
+        <div class="info-value">Children's Book</div>
+      </div>
     </div>
+
+
   </section>
 
   <div class="back-row">
@@ -682,7 +756,12 @@
   ✅ Request sent! Jemima will be in touch soon.
 </div>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  // ── Mobile menu ───────────────────────────────────────────────
+  function toggleMobileMenu() {
+    document.getElementById('mobileMenu').classList.toggle('open');
+  }
+
   // ── Scroll reveal ─────────────────────────────────────────────
   const revealEls = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver(
@@ -691,7 +770,6 @@
   );
   revealEls.forEach(el => observer.observe(el));
 
-  // ── Email form handler ────────────────────────────────────────
   function handleRequest(e) {
     e.preventDefault();
     const email = document.getElementById('emailInput').value.trim();
@@ -700,18 +778,4 @@
     // Build a mailto link and open it
     const subject = encodeURIComponent("Book Request – Chloe's Best Friend");
     const body = encodeURIComponent(
-      `Hi Jemima,\n\nI would love to read Chloe's Best Friend! My email is: ${email}\n\nPlease send me a copy when you can.\n\nThank you! 😊`
-    );
-    window.location.href = `mailto:jemimaadumeta@gmail.com?subject=${subject}&body=${body}`;
-
-    // Show toast
-    const toast = document.getElementById('toast');
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 4000);
-
-    document.getElementById('requestForm').reset();
-  }
-</script>
-
-</body>
-</html>
+      `Hi Jemima,\n\nI would love to read Chloe's Best Friend! My email is: ${email}\n\nPlease send me a copy when you can.\n\nThank you! �
