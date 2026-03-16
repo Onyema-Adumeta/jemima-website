@@ -220,9 +220,10 @@
     }
     .logo { font-family: 'Fraunces', serif; font-weight: 900; font-size: 1.3rem; color: var(--purple-deep); letter-spacing: -.03em; white-space: nowrap; flex-shrink: 0; }
     .logo span { background: linear-gradient(135deg, var(--coral), var(--lavender)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    nav { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
-    nav a { font-size: .9rem; font-weight: 600; color: var(--ink); padding: 9px 18px; border-radius: var(--r-pill); transition: background .2s, color .2s; opacity: .75; }
+    nav { display: flex; align-items: center; gap: 2px; flex-wrap: wrap; }
+    nav a { font-size: .85rem; font-weight: 600; color: var(--ink); padding: 8px 14px; border-radius: var(--r-pill); transition: background .2s, color .2s; opacity: .75; white-space: nowrap; }
     nav a:hover { background: rgba(123,47,247,.08); color: var(--purple); opacity: 1; }
+    nav a.nav-active { opacity: 1; color: var(--purple); background: rgba(123,47,247,.08); }
     .nav-cta {
       background: linear-gradient(135deg, var(--coral), var(--purple)) !important;
       color: white !important; opacity: 1 !important;
@@ -374,15 +375,17 @@
     .explore-section .section-eyebrow { color: var(--sun); }
     .explore-section .section-sub { color: rgba(255,255,255,.6); }
 
-    .cards-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 52px; }
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-top: 52px; }
 
-    .exp-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 24px; padding: 28px 22px; transition: transform .3s var(--ease-bounce), background .3s, border-color .3s; position: relative; overflow: hidden; cursor: pointer; }
+    .exp-card { background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1); border-radius: 24px; padding: 28px 22px; transition: transform .3s var(--ease-bounce), background .3s, border-color .3s; position: relative; overflow: hidden; cursor: pointer; display: block; }
     .exp-card::after { content: ''; position: absolute; inset: 0; border-radius: 24px; opacity: 0; transition: opacity .3s; }
     .exp-card:nth-child(1)::after{background:linear-gradient(135deg,rgba(255,77,109,.15),transparent);}
     .exp-card:nth-child(2)::after{background:linear-gradient(135deg,rgba(255,190,11,.12),transparent);}
     .exp-card:nth-child(3)::after{background:linear-gradient(135deg,rgba(6,214,160,.12),transparent);}
     .exp-card:nth-child(4)::after{background:linear-gradient(135deg,rgba(199,125,255,.15),transparent);}
     .exp-card:nth-child(5)::after{background:linear-gradient(135deg,rgba(116,199,236,.15),transparent);}
+    .exp-card:nth-child(6)::after{background:linear-gradient(135deg,rgba(255,155,67,.15),transparent);}
+    .exp-card:nth-child(7)::after{background:linear-gradient(135deg,rgba(255,190,11,.15),transparent);}
     .exp-card:hover{transform:translateY(-6px);border-color:rgba(255,255,255,.25);}
     .exp-card:hover::after{opacity:1;}
 
@@ -392,6 +395,8 @@
     .exp-card:nth-child(3) .exp-card-icon{background:rgba(6,214,160,.18);}
     .exp-card:nth-child(4) .exp-card-icon{background:rgba(199,125,255,.18);}
     .exp-card:nth-child(5) .exp-card-icon{background:rgba(116,199,236,.18);}
+    .exp-card:nth-child(6) .exp-card-icon{background:rgba(255,155,67,.18);}
+    .exp-card:nth-child(7) .exp-card-icon{background:rgba(255,190,11,.18);}
 
     .exp-card h3 { font-family: 'Fraunces', serif; font-size: 1.15rem; font-weight: 700; color: white; margin-bottom: 8px; letter-spacing: -.02em; }
     .exp-card p { color: rgba(255,255,255,.5); font-size: .88rem; line-height: 1.6; }
@@ -401,6 +406,8 @@
     .exp-card:nth-child(3) .exp-card-arrow{color:var(--mint);}
     .exp-card:nth-child(4) .exp-card-arrow{color:var(--lavender);}
     .exp-card:nth-child(5) .exp-card-arrow{color:var(--sky);}
+    .exp-card:nth-child(6) .exp-card-arrow{color:#ffb347;}
+    .exp-card:nth-child(7) .exp-card-arrow{color:var(--sun);}
     .exp-card:hover .exp-card-arrow{opacity:1;transform:translateX(0);}
 
     /* ── ABOUT ── */
@@ -451,22 +458,22 @@
     .reveal.visible { opacity: 1; transform: none; }
     .stagger > * { opacity: 0; transform: translateY(24px); transition: opacity .6s var(--ease-out), transform .6s var(--ease-out); }
     .stagger.visible > *:nth-child(1){opacity:1;transform:none;transition-delay:0s;}
-    .stagger.visible > *:nth-child(2){opacity:1;transform:none;transition-delay:.08s;}
-    .stagger.visible > *:nth-child(3){opacity:1;transform:none;transition-delay:.16s;}
-    .stagger.visible > *:nth-child(4){opacity:1;transform:none;transition-delay:.24s;}
-    .stagger.visible > *:nth-child(5){opacity:1;transform:none;transition-delay:.32s;}
+    .stagger.visible > *:nth-child(2){opacity:1;transform:none;transition-delay:.07s;}
+    .stagger.visible > *:nth-child(3){opacity:1;transform:none;transition-delay:.14s;}
+    .stagger.visible > *:nth-child(4){opacity:1;transform:none;transition-delay:.21s;}
+    .stagger.visible > *:nth-child(5){opacity:1;transform:none;transition-delay:.28s;}
+    .stagger.visible > *:nth-child(6){opacity:1;transform:none;transition-delay:.35s;}
+    .stagger.visible > *:nth-child(7){opacity:1;transform:none;transition-delay:.42s;}
 
     /* ── RESPONSIVE ── */
-    @media(max-width:1100px){ .cards-grid{grid-template-columns:repeat(3,1fr);} }
     @media(max-width:960px){
       .hero-grid,.about-grid{grid-template-columns:1fr;gap:36px;}
-      .cards-grid{grid-template-columns:1fr 1fr;}
       .cta-inner{padding:50px 32px;}
     }
     @media(max-width:640px){
       .header-inner{padding:10px 10px 10px 18px;border-radius:20px;flex-wrap:wrap;}
-      nav{gap:4px;}
-      nav a{padding:7px 12px;font-size:.82rem;}
+      nav{gap:2px;}
+      nav a{padding:7px 10px;font-size:.8rem;}
       .hero{padding:50px 0 60px;}
       .cards-grid{grid-template-columns:1fr;gap:12px;}
       .cta-inner{padding:40px 22px;border-radius:24px;}
@@ -493,10 +500,11 @@
     .mobile-drawer.open .drawer-panel { transform: translateX(0); }
     .drawer-panel a { font-size: 1.1rem; font-weight: 700; color: var(--ink); padding: 14px 18px; border-radius: 16px; transition: background .2s, color .2s; opacity: .8; font-family: 'DM Sans', sans-serif; }
     .drawer-panel a:hover { background: rgba(123,47,247,.08); color: var(--purple); opacity: 1; }
-    .drawer-panel .nav-active { background: linear-gradient(135deg, var(--coral), var(--purple)) !important; color: white !important; opacity: 1 !important; }
+    .drawer-panel .nav-active { background: rgba(123,47,247,.08); color: var(--purple); opacity: 1; }
     .drawer-panel .nav-donate, .drawer-panel .nav-cta { background: linear-gradient(135deg, var(--coral), var(--purple)); color: white !important; opacity: 1 !important; }
     .drawer-close { position: absolute; top: 20px; right: 20px; background: rgba(123,47,247,.08); border: none; border-radius: 50%; width: 36px; height: 36px; font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; color: var(--ink); }
-    @media (max-width: 820px) { nav { display: none !important; } .hamburger { display: flex; } }
+    @media (max-width: 960px) { nav { display: none !important; } .hamburger { display: flex; } }
+
     /* ── CONFETTI CANVAS ── */
     #confettiCanvas {
       position: fixed; inset: 0; width: 100%; height: 100%;
@@ -531,7 +539,7 @@
 </head>
 <canvas id="confettiCanvas"></canvas>
 
-  <div class="progress-bar"<!-- ══════════════════════════════════════════════
+  <!-- ══════════════════════════════════════════════
        SPLASH SCREEN
   ══════════════════════════════════════════════ -->
   <div id="splash-screen">
@@ -574,6 +582,8 @@
         <a href="story.html">Story</a>
         <a href="gallery.html">Gallery</a>
         <a href="reviews.html">Reviews ⭐</a>
+        <a href="about.html">About</a>
+        <a href="activities.html">Activities 🎯</a>
         <a href="donate.html" class="nav-cta">Donate ✦</a>
       </nav>
       <button class="hamburger" id="hamburger" aria-label="Open menu">
@@ -591,6 +601,8 @@
       <a href="story.html">📖 Story</a>
       <a href="gallery.html">🎨 Gallery</a>
       <a href="reviews.html">⭐ Reviews</a>
+      <a href="about.html">🌸 About</a>
+      <a href="activities.html">🎯 Activities</a>
       <a href="donate.html" class="nav-donate">✦ Donate</a>
     </div>
   </div>
@@ -668,13 +680,13 @@
     </svg>
   </div>
 
-  <!-- EXPLORE — now 5 cards including Reviews -->
+  <!-- EXPLORE — 7 cards including About and Activities -->
   <section class="explore-section">
     <div class="wrap">
       <div class="text-center reveal">
         <span class="section-eyebrow">Discover</span>
         <h2 class="section-title">Explore Jemima's World</h2>
-        <p class="section-sub">Stories, videos, artwork, reviews, and joyful creative projects designed to inspire.</p>
+        <p class="section-sub">Stories, videos, artwork, reviews, activities, and joyful creative projects designed to inspire.</p>
       </div>
 
       <div class="cards-grid stagger">
@@ -701,6 +713,18 @@
           <h3>Reviews</h3>
           <p>See what readers are saying and leave your own review of Chloe's Best Friend.</p>
           <div class="exp-card-arrow">Read reviews →</div>
+        </a>
+        <a class="exp-card" href="about.html">
+          <div class="exp-card-icon">🌸</div>
+          <h3>About</h3>
+          <p>Get to know Jemima — the young author, creator, and storyteller behind this corner.</p>
+          <div class="exp-card-arrow">Meet Jemima →</div>
+        </a>
+        <a class="exp-card" href="activities.html">
+          <div class="exp-card-icon">🎯</div>
+          <h3>Activities</h3>
+          <p>Fun colouring pages, puzzles, and creative activities inspired by Chloe's Best Friend.</p>
+          <div class="exp-card-arrow">Let's play →</div>
         </a>
         <a class="exp-card" href="donate.html">
           <div class="exp-card-icon">✨</div>
@@ -754,8 +778,9 @@
           <li><div class="fi-icon" style="background:#fffbe6;">🎬</div>Family-friendly YouTube videos for all ages</li>
           <li><div class="fi-icon" style="background:#f0fff8;">🎨</div>Colourful artwork and joyful illustrations</li>
           <li><div class="fi-icon" style="background:#f3e8ff;">⭐</div>A growing community of readers sharing their love of the story</li>
+          <li><div class="fi-icon" style="background:#fff8e6;">🎯</div>Fun activities and creative play inspired by the book</li>
         </ul>
-        <a href="story.html" class="btn btn-primary">Discover Jemima's Story</a>
+        <a href="about.html" class="btn btn-primary">Meet Jemima →</a>
       </div>
     </div>
   </section>
@@ -885,7 +910,6 @@
     document.querySelectorAll('.reveal, .stagger').forEach(el => observer.observe(el));
   </script>
 
-
   <script>
   (function(){
     var btn=document.getElementById('hamburger'),
@@ -933,7 +957,7 @@
     function spawnBurst() {
       for (var i = 0; i < 180; i++) {
         var p = new Particle();
-        p.y = Math.random() * canvas.height * 0.5; // start from top half
+        p.y = Math.random() * canvas.height * 0.5;
         particles.push(p);
       }
     }
@@ -963,7 +987,6 @@
       if (running) return;
       running = true;
       spawnBurst();
-      // Second wave after 600ms for extra wow
       setTimeout(function(){ spawnBurst(); }, 600);
       loop();
     };
@@ -996,7 +1019,6 @@
     var dismiss = document.getElementById('pwaDismiss');
     if (!prompt) return;
 
-    // Don't show if already installed or dismissed recently
     try {
       if (localStorage.getItem('pwa-dismissed')) return;
     } catch(e) {}
