@@ -11,28 +11,28 @@
 
 <style>
   :root {
-    --coral:       #ff6b6b;
-    --peach:       #ffa07a;
-    --gold:        #ffd166;
-    --mint:        #a8edca;
-    --lavender:    #c9b8ff;
-    --purple:      #9b72cf;
+    --coral: #ff6b6b;
+    --peach: #ffa07a;
+    --gold: #ffd166;
+    --mint: #a8edca;
+    --lavender: #c9b8ff;
+    --purple: #9b72cf;
     --purple-deep: #4a0e8f;
-    --pink:        #ff8fab;
-    --bg:          #fffdf8;
-    --surface:     rgba(255,255,255,0.72);
-    --text:        #2d2438;
-    --muted:       #7a6e8a;
-    --border:      rgba(155,114,207,0.18);
-    --grad-btn:    linear-gradient(135deg, var(--coral), var(--purple));
-    --r-pill:      100px;
-    --shadow-lg:   0 20px 60px rgba(155,114,207,0.22);
-    --ease-bounce: cubic-bezier(.34,1.56,.64,1);
-    --ease-out:    cubic-bezier(.22,1,.36,1);
+    --pink: #ff8fab;
+    --bg: #fffdf8;
+    --surface: rgba(255,255,255,0.72);
+    --text: #2d2438;
+    --muted: #7a6e8a;
+    --border: rgba(155,114,207,0.18);
+    --grad-btn: linear-gradient(135deg, var(--coral), var(--purple));
+    --r-pill: 100px;
+    --shadow-lg: 0 20px 60px rgba(155,114,207,0.22);
+    --ease-out: cubic-bezier(.22,1,.36,1);
   }
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; }
+
   body {
     font-family: 'DM Sans', sans-serif;
     background: var(--bg);
@@ -191,7 +191,8 @@
   .mobile-drawer.open { transform: translateX(0); }
 
   .drawer-overlay {
-    position: fixed; inset: 0;
+    position: fixed;
+    inset: 0;
     background: rgba(26,10,46,.4);
     backdrop-filter: blur(4px);
     z-index: 299;
@@ -271,7 +272,6 @@
   .page {
     position: relative;
     z-index: 1;
-    padding-top: 0;
   }
 
   .hero {
@@ -353,7 +353,8 @@
   .story-inner::before {
     content: '✦';
     position: absolute;
-    top: 22px; right: 26px;
+    top: 22px;
+    right: 26px;
     font-size: 1rem;
     color: var(--lavender);
     opacity: 0.7;
@@ -438,7 +439,8 @@
   }
 
   .lock-badge {
-    width: 56px; height: 56px;
+    width: 56px;
+    height: 56px;
     background: var(--grad-btn);
     border-radius: 50%;
     display: flex;
@@ -532,7 +534,6 @@
     border: none;
     border-radius: var(--r-pill);
     cursor: pointer;
-    text-decoration: none;
     transition: transform 0.2s, box-shadow 0.2s;
     box-shadow: 0 6px 24px rgba(155,114,207,0.3);
     white-space: nowrap;
@@ -558,7 +559,6 @@
     border: 1.5px solid rgba(155,114,207,0.35);
     border-radius: var(--r-pill);
     cursor: pointer;
-    text-decoration: none;
     transition: all 0.2s;
   }
 
@@ -618,6 +618,19 @@
   .info-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
   .info-value { font-family: 'Fraunces', serif; font-size: 0.95rem; font-weight: 600; color: var(--text); }
 
+  .success-note {
+    max-width: 540px;
+    margin: 0 auto 22px;
+    padding: 14px 18px;
+    background: rgba(168, 237, 202, 0.35);
+    border: 1px solid rgba(155,114,207,0.18);
+    border-radius: 18px;
+    color: #2d2438;
+    font-size: 0.95rem;
+    text-align: center;
+    display: none;
+  }
+
   .back-row {
     text-align: center;
     padding: 16px 24px 48px;
@@ -629,7 +642,6 @@
     gap: 6px;
     color: var(--muted);
     font-size: 0.88rem;
-    text-decoration: none;
     transition: color 0.2s;
   }
 
@@ -709,7 +721,6 @@
 </header>
 
 <div class="page">
-
   <header class="hero">
     <div class="hero-badge">📖 Story Preview</div>
     <h1>Chloe's Best Friend</h1>
@@ -740,10 +751,18 @@
   </div>
 
   <section class="cta-section reveal">
-    <div class="divider"><div class="divider-line"></div><div class="divider-icon">✨</div><div class="divider-line"></div></div>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-icon">✨</div>
+      <div class="divider-line"></div>
+    </div>
 
     <h2 class="cta-heading">Want to read the whole story?</h2>
     <p class="cta-sub">Enter your email below and you’ll automatically receive a link to access the full book, along with options to donate and leave a review after reading.</p>
+
+    <div class="success-note" id="successNote">
+      ✅ Thank you. Your request has been submitted. Please check your email for the full book link.
+    </div>
 
     <form
       class="request-form"
@@ -765,6 +784,7 @@
       <input type="hidden" name="_captcha" value="false">
       <input type="hidden" name="_template" value="table">
       <input type="hidden" name="_next" value="https://www.jemimaadumeta.com/story.html?requested=true">
+      <input type="hidden" name="_replyto" id="replyToField">
 
       <input
         type="hidden"
@@ -793,7 +813,7 @@ Jemima's Creative Corner"
       </button>
     </form>
 
-    <p class="form-note">After submitting, please check your inbox for the full book link. 🌸</p>
+    <p class="form-note">After submitting, please check your inbox or spam folder for the full book link. 🌸</p>
 
     <div class="or-row"><span></span>or<span></span></div>
 
@@ -823,7 +843,6 @@ Jemima's Creative Corner"
   <div class="back-row">
     <a class="back-link" href="index.html">← Back to Jemima's Creative Corner</a>
   </div>
-
 </div>
 
 <script>
@@ -841,37 +860,34 @@ Jemima's Creative Corner"
     document.body.style.overflow = '';
   }
 
-  document.addEventListener('keydown', e => {
+  document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') closeDrawer();
   });
 
   const revealEls = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver(
-    entries => entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.classList.add('visible');
-        observer.unobserve(e.target);
-      }
-    }),
+    function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
     { threshold: 0.12 }
   );
-  revealEls.forEach(el => observer.observe(el));
+  revealEls.forEach(function (el) {
+    observer.observe(el);
+  });
+
+  document.getElementById('requestForm').addEventListener('submit', function () {
+    document.getElementById('replyToField').value =
+      document.getElementById('emailInput').value.trim();
+  });
 
   const params = new URLSearchParams(window.location.search);
   if (params.get('requested') === 'true') {
-    const note = document.createElement('div');
-    note.style.maxWidth = '540px';
-    note.style.margin = '0 auto 22px';
-    note.style.padding = '14px 18px';
-    note.style.background = 'rgba(168, 237, 202, 0.35)';
-    note.style.border = '1px solid rgba(155,114,207,0.18)';
-    note.style.borderRadius = '18px';
-    note.style.color = '#2d2438';
-    note.style.fontSize = '0.95rem';
-    note.style.textAlign = 'center';
-    note.innerHTML = '✅ Thank you. Your request has been submitted. Please check your email for the full book link.';
-    const ctaSection = document.querySelector('.cta-section');
-    ctaSection.insertBefore(note, ctaSection.children[2]);
+    document.getElementById('successNote').style.display = 'block';
   }
 </script>
 
