@@ -10,7 +10,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
 
 <style>
-  /* Design Tokens */
   :root {
     --coral:       #ff6b6b;
     --peach:       #ffa07a;
@@ -46,7 +45,6 @@
 
   a { text-decoration: none; color: inherit; }
 
-  /* Noise texture */
   body::before {
     content: '';
     position: fixed;
@@ -57,7 +55,6 @@
     opacity: 0.6;
   }
 
-  /* Floating blobs */
   .blobs { position: fixed; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
   .blob {
     position: absolute;
@@ -66,17 +63,16 @@
     opacity: 0.25;
     animation: drift 18s ease-in-out infinite alternate;
   }
-  .blob-1 { width: 520px; height: 520px; background: var(--pink);    top: -120px; left: -100px; animation-duration: 22s; }
-  .blob-2 { width: 400px; height: 400px; background: var(--gold);    top: 40%;   right: -80px; animation-duration: 17s; animation-delay: -6s; }
-  .blob-3 { width: 350px; height: 350px; background: var(--lavender);bottom: -80px; left: 30%; animation-duration: 25s; animation-delay: -12s; }
-  .blob-4 { width: 280px; height: 280px; background: var(--mint);    top: 60%;   left: -60px; animation-duration: 20s; animation-delay: -3s; }
+  .blob-1 { width: 520px; height: 520px; background: var(--pink); top: -120px; left: -100px; animation-duration: 22s; }
+  .blob-2 { width: 400px; height: 400px; background: var(--gold); top: 40%; right: -80px; animation-duration: 17s; animation-delay: -6s; }
+  .blob-3 { width: 350px; height: 350px; background: var(--lavender); bottom: -80px; left: 30%; animation-duration: 25s; animation-delay: -12s; }
+  .blob-4 { width: 280px; height: 280px; background: var(--mint); top: 60%; left: -60px; animation-duration: 20s; animation-delay: -3s; }
 
   @keyframes drift {
     from { transform: translate(0, 0) scale(1); }
     to   { transform: translate(40px, 30px) scale(1.08); }
   }
 
-  /* ── HEADER / NAVBAR (pill style matching home) ── */
   .site-header { position: sticky; top: 0; z-index: 200; }
 
   .header-inner {
@@ -97,54 +93,78 @@
 
   .logo {
     font-family: 'Fraunces', serif;
-    font-weight: 900; font-size: 1.25rem;
-    color: var(--purple-deep); letter-spacing: -.03em;
-    white-space: nowrap; flex-shrink: 0;
+    font-weight: 900;
+    font-size: 1.25rem;
+    color: var(--purple-deep);
+    letter-spacing: -.03em;
+    white-space: nowrap;
+    flex-shrink: 0;
   }
 
   .logo span {
     background: linear-gradient(135deg, var(--coral), var(--lavender));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
-  /* Desktop nav */
-  .desktop-nav { display: flex; align-items: center; gap: 4px; flex-wrap: wrap; }
-
-  .desktop-nav a {
-    font-size: .9rem; font-weight: 600; color: var(--text);
-    padding: 9px 18px; border-radius: 999px;
-    transition: background .2s, color .2s; opacity: .7;
+  .desktop-nav {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-wrap: wrap;
   }
 
-  .desktop-nav a:hover { background: rgba(155,114,207,.08); color: var(--purple); opacity: 1; }
+  .desktop-nav a {
+    font-size: .9rem;
+    font-weight: 600;
+    color: var(--text);
+    padding: 9px 18px;
+    border-radius: 999px;
+    transition: background .2s, color .2s;
+    opacity: .7;
+  }
+
+  .desktop-nav a:hover {
+    background: rgba(155,114,207,.08);
+    color: var(--purple);
+    opacity: 1;
+  }
 
   .nav-active {
     background: linear-gradient(135deg, var(--coral), var(--purple)) !important;
-    color: white !important; opacity: 1 !important;
+    color: white !important;
+    opacity: 1 !important;
     box-shadow: 0 6px 20px rgba(255,77,109,.28);
   }
 
   .nav-donate {
     background: linear-gradient(135deg, var(--coral), var(--purple));
-    color: white !important; opacity: 1 !important;
+    color: white !important;
+    opacity: 1 !important;
     box-shadow: 0 6px 20px rgba(255,77,109,.28);
   }
 
-  /* Hamburger button */
   .hamburger {
     display: none;
-    flex-direction: column; gap: 5px;
-    background: none; border: none; cursor: pointer;
-    padding: 8px; border-radius: 12px;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 12px;
     transition: background .2s;
   }
 
   .hamburger:hover { background: rgba(155,114,207,.08); }
 
   .hamburger span {
-    display: block; width: 22px; height: 2px;
-    background: var(--text); border-radius: 999px;
+    display: block;
+    width: 22px;
+    height: 2px;
+    background: var(--text);
+    border-radius: 999px;
     transition: transform .3s var(--ease-out), opacity .3s, width .3s;
   }
 
@@ -152,7 +172,6 @@
   .hamburger.open span:nth-child(2) { opacity: 0; width: 0; }
   .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
-  /* Mobile drawer */
   .mobile-drawer {
     position: fixed;
     top: 0; right: 0; bottom: 0;
@@ -162,7 +181,8 @@
     transform: translateX(110%);
     transition: transform .4s var(--ease-out);
     box-shadow: -20px 0 60px rgba(26,10,46,.18);
-    display: flex; flex-direction: column;
+    display: flex;
+    flex-direction: column;
     padding: 80px 28px 40px;
     gap: 8px;
     overflow-y: auto;
@@ -175,41 +195,63 @@
     background: rgba(26,10,46,.4);
     backdrop-filter: blur(4px);
     z-index: 299;
-    opacity: 0; pointer-events: none;
+    opacity: 0;
+    pointer-events: none;
     transition: opacity .3s;
   }
 
-  .drawer-overlay.open { opacity: 1; pointer-events: all; }
+  .drawer-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
 
   .drawer-close {
-    position: absolute; top: 20px; right: 20px;
-    width: 38px; height: 38px;
-    border-radius: 50%; border: none;
-    background: #fef9f0; cursor: pointer;
-    font-size: 1rem; display: flex;
-    align-items: center; justify-content: center;
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    border: none;
+    background: #fef9f0;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     transition: background .2s, transform .2s;
   }
 
-  .drawer-close:hover { background: #ffe4ef; transform: scale(1.1); }
+  .drawer-close:hover {
+    background: #ffe4ef;
+    transform: scale(1.1);
+  }
 
   .drawer-logo {
     font-family: 'Fraunces', serif;
-    font-weight: 900; font-size: 1.1rem;
-    color: var(--purple-deep); letter-spacing: -.03em;
+    font-weight: 900;
+    font-size: 1.1rem;
+    color: var(--purple-deep);
+    letter-spacing: -.03em;
     margin-bottom: 20px;
   }
 
   .drawer-logo span {
     background: linear-gradient(135deg, var(--coral), var(--lavender));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
     background-clip: text;
   }
 
   .mobile-drawer a {
-    display: flex; align-items: center; gap: 12px;
-    font-size: 1.05rem; font-weight: 600; color: var(--text);
-    padding: 14px 16px; border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text);
+    padding: 14px 16px;
+    border-radius: 16px;
     transition: background .2s, color .2s;
   }
 
@@ -226,20 +268,19 @@
     box-shadow: 0 10px 26px rgba(255,77,109,.28);
   }
 
-  /* Page wrapper */
   .page {
     position: relative;
     z-index: 1;
     padding-top: 0;
   }
 
-  /* Hero */
   .hero {
     text-align: center;
     padding: 80px 24px 60px;
     max-width: 680px;
     margin: 0 auto;
   }
+
   .hero-badge {
     display: inline-flex;
     align-items: center;
@@ -256,6 +297,7 @@
     margin-bottom: 24px;
     animation: fadeUp 0.6s ease both;
   }
+
   .hero h1 {
     font-family: 'Fraunces', serif;
     font-size: clamp(2.4rem, 6vw, 3.8rem);
@@ -269,6 +311,7 @@
     margin-bottom: 16px;
     animation: fadeUp 0.6s 0.1s ease both;
   }
+
   .hero-byline {
     font-family: 'Fraunces', serif;
     font-style: italic;
@@ -277,7 +320,6 @@
     animation: fadeUp 0.6s 0.2s ease both;
   }
 
-  /* Decorative divider */
   .divider {
     display: flex;
     align-items: center;
@@ -285,15 +327,16 @@
     margin: 40px auto;
     max-width: 260px;
   }
+
   .divider-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--lavender), transparent); }
   .divider-icon { font-size: 1.2rem; }
 
-  /* Story card */
   .story-card {
     max-width: 720px;
     margin: 0 auto 60px;
     padding: 0 24px;
   }
+
   .story-inner {
     background: var(--surface);
     backdrop-filter: blur(20px);
@@ -306,6 +349,7 @@
     overflow: hidden;
     animation: fadeUp 0.7s 0.3s ease both;
   }
+
   .story-inner::before {
     content: '✦';
     position: absolute;
@@ -314,6 +358,7 @@
     color: var(--lavender);
     opacity: 0.7;
   }
+
   .chapter-label {
     font-size: 0.75rem;
     font-weight: 700;
@@ -325,6 +370,7 @@
     align-items: center;
     gap: 8px;
   }
+
   .chapter-label::after {
     content: '';
     flex: 1;
@@ -332,14 +378,17 @@
     background: linear-gradient(90deg, var(--coral) 0%, transparent 100%);
     opacity: 0.3;
   }
+
   .story-text {
     font-family: 'Fraunces', serif;
     font-size: 1.15rem;
     line-height: 1.85;
     color: var(--text);
   }
+
   .story-text p { margin-bottom: 1.6em; }
   .story-text p:last-child { margin-bottom: 0; }
+
   .story-text .drop-cap::first-letter {
     font-size: 3.8em;
     font-weight: 700;
@@ -352,13 +401,13 @@
     background-clip: text;
   }
 
-  /* Locked preview */
   .locked-preview {
     max-width: 720px;
     margin: 0 auto;
     padding: 0 24px;
     position: relative;
   }
+
   .locked-block {
     background: var(--surface);
     backdrop-filter: blur(14px);
@@ -374,6 +423,7 @@
     font-size: 1.1rem;
     line-height: 1.85;
   }
+
   .locked-overlay {
     position: absolute;
     inset: 0;
@@ -386,6 +436,7 @@
     border-radius: 28px;
     padding: 24px;
   }
+
   .lock-badge {
     width: 56px; height: 56px;
     background: var(--grad-btn);
@@ -396,6 +447,7 @@
     font-size: 1.5rem;
     box-shadow: 0 8px 28px rgba(155,114,207,0.35);
   }
+
   .lock-label {
     font-family: 'Fraunces', serif;
     font-size: 1.35rem;
@@ -403,6 +455,7 @@
     color: var(--text);
     text-align: center;
   }
+
   .lock-sub {
     font-size: 0.92rem;
     color: var(--muted);
@@ -411,7 +464,6 @@
     line-height: 1.5;
   }
 
-  /* CTA section */
   .cta-section {
     max-width: 680px;
     margin: 60px auto 0;
@@ -419,6 +471,7 @@
     text-align: center;
     animation: fadeUp 0.7s 0.5s ease both;
   }
+
   .cta-heading {
     font-family: 'Fraunces', serif;
     font-size: clamp(1.6rem, 4vw, 2.2rem);
@@ -427,15 +480,15 @@
     color: var(--text);
     margin-bottom: 12px;
   }
+
   .cta-sub {
     font-size: 1rem;
     color: var(--muted);
-    max-width: 440px;
+    max-width: 500px;
     margin: 0 auto 36px;
     line-height: 1.6;
   }
 
-  /* Email form */
   .request-form {
     display: flex;
     gap: 10px;
@@ -444,6 +497,7 @@
     flex-wrap: wrap;
     justify-content: center;
   }
+
   .request-form input[type="email"] {
     flex: 1;
     min-width: 220px;
@@ -457,10 +511,12 @@
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
   }
+
   .request-form input[type="email"]:focus {
     border-color: var(--purple);
     box-shadow: 0 0 0 3px rgba(155,114,207,0.15);
   }
+
   .request-form input[type="email"]::placeholder { color: var(--muted); }
 
   .btn-primary {
@@ -481,7 +537,12 @@
     box-shadow: 0 6px 24px rgba(155,114,207,0.3);
     white-space: nowrap;
   }
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 32px rgba(155,114,207,0.4); }
+
+  .btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 32px rgba(155,114,207,0.4);
+  }
+
   .btn-primary:active { transform: translateY(0); }
 
   .btn-secondary {
@@ -500,7 +561,11 @@
     text-decoration: none;
     transition: all 0.2s;
   }
-  .btn-secondary:hover { background: rgba(155,114,207,0.08); border-color: var(--purple); }
+
+  .btn-secondary:hover {
+    background: rgba(155,114,207,0.08);
+    border-color: var(--purple);
+  }
 
   .form-note {
     font-size: 0.8rem;
@@ -517,33 +582,14 @@
     color: var(--muted);
     font-size: 0.82rem;
   }
-  .or-row span { flex: 1; height: 1px; background: var(--border); display: block; }
 
-  /* Toast */
-  .toast {
-    position: fixed;
-    bottom: 28px;
-    left: 50%;
-    transform: translateX(-50%) translateY(80px);
-    background: #2d2438;
-    color: white;
-    padding: 14px 26px;
-    border-radius: var(--r-pill);
-    font-size: 0.9rem;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    box-shadow: 0 8px 32px rgba(45,36,56,0.3);
-    z-index: 400;
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s;
-    opacity: 0;
-    pointer-events: none;
-    white-space: nowrap;
+  .or-row span {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+    display: block;
   }
-  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
 
-  /* Info cards */
   .info-row {
     display: flex;
     gap: 16px;
@@ -554,6 +600,7 @@
     margin-left: auto;
     margin-right: auto;
   }
+
   .info-card {
     flex: 1;
     min-width: 160px;
@@ -566,12 +613,16 @@
     padding: 20px 18px;
     text-align: center;
   }
+
   .info-icon { font-size: 1.6rem; margin-bottom: 8px; }
   .info-label { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); margin-bottom: 4px; }
   .info-value { font-family: 'Fraunces', serif; font-size: 0.95rem; font-weight: 600; color: var(--text); }
 
-  /* Back link */
-  .back-row { text-align: center; padding: 16px 24px 48px; }
+  .back-row {
+    text-align: center;
+    padding: 16px 24px 48px;
+  }
+
   .back-link {
     display: inline-flex;
     align-items: center;
@@ -581,21 +632,22 @@
     text-decoration: none;
     transition: color 0.2s;
   }
+
   .back-link:hover { color: var(--purple); }
 
-  /* Animations */
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
   }
+
   .reveal {
     opacity: 0;
     transform: translateY(28px);
     transition: opacity 0.6s ease, transform 0.6s ease;
   }
+
   .reveal.visible { opacity: 1; transform: none; }
 
-  /* Responsive */
   @media (max-width: 860px) {
     .story-inner { padding: 36px 28px 32px; }
     .locked-block { padding: 28px 28px; }
@@ -615,7 +667,6 @@
 </head>
 <body>
 
-<!-- Ambient blobs -->
 <div class="blobs">
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
@@ -623,10 +674,8 @@
   <div class="blob blob-4"></div>
 </div>
 
-<!-- MOBILE DRAWER OVERLAY -->
 <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawer()"></div>
 
-<!-- MOBILE DRAWER -->
 <div class="mobile-drawer" id="mobileDrawer">
   <button class="drawer-close" onclick="closeDrawer()">✕</button>
   <div class="drawer-logo">Jemima's <span>Creative Corner</span></div>
@@ -640,7 +689,6 @@
   <a href="donate.html" class="drawer-donate"><span class="drawer-link-icon">💛</span> Donate ✦</a>
 </div>
 
-<!-- HEADER -->
 <header class="site-header">
   <div class="header-inner">
     <div class="logo">Jemima's <span>Creative Corner</span></div>
@@ -660,17 +708,14 @@
   </div>
 </header>
 
-<!-- Page -->
 <div class="page">
 
-  <!-- Hero -->
   <header class="hero">
     <div class="hero-badge">📖 Story Preview</div>
     <h1>Chloe's Best Friend</h1>
     <p class="hero-byline">A story by Jemima Adumeta</p>
   </header>
 
-  <!-- Story teaser -->
   <section class="story-card">
     <div class="story-inner reveal">
       <div class="chapter-label">Chapter One</div>
@@ -682,7 +727,6 @@
     </div>
   </section>
 
-  <!-- Locked preview (blurred) -->
   <div class="locked-preview reveal" style="margin-top: -8px;">
     <div class="locked-block" aria-hidden="true">
       <p>The next morning, Chloe knocked on Sam's door three times like she always did. One knock, two knocks, three knocks — their special secret code. But this time, no one answered. Chloe pressed her ear against the cool wood of the door and listened.</p>
@@ -691,41 +735,72 @@
     <div class="locked-overlay">
       <div class="lock-badge">🔒</div>
       <p class="lock-label">The story continues…</p>
-      <p class="lock-sub">Request the full book to find out what happens next!</p>
+      <p class="lock-sub">Request access below and receive the full book link by email.</p>
     </div>
   </div>
 
-  <!-- CTA -->
   <section class="cta-section reveal">
     <div class="divider"><div class="divider-line"></div><div class="divider-icon">✨</div><div class="divider-line"></div></div>
 
     <h2 class="cta-heading">Want to read the whole story?</h2>
-    <p class="cta-sub">The complete <strong>Chloe's Best Friend</strong> is available by request. Drop your email and Jemima will send a copy your way — completely free!</p>
+    <p class="cta-sub">Enter your email below and you’ll automatically receive a link to access the full book, along with options to donate and leave a review after reading.</p>
 
-    <!-- Email form -->
-    <form class="request-form" id="requestForm" onsubmit="handleRequest(event)">
+    <form
+      class="request-form"
+      id="requestForm"
+      action="https://formsubmit.co/jemimaadumeta@gmail.com"
+      method="POST"
+    >
       <input
         type="email"
         id="emailInput"
+        name="email"
         placeholder="your@email.com"
         required
         autocomplete="email"
         aria-label="Your email address"
       >
+
+      <input type="hidden" name="_subject" value="New Book Request – Chloe's Best Friend">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_template" value="table">
+      <input type="hidden" name="_next" value="https://www.jemimaadumeta.com/story.html?requested=true">
+
+      <input
+        type="hidden"
+        name="_autoresponse"
+        value="Hi there,
+
+Thank you for requesting Chloe's Best Friend by Jemima Adumeta.
+
+You can access the full book here:
+https://www.jemimaadumeta.com/story-full.html
+
+If you enjoy the story and would like to support Jemima's Creative Corner, you can make a donation here:
+https://www.jemimaadumeta.com/donate.html
+
+Once you've finished reading, we would love to hear your thoughts. You can leave a review here:
+https://www.jemimaadumeta.com/reviews.html
+
+Thank you so much for your support and encouragement.
+
+Warm regards,
+Jemima's Creative Corner"
+      >
+
       <button type="submit" class="btn-primary">
         📬 Request the Book
       </button>
     </form>
 
-    <p class="form-note">No spam, ever. Just one lovely story. 🌸</p>
+    <p class="form-note">After submitting, please check your inbox for the full book link. 🌸</p>
 
     <div class="or-row"><span></span>or<span></span></div>
 
-    <a href="mailto:jemimaadumeta@gmail.com?subject=Book%20Request%20%E2%80%93%20Chloe%27s%20Best%20Friend&body=Hi%20Jemima%2C%0A%0AI%20would%20love%20to%20read%20Chloe%27s%20Best%20Friend!%20Please%20send%20me%20a%20copy.%0A%0AThank%20you!" class="btn-secondary">
+    <a href="mailto:jemimaadumeta@gmail.com?subject=Book%20Request%20%E2%80%93%20Chloe%27s%20Best%20Friend&body=Hi%20Jemima%2C%0A%0AI%20would%20love%20to%20read%20Chloe%27s%20Best%20Friend.%20Please%20send%20me%20the%20link%20to%20access%20the%20book.%0A%0AThank%20you!" class="btn-secondary">
       ✉️ Email Jemima directly
     </a>
 
-    <!-- Info cards -->
     <div class="info-row">
       <div class="info-card">
         <div class="info-icon">💛</div>
@@ -749,15 +824,9 @@
     <a class="back-link" href="index.html">← Back to Jemima's Creative Corner</a>
   </div>
 
-</div><!-- /page -->
-
-<!-- Toast notification -->
-<div class="toast" id="toast" role="status" aria-live="polite">
-  ✅ Request sent! Jemima will be in touch soon.
 </div>
 
 <script>
-  // ── Mobile drawer ─────────────────────────────────
   function toggleDrawer() {
     const open = document.getElementById('mobileDrawer').classList.toggle('open');
     document.getElementById('drawerOverlay').classList.toggle('open', open);
@@ -772,35 +841,37 @@
     document.body.style.overflow = '';
   }
 
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDrawer(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeDrawer();
+  });
 
-  // ── Scroll reveal ─────────────────────────────────
   const revealEls = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver(
     entries => entries.forEach(e => {
-      if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      if (e.isIntersecting) {
+        e.target.classList.add('visible');
+        observer.unobserve(e.target);
+      }
     }),
     { threshold: 0.12 }
   );
   revealEls.forEach(el => observer.observe(el));
 
-  // ── Email form ────────────────────────────────────
-  function handleRequest(e) {
-    e.preventDefault();
-    const email = document.getElementById('emailInput').value.trim();
-    if (!email) return;
-
-    const subject = encodeURIComponent("Book Request - Chloe's Best Friend");
-    const body = encodeURIComponent(
-      'Hi Jemima,\n\nI would love to read Chloe\'s Best Friend! My email is: ' + email + '\n\nPlease send me a copy when you can.\n\nThank you!'
-    );
-    window.location.href = 'mailto:jemimaadumeta@gmail.com?subject=' + subject + '&body=' + body;
-
-    const toast = document.getElementById('toast');
-    toast.classList.add('show');
-    setTimeout(() => toast.classList.remove('show'), 4000);
-
-    document.getElementById('requestForm').reset();
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('requested') === 'true') {
+    const note = document.createElement('div');
+    note.style.maxWidth = '540px';
+    note.style.margin = '0 auto 22px';
+    note.style.padding = '14px 18px';
+    note.style.background = 'rgba(168, 237, 202, 0.35)';
+    note.style.border = '1px solid rgba(155,114,207,0.18)';
+    note.style.borderRadius = '18px';
+    note.style.color = '#2d2438';
+    note.style.fontSize = '0.95rem';
+    note.style.textAlign = 'center';
+    note.innerHTML = '✅ Thank you. Your request has been submitted. Please check your email for the full book link.';
+    const ctaSection = document.querySelector('.cta-section');
+    ctaSection.insertBefore(note, ctaSection.children[2]);
   }
 </script>
 
