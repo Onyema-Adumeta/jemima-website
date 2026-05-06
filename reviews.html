@@ -308,10 +308,21 @@
     .review-card:nth-child(6n+5)::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--sun), var(--mint)); }
     .review-card:nth-child(6n+6)::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, var(--purple), var(--coral)); }
 
-    .loading-state { text-align: center; padding: 48px 24px; }
-    .loading-spinner { width: 40px; height: 40px; border: 3px solid rgba(199,125,255,.2); border-top-color: var(--purple); border-radius: 50%; animation: spin .8s linear infinite; margin: 0 auto 16px; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .loading-state p { color: #9988b0; font-size: .95rem; }
+    /* Skeleton loader */
+    .skeleton-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 20px; }
+    .skeleton-card { background: white; border-radius: 24px; padding: 28px; box-shadow: var(--shadow-sm); border: 1px solid rgba(199,125,255,.1); overflow: hidden; position: relative; }
+    .skeleton-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: linear-gradient(90deg, #f0eaf8, #e4d9f5, #f0eaf8); background-size: 200% 100%; animation: shimmer 1.6s ease-in-out infinite; }
+    .skel { background: linear-gradient(90deg, #f0eaf8 25%, #e4d9f5 50%, #f0eaf8 75%); background-size: 200% 100%; animation: shimmer 1.6s ease-in-out infinite; border-radius: 8px; }
+    @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+    .skel-stars { height: 16px; width: 88px; margin-bottom: 16px; }
+    .skel-line { height: 14px; margin-bottom: 10px; }
+    .skel-line.w100 { width: 100%; }
+    .skel-line.w80  { width: 80%; }
+    .skel-line.w60  { width: 60%; }
+    .skel-footer { display: flex; justify-content: space-between; align-items: center; margin-top: 18px; }
+    .skel-name { height: 13px; width: 80px; }
+    .skel-date { height: 11px; width: 55px; }
+    .loading-state { display: none; } /* hide old spinner */
 
     .empty-state { text-align: center; padding: 72px 24px; display: none; }
     .empty-state.show { display: block; }
@@ -501,10 +512,7 @@
         </select>
       </div>
 
-      <div id="loadingState" class="loading-state">
-        <div class="loading-spinner"></div>
-        <p>Loading reviews…</p>
-      </div>
+      <div class="skeleton-grid" id="skeletonGrid"></div>
 
       <div class="reviews-grid" id="reviewsGrid"></div>
 
@@ -592,21 +600,41 @@
       return new Date(ts).toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
     }
 
+    function showSkeletons(count) {
+      const sg = document.getElementById('skeletonGrid');
+      sg.innerHTML = Array.from({length: count}, () =>
+        '<div class="skeleton-card">' +
+          '<div class="skel skel-stars"></div>' +
+          '<div class="skel skel-line w100"></div>' +
+          '<div class="skel skel-line w100"></div>' +
+          '<div class="skel skel-line w80"></div>' +
+          '<div class="skel skel-line w60"></div>' +
+          '<div class="skel-footer">' +
+            '<div class="skel skel-name"></div>' +
+            '<div class="skel skel-date"></div>' +
+          '</div>' +
+        '</div>'
+      ).join('');
+    }
+
+    function hideSkeletons() {
+      document.getElementById('skeletonGrid').innerHTML = '';
+    }
+
     async function renderReviews() {
       const grid    = document.getElementById('reviewsGrid');
       const empty   = document.getElementById('emptyState');
-      const loading = document.getElementById('loadingState');
       const statsBar= document.getElementById('statsBar');
       const toolbar = document.getElementById('reviewsToolbar');
       const sort    = document.getElementById('sortSelect').value;
 
-      loading.style.display = 'block';
+      showSkeletons(6);
       grid.innerHTML = '';
       empty.classList.remove('show');
 
       try {
         const reviews = await getReviews(sort);
-        loading.style.display = 'none';
+        hideSkeletons();
 
         if (!reviews || reviews.length === 0) {
           empty.classList.add('show');
@@ -643,7 +671,7 @@
         });
 
       } catch (err) {
-        loading.style.display = 'none';
+        hideSkeletons();
         console.error('Failed to load reviews:', err);
         grid.innerHTML = '<p style="color:#9988b0;text-align:center;padding:24px;">Could not load reviews. Please try again later.</p>';
       }
